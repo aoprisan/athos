@@ -54,8 +54,8 @@ export const PORTS: TransportPort[] = [
     id: 'daphne',
     name: 'Daphne',
     role: 'Main port on Mount Athos itself.',
-    lat: 40.203,
-    lng: 24.196,
+    lat: 40.2147,
+    lng: 24.2241,
     notes:
       'Bus connects Daphne with Karyes (the capital) on arrival of the main ferry. Onward small-boat services run south-east toward Simonopetra, Dionysiou, Agiou Pavlou and the skete of Kafsokalyvia.',
   },
@@ -63,8 +63,8 @@ export const PORTS: TransportPort[] = [
     id: 'karyes',
     name: 'Karyes',
     role: 'Administrative capital of the Athonite peninsula.',
-    lat: 40.258,
-    lng: 24.241,
+    lat: 40.2572,
+    lng: 24.2453,
     notes:
       'Seat of the Holy Community (Iera Koinotita). Bus from Daphne. Several monasteries are within walking distance.',
   },

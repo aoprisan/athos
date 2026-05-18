@@ -2,10 +2,10 @@ import type { Monastery } from '../types';
 
 // The twenty ruling (sovereign) monasteries of Mount Athos, listed in the
 // canonical hierarchical order they hold in the Holy Community (Iera Koinotita).
-// Coordinates are taken from publicly available maps (OSM, Wikipedia) and are
-// accurate to within ~100 m — sufficient for orientation on the map view but
-// not for navigation. Always defer to the monastery itself for current contact
-// info and pilgrimage policy.
+// Coordinates come from OpenStreetMap and are accurate enough that every pin
+// sits on the actual monastery compound — sufficient for orientation on the
+// map view but not for navigation. Always defer to the monastery itself for
+// current contact info and pilgrimage policy.
 export const MONASTERIES: Monastery[] = [
   {
     slug: 'great-lavra',
@@ -16,8 +16,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '963',
     patronalFeast: 'Repose of St Athanasios the Athonite (5 / 18 July)',
-    lat: 40.170,
-    lng: 24.381,
+    lat: 40.1713,
+    lng: 24.3826,
     intro:
       'The oldest monastery on the Holy Mountain, founded by St Athanasios the Athonite with imperial support from Nikephoros Phokas. First in the hierarchy and the largest in land area.',
     links: [
@@ -33,8 +33,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '972–985',
     patronalFeast: 'Annunciation (25 March / 7 April)',
-    lat: 40.316,
-    lng: 24.215,
+    lat: 40.3142,
+    lng: 24.2118,
     intro:
       'A vast coenobitic community on the north-east coast, second in the hierarchy. Houses the Cincture of the Theotokos and several wonder-working icons including Panagia Vimatarissa.',
     links: [{ label: 'Vatopedi Monastery', url: 'https://vatopedi.gr/' }],
@@ -48,8 +48,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '980–983',
     patronalFeast: 'Dormition of the Theotokos (15 / 28 August)',
-    lat: 40.249,
-    lng: 24.332,
+    lat: 40.2460,
+    lng: 24.2854,
     intro:
       'Founded by Georgian (Iberian) monks, hence the name. Home of the Panagia Portaitissa, the "Gate-Keeper" icon, one of the most venerated images on the Mountain.',
     links: [],
@@ -63,8 +63,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Serbian',
     founded: '1198',
     patronalFeast: 'Presentation of the Theotokos (21 November / 4 December)',
-    lat: 40.349,
-    lng: 24.099,
+    lat: 40.3406,
+    lng: 24.1211,
     intro:
       'The Serbian monastery, refounded by Sts Simeon (Nemanja) and Sava. Suffered a major fire in 2004; restoration is ongoing.',
     links: [{ label: 'Hilandar Monastery', url: 'https://www.hilandar.info/' }],
@@ -78,8 +78,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '1374',
     patronalFeast: 'Nativity of St John the Baptist (24 June / 7 July)',
-    lat: 40.158,
-    lng: 24.243,
+    lat: 40.1682,
+    lng: 24.2742,
     intro:
       'Built on a rocky precipice above the south-west coast. Holds the celebrated icon of the Salutation of the Mother of God (Akathistos).',
     links: [{ label: 'Dionysiou Monastery', url: 'https://www.imdionysiou.gr/' }],
@@ -93,8 +93,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '12th–13th c.',
     patronalFeast: 'Transfiguration of the Lord (6 / 19 August)',
-    lat: 40.255,
-    lng: 24.242,
+    lat: 40.2532,
+    lng: 24.2476,
     intro:
       'A short walk from Karyes, the administrative capital. Closely tied historically to the rulers of Wallachia and to Romanian benefactors.',
     links: [],
@@ -108,8 +108,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '1357',
     patronalFeast: 'Transfiguration of the Lord (6 / 19 August)',
-    lat: 40.300,
-    lng: 24.273,
+    lat: 40.2836,
+    lng: 24.2667,
     intro:
       'Founded by the brothers Alexios and John, high officials of the Byzantine court. Sits on a small rocky promontory above the north-east coast.',
     links: [],
@@ -123,8 +123,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '10th c.',
     patronalFeast: 'Forty Holy Martyrs of Sebaste (9 / 22 March)',
-    lat: 40.219,
-    lng: 24.227,
+    lat: 40.2287,
+    lng: 24.2213,
     intro:
       'Set in the hills above Daphne, the main port. Preserves the largest known fragment of the True Cross.',
     links: [],
@@ -138,8 +138,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Bulgarian',
     founded: '10th c.',
     patronalFeast: 'St George the Great Martyr (23 April / 6 May)',
-    lat: 40.284,
-    lng: 24.138,
+    lat: 40.3055,
+    lng: 24.1598,
     intro:
       'The Bulgarian monastery, hidden in the forested interior of the peninsula. The name ("the painter") refers to an icon of St George said to have been painted by no human hand.',
     links: [],
@@ -153,8 +153,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '10th c.',
     patronalFeast: 'Synaxis of the Archangels (8 / 21 November)',
-    lat: 40.223,
-    lng: 24.198,
+    lat: 40.2668,
+    lng: 24.1724,
     intro:
       'On the south-west coast, dedicated to the Archangels Michael and Gabriel. Home of the wonder-working icon Panagia Gorgoëpikoös ("Quick to Hear").',
     links: [],
@@ -168,8 +168,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '11th c.',
     patronalFeast: 'Sts Peter and Paul (29 June / 12 July)',
-    lat: 40.227,
-    lng: 24.282,
+    lat: 40.2238,
+    lng: 24.3095,
     intro:
       'A fortified monastery in the interior above the east coast, traditionally linked (by name and legend) to the Roman emperor Caracalla.',
     links: [],
@@ -183,8 +183,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '10th c.',
     patronalFeast: 'Annunciation (25 March / 7 April)',
-    lat: 40.220,
-    lng: 24.331,
+    lat: 40.2254,
+    lng: 24.2914,
     intro:
       'Set in a clearing in the forest above the east coast. Holds the Panagia Glykofilousa ("the Sweet-Kissing") icon.',
     links: [],
@@ -198,8 +198,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '13th c.',
     patronalFeast: 'Nativity of Christ (25 December / 7 January)',
-    lat: 40.182,
-    lng: 24.243,
+    lat: 40.1902,
+    lng: 24.2468,
     intro:
       'The most architecturally dramatic of the monasteries — seven-storey balconies clinging to a sheer rock above the sea. Founded by St Simon the Myrrh-Streamer after a vision.',
     links: [{ label: 'Simonopetra Monastery', url: 'https://www.simonopetra.gr/' }],
@@ -213,8 +213,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '10th c.',
     patronalFeast: 'Presentation of the Lord (2 / 15 February)',
-    lat: 40.157,
-    lng: 24.228,
+    lat: 40.1614,
+    lng: 24.2899,
     intro:
       'Beneath the south-west face of Mount Athos itself. Preserves relics of the Three Holy Hierarchs and a portion of the Holy Gifts brought to Christ by the Magi.',
     links: [],
@@ -228,8 +228,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '16th c. (refounded)',
     patronalFeast: 'St Nicholas of Myra (6 / 19 December)',
-    lat: 40.258,
-    lng: 24.297,
+    lat: 40.2681,
+    lng: 24.2774,
     intro:
       'The smallest and youngest of the ruling monasteries in its present form, refounded by Patriarch Jeremias I. Compact and fortress-like on the east coast.',
     links: [],
@@ -243,8 +243,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '10th–11th c.',
     patronalFeast: 'St George the Great Martyr (23 April / 6 May)',
-    lat: 40.234,
-    lng: 24.207,
+    lat: 40.2588,
+    lng: 24.1789,
     intro:
       'On the south-west coast just south of Docheiariou. Houses two katholika (a rare arrangement) and a celebrated mosaic of St George.',
     links: [],
@@ -258,8 +258,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '14th c.',
     patronalFeast: 'St Nicholas of Myra (6 / 19 December)',
-    lat: 40.175,
-    lng: 24.228,
+    lat: 40.1793,
+    lng: 24.2558,
     intro:
       'Founded by St Gregory the New (the Sinaite). On the south-west coast between Dionysiou and Simonopetra.',
     links: [],
@@ -273,8 +273,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '10th–11th c.',
     patronalFeast: 'Ascension of the Lord (moveable)',
-    lat: 40.359,
-    lng: 24.138,
+    lat: 40.3540,
+    lng: 24.1378,
     intro:
       'On the north-east coast, between Hilandar and Vatopedi. Known historically for the strict ascetic life of its community.',
     links: [],
@@ -288,8 +288,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Russian',
     founded: '11th c. (present site 18th c.)',
     patronalFeast: 'St Panteleimon the Great Martyr (27 July / 9 August)',
-    lat: 40.240,
-    lng: 24.195,
+    lat: 40.2379,
+    lng: 24.2018,
     intro:
       'The Russian monastery, distinguished by its onion domes and the deep voice of its great bell. Once housed thousands of monks at the turn of the twentieth century.',
     links: [],
@@ -303,8 +303,8 @@ export const MONASTERIES: Monastery[] = [
     tradition: 'Greek',
     founded: '11th c.',
     patronalFeast: 'St Stephen the Protomartyr (27 December / 9 January)',
-    lat: 40.280,
-    lng: 24.139,
+    lat: 40.2887,
+    lng: 24.1749,
     intro:
       'The smallest and twentieth in the hierarchy. Tucked into a wooded valley in the interior, near the west coast.',
     links: [],
