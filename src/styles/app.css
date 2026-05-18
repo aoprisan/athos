@@ -286,15 +286,74 @@
   height: 16px;
 }
 
-.map {
-  height: 520px;
+/* ──────── Map view wrapper ──────── */
+
+.map-view {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* Toggle — a small segmented control styled like two illuminated panels.
+   Lives just above the map. */
+.map-toggle {
+  display: inline-flex;
+  align-self: center;
+  background: var(--lapis-darker);
+  border: 1px solid var(--gold-deep);
+  padding: 3px;
+  gap: 0;
+  position: relative;
+  box-shadow: 0 1px 0 var(--gold-deep), 0 0 0 1px rgba(214, 173, 50, 0.25);
+}
+
+.map-toggle__btn {
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: transparent;
+  border: none;
+  padding: 0.5em 1.1em 0.55em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  position: relative;
+  transition: color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+}
+.map-toggle__btn::before,
+.map-toggle__btn::after { display: none; }
+.map-toggle__btn:hover {
+  color: var(--gold-bright);
+  background: rgba(214, 173, 50, 0.06);
+  box-shadow: none;
+}
+.map-toggle__btn.is-active {
+  color: var(--lapis-darker);
+  background:
+    linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 60%, var(--gold-soft) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 14px rgba(214, 173, 50, 0.45);
+}
+.map-toggle__mark {
+  font-size: 0.95em;
+  line-height: 1;
+}
+
+/* ──────── Modern (Leaflet) map ──────── */
+
+.modern-map {
+  position: relative;
+  width: 100%;
+  height: 520px;
   background: var(--lapis-darker);
   border: 1px solid var(--gold-deep);
   box-shadow: var(--shadow-card);
 }
-/* Inner gold inset within the map frame */
-.map::before {
+.modern-map::before {
   content: "";
   position: absolute;
   inset: 6px;
@@ -302,37 +361,30 @@
   z-index: 401;
   pointer-events: none;
 }
-.map__caption {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 402;
+.modern-map--loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-greek);
   font-style: italic;
-  font-size: 0.85rem;
   color: var(--gold-bright);
-  background: rgba(10, 19, 48, 0.75);
-  padding: 0.25em 1em;
-  border: 1px solid var(--gold-deep);
-  letter-spacing: 0.06em;
-  pointer-events: none;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.04em;
 }
 
-/* Leaflet override — tile washing for parchment look */
+/* Leaflet style overrides — keep the OSM tiles unfiltered for a real
+   topographic read, but skin the chrome (controls, attribution, tooltips)
+   in the Byzantine palette so it sits inside the parchment shell. */
 .leaflet-container {
   background: var(--lapis-darker);
   font-family: var(--font-body);
 }
-.leaflet-tile-pane {
-  filter: sepia(0.45) saturate(0.7) brightness(0.85) hue-rotate(-15deg);
-}
 .leaflet-control-attribution {
-  background: rgba(10, 19, 48, 0.7) !important;
+  background: rgba(10, 19, 48, 0.78) !important;
   color: var(--parchment-warm) !important;
   font-family: var(--font-greek) !important;
   font-size: 0.7rem !important;
+  border-top: 1px solid var(--gold-deep) !important;
+  border-left: 1px solid var(--gold-deep) !important;
 }
 .leaflet-control-attribution a { color: var(--gold-bright) !important; }
 .leaflet-control-zoom a {
@@ -340,6 +392,7 @@
   color: var(--gold-bright) !important;
   border-color: var(--gold-deep) !important;
   font-family: var(--font-title) !important;
+  font-weight: 700;
 }
 .leaflet-control-zoom a:hover { background: var(--lapis) !important; }
 .leaflet-tooltip {
@@ -356,6 +409,69 @@
 }
 .leaflet-tooltip-top::before {
   border-top-color: var(--gold-deep) !important;
+}
+
+/* ──────── Medieval portolano map ──────── */
+
+.medieval-map {
+  position: relative;
+  width: 100%;
+  background: var(--lapis-darker);
+  border: 1px solid var(--gold-deep);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  line-height: 0;
+}
+.medieval-map::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--gold);
+  z-index: 2;
+  pointer-events: none;
+}
+.medieval-map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Each monastery group — clickable, animated in on first render, glows on hover */
+.mm-monastery {
+  cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: mm-pop 600ms ease both;
+  transition: filter 220ms ease;
+}
+@keyframes mm-pop {
+  0%   { opacity: 0; transform: translateY(6px) scale(0.92); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.mm-monastery:hover { filter: drop-shadow(0 2px 6px rgba(214, 173, 50, 0.7)); }
+.mm-monastery.is-lit { filter: drop-shadow(0 0 8px rgba(255, 216, 125, 0.7)); }
+.mm-monastery.is-lit circle:first-of-type { animation: mm-flicker 2.6s ease-in-out infinite; }
+@keyframes mm-flicker {
+  0%, 100% { opacity: 0.85; }
+  45%      { opacity: 1; transform: scale(1.05); }
+  60%      { opacity: 0.75; }
+}
+
+.mm-port { pointer-events: none; }
+
+.mm-label-callout {
+  animation: mm-label-in 260ms ease both;
+}
+@keyframes mm-label-in {
+  0%   { opacity: 0; transform: translate(var(--tx, 0), var(--ty, 4px)); }
+  100% { opacity: 1; }
+}
+
+/* Within the parchment card the map gets a small extra inset frame */
+.detail__location .medieval-map {
+  margin-top: 1rem;
 }
 
 /* ───────── Monastery list ─────────
@@ -443,7 +559,7 @@
   font-weight: 500;
   letter-spacing: 0;
   text-transform: none;
-  color: var(--ink);
+  color: var(--parchment);
   cursor: pointer;
   transition: background 200ms ease, transform 200ms ease;
   position: relative;
@@ -452,10 +568,10 @@
 .monastery-list__item::after { display: none; }
 .monastery-list__item:hover {
   background: linear-gradient(90deg, rgba(214, 173, 50, 0.18) 0%, transparent 80%);
-  color: var(--oxblood);
   box-shadow: none;
   transform: none;
 }
+.monastery-list__item:hover .monastery-list__name strong { color: var(--gold-bright); }
 .monastery-list__item:hover .halo-medallion { transform: scale(1.06); filter: brightness(1.12); }
 .monastery-list__item:focus-visible {
   outline: 2px solid var(--gold);
@@ -475,7 +591,7 @@
   font-family: var(--font-title);
   font-size: 1rem;
   letter-spacing: 0.06em;
-  color: var(--ink);
+  color: var(--parchment);
   line-height: 1.25;
   display: flex;
   flex-direction: column;
@@ -486,11 +602,13 @@
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 0.95rem;
+  color: var(--parchment);
+  transition: color 200ms ease;
 }
 .monastery-list__greek {
   font-family: var(--font-greek);
   font-style: italic;
-  color: var(--ink-mute);
+  color: var(--gold-soft);
   font-size: 0.95rem;
   letter-spacing: 0;
   font-weight: 400;
@@ -501,7 +619,7 @@
   font-size: 0.65rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--oxblood);
+  color: var(--gold-bright);
   padding: 0.3em 0.7em;
   border: 1px solid var(--gold-deep);
   background: rgba(214, 173, 50, 0.12);
@@ -648,7 +766,7 @@
   margin-top: 0.5rem;
 }
 
-.detail__location .map { height: 360px; margin-top: 1rem; }
+.detail__location .medieval-map { margin-top: 1rem; }
 
 .detail__links ul {
   list-style: none;
@@ -1013,7 +1131,6 @@
   .monastery-list__tradition { grid-column: 2; justify-self: start; margin-top: 0.3rem; }
   .monastery-list li + li::before { left: 48px; }
   .home__list-title { font-size: 1.05rem; }
-  .map { height: 360px; }
   .detail__order-row { flex-direction: column; gap: 0.6rem; }
   .steps li { grid-template-columns: 1fr; gap: 0.4rem; padding: 1rem; }
   .steps li::before { justify-self: start; }

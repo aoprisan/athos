@@ -1,5 +1,5 @@
 import { findMonastery } from '../data/monasteries';
-import { MonasteryMap } from './MonasteryMap';
+import { MapView } from './MapView';
 import type { View } from '../types';
 import { CrossFlourish, DropCap, HaloMedallion } from './Ornaments';
 
@@ -73,7 +73,7 @@ export function MonasteryDetail({ slug, onNavigate }: Props) {
 
         <section className="detail__location">
           <h2>Location</h2>
-          <MonasteryMap onNavigate={onNavigate} selectedSlug={m.slug} />
+          <MapView onNavigate={onNavigate} selectedSlug={m.slug} />
           <p className="detail__coords">
             {m.lat.toFixed(4)}° N · {m.lng.toFixed(4)}° E
           </p>

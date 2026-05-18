@@ -1,4 +1,4 @@
-import { MonasteryMap } from './MonasteryMap';
+import { MapView } from './MapView';
 import { MONASTERIES } from '../data/monasteries';
 import type { View } from '../types';
 import { CrossFlourish, HaloMedallion } from './Ornaments';
@@ -23,10 +23,7 @@ export function HomeView({ onNavigate }: Props) {
 
       <div className="home">
         <section className="home__map">
-          <div className="map-frame">
-            <MonasteryMap onNavigate={onNavigate} />
-            <div className="map__caption">The Athonite peninsula</div>
-          </div>
+          <MapView onNavigate={onNavigate} />
         </section>
 
         <section className="home__list">

@@ -1,8 +1,13 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { MONASTERIES } from '../data/monasteries';
 import { PORTS } from '../data/transport';
 import type { View } from '../types';
+
+/* ModernMap — OpenStreetMap tile view via Leaflet. Lazy-loaded by MapView,
+   so the ~130KB Leaflet bundle and its CSS are only fetched when the user
+   actually switches to this view. */
 
 interface Props {
   onNavigate: (view: View) => void;
@@ -30,7 +35,7 @@ function portIcon(): L.DivIcon {
   });
 }
 
-export function MonasteryMap({ onNavigate, selectedSlug }: Props) {
+export function ModernMap({ onNavigate, selectedSlug }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<L.Map | null>(null);
 
@@ -68,5 +73,8 @@ export function MonasteryMap({ onNavigate, selectedSlug }: Props) {
     };
   }, [onNavigate, selectedSlug]);
 
-  return <div ref={containerRef} className="map" />;
+  return <div ref={containerRef} className="modern-map" />;
 }
+
+// Default export so React.lazy() can pick it up directly.
+export default ModernMap;
