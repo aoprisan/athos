@@ -28,6 +28,32 @@ export interface Monastery {
   links: Array<{ label: string; url: string }>;
 }
 
+export type SettlementKind = 'skete' | 'hermitage';
+
+export interface Settlement {
+  slug: string;
+  name: string;
+  nameGreek: string;
+  kind: SettlementKind;
+  tradition?: Tradition;
+  /** Slug of the ruling monastery this settlement is dependent on, if any. */
+  dependsOn?: string;
+  /** Founding date or rough century. For hermitages without a fixed
+      foundation, a phrase like "medieval origin". */
+  founded: string;
+  /** Patronal feast of the kyriakon (skete church). Omitted for the
+      scattered hermit settlements which have no central kyriakon. */
+  patronalFeast?: string;
+  /** Decimal degrees, WGS84. Approximate (~250 m) for the smaller dependencies. */
+  lat: number;
+  lng: number;
+  /** Short intro paragraph for the detail header. */
+  intro: string;
+  /** Optional longer notes. */
+  notes?: string[];
+  links: Array<{ label: string; url: string }>;
+}
+
 export interface FerryRoute {
   id: string;
   from: string;
@@ -55,5 +81,6 @@ export interface TransportPort {
 export type View =
   | { kind: 'home' }
   | { kind: 'monastery'; slug: string }
+  | { kind: 'settlement'; slug: string }
   | { kind: 'getting-there' }
   | { kind: 'ferries' };

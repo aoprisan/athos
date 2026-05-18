@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import { MONASTERIES } from '../data/monasteries';
+import { SETTLEMENTS } from '../data/settlements';
 import { PORTS } from '../data/transport';
-import type { Monastery, View } from '../types';
+import type { Monastery, Settlement, View } from '../types';
 
 /* MedievalMap — Byzantine-fresco map of the Athonite peninsula, in the
    iconographic register of Athonite monastery frescoes (cf. the Vatopedi
@@ -117,7 +118,14 @@ interface Placed extends Monastery {
   y: number;
 }
 
-function variantFor(m: Monastery): 'onion' | 'twin' | 'cliff' | 'classic' {
+interface PlacedSettlement extends Settlement {
+  x: number;
+  y: number;
+}
+
+type CompoundVariant = 'onion' | 'twin' | 'cliff' | 'classic';
+
+function variantFor(m: Monastery): CompoundVariant {
   if (m.tradition === 'Russian') return 'onion';
   if (m.tradition === 'Serbian' || m.tradition === 'Bulgarian') return 'twin';
   if (
@@ -126,6 +134,16 @@ function variantFor(m: Monastery): 'onion' | 'twin' | 'cliff' | 'classic' {
     m.slug === 'agiou-pavlou'
   )
     return 'cliff';
+  return 'classic';
+}
+
+function variantForSettlement(s: Settlement): CompoundVariant {
+  if (s.tradition === 'Russian') return 'onion';
+  if (s.tradition === 'Serbian' || s.tradition === 'Bulgarian') return 'twin';
+  // Cliff-clinging settlements on the south-west face of Athos.
+  if (s.slug === 'karoulia' || s.slug === 'katounakia' || s.slug === 'skete-st-anne') {
+    return 'cliff';
+  }
   return 'classic';
 }
 
@@ -147,9 +165,25 @@ export function MedievalMap({ onNavigate, selectedSlug }: Props) {
     }),
     [],
   );
+  const settlements: PlacedSettlement[] = useMemo(
+    () =>
+      SETTLEMENTS.map((s) => {
+        const [x, y] = project(s.lng, s.lat);
+        return { ...s, x, y };
+      }),
+    [],
+  );
   const [mtX, mtY] = project(24.327, 40.157);
   const labelTarget = hovered ?? selectedSlug ?? null;
   const labelMonastery = monasteries.find((m) => m.slug === labelTarget);
+  const labelSettlement = labelMonastery
+    ? undefined
+    : settlements.find((s) => s.slug === labelTarget);
+  const labelPoint = labelMonastery
+    ? { x: labelMonastery.x, y: labelMonastery.y, name: labelMonastery.name, nameGreek: labelMonastery.nameGreek }
+    : labelSettlement
+      ? { x: labelSettlement.x, y: labelSettlement.y, name: labelSettlement.name, nameGreek: labelSettlement.nameGreek }
+      : null;
 
   return (
     <div className="medieval-map">
@@ -618,6 +652,56 @@ export function MedievalMap({ onNavigate, selectedSlug }: Props) {
         </g>
 
         <g>
+          {settlements.map((s, i) => {
+            const variant = variantForSettlement(s);
+            const symbolId = `m-${variant}`;
+            const isLit = s.slug === selectedSlug || s.slug === hovered;
+            const w = isLit ? 50 : 40;
+            const h = isLit ? 64 : 52;
+            return (
+              <g key={s.slug} transform={`translate(${s.x} ${s.y})`}>
+                <g
+                  className={`mm-monastery ${isLit ? 'is-lit' : ''}`}
+                  onMouseEnter={() => setHovered(s.slug)}
+                  onMouseLeave={() =>
+                    setHovered((cur) => (cur === s.slug ? null : cur))
+                  }
+                  onClick={() => onNavigate({ kind: 'settlement', slug: s.slug })}
+                  style={{ animationDelay: `${(MONASTERIES.length + i) * 35}ms` }}
+                >
+                  <title>{`${s.name} — ${s.nameGreek}`}</title>
+                  <rect
+                    x="-28"
+                    y={-h - 4}
+                    width="56"
+                    height={h + 16}
+                    fill="none"
+                    pointerEvents="all"
+                  />
+                  {isLit && (
+                    <ellipse
+                      cx="0"
+                      cy="-24"
+                      rx="36"
+                      ry="42"
+                      fill="url(#halo-gold)"
+                      opacity="0.4"
+                    />
+                  )}
+                  <use
+                    href={`#${symbolId}`}
+                    x={-w / 2}
+                    y={-h}
+                    width={w}
+                    height={h}
+                  />
+                </g>
+              </g>
+            );
+          })}
+        </g>
+
+        <g>
           {monasteries.map((m, i) => {
             const variant = variantFor(m);
             const symbolId = `m-${variant}`;
@@ -721,10 +805,10 @@ export function MedievalMap({ onNavigate, selectedSlug }: Props) {
           })}
         </g>
 
-        {labelMonastery && (
+        {labelPoint && (
           <g
             style={{ pointerEvents: 'none' }}
-            transform={`translate(${labelMonastery.x} ${labelMonastery.y})`}
+            transform={`translate(${labelPoint.x} ${labelPoint.y})`}
           >
             <g className="mm-label-callout">
               <line
@@ -759,7 +843,7 @@ export function MedievalMap({ onNavigate, selectedSlug }: Props) {
                   fill={C.ink}
                   letterSpacing="2"
                 >
-                  {labelMonastery.name.toUpperCase()}
+                  {labelPoint.name.toUpperCase()}
                 </text>
                 <text
                   x="100"
@@ -770,7 +854,7 @@ export function MedievalMap({ onNavigate, selectedSlug }: Props) {
                   fontSize="10.5"
                   fill={C.maphorion}
                 >
-                  {labelMonastery.nameGreek}
+                  {labelPoint.nameGreek}
                 </text>
               </g>
             </g>

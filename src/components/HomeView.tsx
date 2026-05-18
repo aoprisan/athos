@@ -1,5 +1,6 @@
 import { MapView } from './MapView';
 import { MONASTERIES } from '../data/monasteries';
+import { SETTLEMENTS } from '../data/settlements';
 import type { View } from '../types';
 import { CrossFlourish, HaloMedallion } from './Ornaments';
 
@@ -47,6 +48,38 @@ export function HomeView({ onNavigate }: Props) {
               </li>
             ))}
           </ol>
+
+          <h2 className="home__list-title home__list-title--secondary">
+            Sketes &amp; hermit settlements
+          </h2>
+          <p className="home__list-subtitle">
+            dependencies of the ruling monasteries
+          </p>
+          <ul className="monastery-list settlement-list">
+            {SETTLEMENTS.map((s) => (
+              <li key={s.slug}>
+                <button
+                  type="button"
+                  className="monastery-list__item monastery-list__item--settlement"
+                  onClick={() => onNavigate({ kind: 'settlement', slug: s.slug })}
+                >
+                  <span
+                    className={`settlement-mark settlement-mark--${s.kind}`}
+                    aria-hidden="true"
+                  >
+                    {s.kind === 'skete' ? '☩' : '·'}
+                  </span>
+                  <span className="monastery-list__name">
+                    <strong>{s.name}</strong>
+                    <span className="monastery-list__greek">{s.nameGreek}</span>
+                  </span>
+                  <span className="monastery-list__tradition">
+                    {s.tradition ?? 'hermitage'}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
         </section>
       </div>
     </div>

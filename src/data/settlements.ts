@@ -1,0 +1,276 @@
+import type { Settlement } from '../types';
+
+// Below the twenty ruling monasteries, the Athonite peninsula is dotted with
+// dependent settlements: the twelve traditional *sketes* (organised monastic
+// villages or coenobitic communities, each subject to a parent monastery),
+// and the older hermit settlements (γεροντάδες) — clusters of cells, kalyves
+// and katounakia scattered along the cliffs and slopes.
+//
+// Sketes are listed in their conventional order; tradition follows the
+// community's ethnic / liturgical use today. Coordinates are taken from
+// publicly available maps and are approximate to roughly ~250 m — sufficient
+// for orientation on the map view but not for navigation.
+export const SETTLEMENTS: Settlement[] = [
+  // ───────────── Sketes ─────────────
+  {
+    slug: 'skete-st-anne',
+    name: 'Skete of St Anne',
+    nameGreek: 'Σκήτη Ἁγίας Ἄννης',
+    kind: 'skete',
+    tradition: 'Greek',
+    dependsOn: 'great-lavra',
+    founded: '14th c.',
+    patronalFeast: 'Dormition of St Anne (25 July / 7 August)',
+    lat: 40.137,
+    lng: 24.222,
+    intro:
+      'The oldest and largest of the Athonite sketes — an idiorrhythmic settlement of kalyves descending the south-west cliffs of Athos in stone terraces. The kyriakon enshrines the left foot of St Anne, the mother of the Theotokos, brought from Asia Minor in the 18th century.',
+    notes: [
+      'Subordinate to Great Lavra. Sometimes called "Megali Agia Anna" (Greater St Anne) to distinguish it from the nearby "Mikra Agia Anna" sub-skete.',
+    ],
+    links: [],
+  },
+  {
+    slug: 'skete-nea',
+    name: 'Nea Skete',
+    nameGreek: 'Νέα Σκήτη',
+    kind: 'skete',
+    tradition: 'Greek',
+    dependsOn: 'agiou-pavlou',
+    founded: 'c. 1730',
+    patronalFeast: 'Nativity of the Theotokos (8 / 21 September)',
+    lat: 40.148,
+    lng: 24.218,
+    intro:
+      'Idiorrhythmic skete a short walk north of St Anne, settled by monks who left the older skete seeking stricter solitude. Subject to the monastery of St Paul.',
+    links: [],
+  },
+  {
+    slug: 'skete-kafsokalyvia',
+    name: 'Skete of Kafsokalyvia',
+    nameGreek: 'Σκήτη Καυσοκαλυβίων',
+    kind: 'skete',
+    tradition: 'Greek',
+    dependsOn: 'great-lavra',
+    founded: 'organised 18th c.',
+    patronalFeast: 'Holy Trinity (moveable, Pentecost)',
+    lat: 40.155,
+    lng: 24.358,
+    intro:
+      'Idiorrhythmic skete on the steep south-east slopes of Athos, named for St Maximos Kafsokalyvitis ("the Hut-Burner") who set fire to his hut whenever it grew too comfortable. Reorganised in the 18th century by St Akakios.',
+    notes: [
+      'Terminus of the small-boat service that runs east from Daphne along the south-east coast.',
+    ],
+    links: [],
+  },
+  {
+    slug: 'skete-prodromou-romanian',
+    name: 'Skete of Prodromou (Romanian)',
+    nameGreek: 'Σκήτη Προδρόμου',
+    kind: 'skete',
+    tradition: 'Romanian',
+    dependsOn: 'great-lavra',
+    founded: '1857',
+    patronalFeast: 'Nativity of St John the Baptist (24 June / 7 July)',
+    lat: 40.166,
+    lng: 24.395,
+    intro:
+      'The largest Romanian community on the Holy Mountain — a coenobitic skete on the south-east tip near Great Lavra, organised in the mid-19th century by Romanian monks from Moldavia.',
+    links: [],
+  },
+  {
+    slug: 'skete-iviron-prodromou',
+    name: 'Skete of St John the Baptist',
+    nameGreek: 'Σκήτη Τιμίου Προδρόμου',
+    kind: 'skete',
+    tradition: 'Greek',
+    dependsOn: 'iviron',
+    founded: '17th c.',
+    patronalFeast: 'Beheading of St John the Baptist (29 August / 11 September)',
+    lat: 40.234,
+    lng: 24.318,
+    intro:
+      'Greek idiorrhythmic skete in the wooded hills above Iviron — traditionally a place of strict hesychia.',
+    links: [],
+  },
+  {
+    slug: 'skete-lakkou',
+    name: 'Skete of Lakkou (Lacu)',
+    nameGreek: 'Σκήτη Λάκκου',
+    kind: 'skete',
+    tradition: 'Romanian',
+    dependsOn: 'great-lavra',
+    founded: '18th c.',
+    patronalFeast: 'St Demetrios the Myrrh-Streamer (26 October / 8 November)',
+    lat: 40.205,
+    lng: 24.295,
+    intro:
+      'Romanian idiorrhythmic skete hidden in a wooded valley in the interior — a community of small kalyves clustered around the kyriakon of St Demetrios.',
+    links: [],
+  },
+  {
+    slug: 'skete-st-demetrios',
+    name: 'Skete of St Demetrios (Lakkos)',
+    nameGreek: 'Σκήτη Ἁγίου Δημητρίου',
+    kind: 'skete',
+    tradition: 'Greek',
+    dependsOn: 'agiou-pavlou',
+    founded: '17th c.',
+    patronalFeast: 'St Demetrios the Myrrh-Streamer (26 October / 8 November)',
+    lat: 40.178,
+    lng: 24.212,
+    intro:
+      'Greek idiorrhythmic skete on the south-west slope, dependent on the monastery of St Paul.',
+    links: [],
+  },
+  {
+    slug: 'skete-xenophontos',
+    name: 'Skete of Xenophontos',
+    nameGreek: 'Σκήτη Ξενοφῶντος',
+    kind: 'skete',
+    tradition: 'Greek',
+    dependsOn: 'xenophontos',
+    founded: '18th c.',
+    patronalFeast: 'Nativity of the Theotokos (8 / 21 September)',
+    lat: 40.244,
+    lng: 24.213,
+    intro:
+      'Greek idiorrhythmic skete in the hills above its parent monastery on the south-west coast.',
+    links: [],
+  },
+  {
+    slug: 'skete-koutloumousiou',
+    name: 'Skete of Koutloumousiou',
+    nameGreek: 'Σκήτη Κουτλουμουσίου',
+    kind: 'skete',
+    tradition: 'Greek',
+    dependsOn: 'koutloumousiou',
+    founded: '18th c.',
+    patronalFeast: 'Transfiguration of the Lord (6 / 19 August)',
+    lat: 40.245,
+    lng: 24.247,
+    intro:
+      'Greek idiorrhythmic skete a short walk from Karyes, subject to its parent monastery of Koutloumousiou.',
+    links: [],
+  },
+  {
+    slug: 'skete-profitis-ilias',
+    name: 'Skete of the Prophet Elias',
+    nameGreek: 'Σκήτη Προφήτου Ἠλιού',
+    kind: 'skete',
+    tradition: 'Greek',
+    dependsOn: 'pantokratoros',
+    founded: '1759',
+    patronalFeast: 'Prophet Elias (20 July / 2 August)',
+    lat: 40.293,
+    lng: 24.261,
+    intro:
+      'Coenobitic skete founded by St Paisius Velichkovsky as a community of Slavic monks renewing the hesychast tradition. Originally Russian-occupied, now a Greek brotherhood.',
+    links: [],
+  },
+  {
+    slug: 'skete-st-andrew',
+    name: 'Skete of St Andrew (Serai)',
+    nameGreek: 'Σκήτη Ἁγίου Ἀνδρέου',
+    kind: 'skete',
+    tradition: 'Russian',
+    dependsOn: 'vatopedi',
+    founded: '1841',
+    patronalFeast: 'St Andrew the First-Called (30 November / 13 December)',
+    lat: 40.260,
+    lng: 24.253,
+    intro:
+      'The great "Serai" — a vast coenobitic Russian skete built at the edge of Karyes in the 19th century. Dependent on Vatopedi, today a Greek-occupied skete.',
+    links: [],
+  },
+  {
+    slug: 'skete-bogoroditsa',
+    name: 'Skete of the Theotokos (Bogoroditsa)',
+    nameGreek: 'Σκήτη Βογορόδιτσα',
+    kind: 'skete',
+    tradition: 'Bulgarian',
+    dependsOn: 'pantokratoros',
+    founded: '17th c.',
+    patronalFeast: 'Dormition of the Theotokos (15 / 28 August)',
+    lat: 40.272,
+    lng: 24.236,
+    intro:
+      'Coenobitic Bulgarian skete in the wooded interior of the peninsula — historically tied to the Bulgarian monastery of Zographou and to Russian Panteleimon.',
+    links: [],
+  },
+
+  // ───────────── Hermit settlements (γεροντάδες) ─────────────
+  {
+    slug: 'karoulia',
+    name: 'Karoulia',
+    nameGreek: 'Καρούλια',
+    kind: 'hermitage',
+    dependsOn: 'great-lavra',
+    founded: 'medieval origin',
+    lat: 40.122,
+    lng: 24.236,
+    intro:
+      'The most precipitous hermitages on the Mountain — solitary kalyves clinging to the south-west cliffs of Athos, traditionally reached by chains and rope ladders set into the rock. Provisions are hauled up in baskets ("karouli", the small windlass that gives the place its name).',
+    notes: [
+      'A place reserved for the strictest of Athonite hesychasts. There is no kyriakon and no road; access is by sea or on foot from St Anne.',
+    ],
+    links: [],
+  },
+  {
+    slug: 'kapsala',
+    name: 'Kapsala',
+    nameGreek: 'Καψάλα',
+    kind: 'hermitage',
+    dependsOn: 'pantokratoros',
+    founded: 'medieval origin',
+    lat: 40.272,
+    lng: 24.258,
+    intro:
+      'A loose scattering of hermit cells in the wooded slopes east of Karyes, settled since the early Athonite centuries and still home to a small community of ascetics.',
+    links: [],
+  },
+  {
+    slug: 'vigla',
+    name: 'Vigla',
+    nameGreek: 'Βίγλα',
+    kind: 'hermitage',
+    dependsOn: 'great-lavra',
+    founded: 'medieval origin',
+    lat: 40.150,
+    lng: 24.345,
+    intro:
+      'Solitary cells along the eastern slope between Kafsokalyvia and Great Lavra. The name (βίγλα — "watchtower") refers to old coastal lookouts manned in case of pirate landings.',
+    links: [],
+  },
+  {
+    slug: 'provata',
+    name: 'Provata',
+    nameGreek: 'Προβάτα',
+    kind: 'hermitage',
+    dependsOn: 'great-lavra',
+    founded: 'medieval origin',
+    lat: 40.215,
+    lng: 24.345,
+    intro:
+      'Interior hermit settlement above the east coast — a quiet Lavra-dependent enclave of kalyves in the chestnut forest.',
+    links: [],
+  },
+  {
+    slug: 'katounakia',
+    name: 'Katounakia',
+    nameGreek: 'Κατουνάκια',
+    kind: 'hermitage',
+    dependsOn: 'great-lavra',
+    founded: 'organised 17th c.',
+    patronalFeast: 'St Akakios of Kafsokalyvia (12 / 25 April)',
+    lat: 40.130,
+    lng: 24.215,
+    intro:
+      'A cluster of hermit kalyves on the south-west cliffs between Karoulia and St Anne, organised into something approaching a skete only in the 17th century with the building of the kyriakon.',
+    links: [],
+  },
+];
+
+export function findSettlement(slug: string): Settlement | undefined {
+  return SETTLEMENTS.find((s) => s.slug === slug);
+}

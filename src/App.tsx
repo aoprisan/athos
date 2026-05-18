@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Header } from './components/Header';
 import { HomeView } from './components/HomeView';
 import { MonasteryDetail } from './components/MonasteryDetail';
+import { SettlementDetail } from './components/SettlementDetail';
 import { GettingThere } from './components/GettingThere';
 import { FerrySchedule } from './components/FerrySchedule';
 import type { View } from './types';
@@ -36,6 +37,9 @@ export function App() {
         {view.kind === 'home' && <HomeView onNavigate={navigate} />}
         {view.kind === 'monastery' && (
           <MonasteryDetail slug={view.slug} onNavigate={navigate} />
+        )}
+        {view.kind === 'settlement' && (
+          <SettlementDetail slug={view.slug} onNavigate={navigate} />
         )}
         {view.kind === 'getting-there' && <GettingThere onNavigate={navigate} />}
         {view.kind === 'ferries' && <FerrySchedule onNavigate={navigate} />}

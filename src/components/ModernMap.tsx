@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MONASTERIES } from '../data/monasteries';
+import { SETTLEMENTS } from '../data/settlements';
 import { PORTS } from '../data/transport';
 import type { View } from '../types';
 
@@ -35,6 +36,7 @@ function portIcon(): L.DivIcon {
   });
 }
 
+
 export function ModernMap({ onNavigate, selectedSlug }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -64,6 +66,14 @@ export function ModernMap({ onNavigate, selectedSlug }: Props) {
       L.marker([p.lat, p.lng], { icon: portIcon(), title: p.name })
         .addTo(map)
         .bindTooltip(p.name, { direction: 'top', offset: [0, -6] });
+    }
+
+    for (const s of SETTLEMENTS) {
+      const isActive = s.slug === selectedSlug;
+      const label = s.kind === 'skete' ? `Skete · ${s.name}` : `Hermitage · ${s.name}`;
+      const marker = L.marker([s.lat, s.lng], { icon: monasteryIcon(isActive), title: s.name }).addTo(map);
+      marker.bindTooltip(label, { direction: 'top', offset: [0, -6] });
+      marker.on('click', () => onNavigate({ kind: 'settlement', slug: s.slug }));
     }
 
     mapRef.current = map;

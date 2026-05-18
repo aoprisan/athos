@@ -626,6 +626,39 @@
   white-space: nowrap;
 }
 
+/* Secondary settlements list — sketes & hermitages */
+.home__list-title--secondary {
+  margin-top: 2.2rem;
+  font-size: 1.05rem;
+}
+.settlement-list { margin-top: 0.2rem; }
+.settlement-mark {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-greek);
+  font-size: 1.6rem;
+  color: var(--gold);
+  border: 1px solid var(--gold-deep);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(214, 173, 50, 0.22) 0%, rgba(10, 19, 48, 0.4) 80%);
+  box-shadow: inset 0 0 0 1px rgba(214, 173, 50, 0.18);
+  transition: transform 220ms ease, filter 220ms ease;
+}
+.settlement-mark--hermitage {
+  font-size: 1.8rem;
+  color: var(--gold-bright);
+  letter-spacing: 0;
+  line-height: 0.5;
+}
+.monastery-list__item--settlement:hover .settlement-mark {
+  transform: scale(1.06);
+  filter: brightness(1.15);
+}
+
 /* ───────── Detail view ───────── */
 
 .detail {
@@ -680,6 +713,30 @@
   border-top: 1px solid var(--gold-deep);
   border-bottom: 1px solid var(--gold-deep);
 }
+.detail__kind-badge {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  padding: 0.55em 1.2em;
+  border: 1px solid var(--gold-deep);
+  background: radial-gradient(circle, #fff3c4 0%, #d6ad32 90%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 0 0 2px rgba(255, 243, 196, 0.4);
+}
+.detail__parent-link {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--oxblood);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-bottom: 1px dotted var(--gold-deep);
+}
+.detail__parent-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
 
 .detail__name {
   font-family: var(--font-display);
