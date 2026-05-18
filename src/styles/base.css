@@ -1,0 +1,162 @@
+/* Base reset and typography — the body is parchment under candlelight; the
+   page beyond it, the painted vault of a Byzantine dome. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink);
+  background-color: var(--bg);
+  /* Stack a radial pool of candlelight over the lapis night so the dome feels
+     vaulted — light strongest at top-centre, falling off into incense haze. */
+  background-image:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(214, 173, 50, 0.13), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 50% 110%, rgba(123, 31, 44, 0.18), transparent 70%),
+    var(--mosaic);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga' 1, 'kern' 1, 'onum' 1, 'pnum' 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display titles — Cinzel Decorative for the most ceremonial moments, Cinzel
+   for everything else. Letter-spaced and small-caps-feeling like marble
+   inscriptions. */
+h1, h2, h3, h4 {
+  font-family: var(--font-title);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.5em;
+  color: var(--ink);
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-shadow: 0 1px 0 rgba(245, 224, 142, 0.4);
+}
+
+h2 {
+  font-size: clamp(1.3rem, 1.7vw, 1.55rem);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-top: 2em;
+  position: relative;
+  padding-bottom: 0.4em;
+  color: var(--oxblood);
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 4rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-deep) 100%);
+}
+
+h3 {
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+p { margin: 0 0 0.85em; }
+
+em { font-style: italic; color: var(--oxblood); }
+strong { font-weight: 600; color: var(--ink); }
+
+a {
+  color: var(--oxblood);
+  text-decoration: none;
+  background-image: linear-gradient(90deg, var(--gold) 0%, var(--gold) 100%);
+  background-position: 0 1.05em;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  transition: color 200ms ease, background-size 200ms ease;
+}
+a:hover, a:focus-visible {
+  color: var(--garnet);
+  background-size: 100% 3px;
+}
+
+/* Buttons — gilded plaques. Default state is restrained; hover catches
+   candle-glow. */
+button {
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  background: linear-gradient(180deg, rgba(214, 173, 50, 0.06) 0%, rgba(0, 0, 0, 0.25) 100%);
+  border: 1px solid var(--gold-deep);
+  padding: 0.7em 1.4em;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  position: relative;
+  transition: color 180ms ease, background 180ms ease, box-shadow 220ms ease,
+              transform 180ms ease;
+}
+button::before,
+button::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(214, 173, 50, 0.25);
+  pointer-events: none;
+}
+button::after {
+  inset: 0;
+  border: 1px solid transparent;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
+}
+button:hover, button:focus-visible {
+  color: #fffbe6;
+  background: linear-gradient(180deg, rgba(214, 173, 50, 0.18) 0%, rgba(123, 31, 44, 0.2) 100%);
+  box-shadow: var(--shadow-glow), inset 0 0 12px rgba(255, 216, 125, 0.15);
+  outline: none;
+}
+button:active { transform: translateY(1px); }
+
+ul, ol {
+  margin: 0 0 1em;
+  padding-left: 1.4em;
+}
+li { margin-bottom: 0.35em; }
+
+::selection {
+  background: var(--gold);
+  color: var(--lapis-deep);
+}
+
+/* Custom scrollbar — restrained gilt. */
+@supports (scrollbar-color: gold black) {
+  html {
+    scrollbar-color: var(--gold-deep) var(--lapis-darker);
+  }
+}

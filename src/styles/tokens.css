@@ -1,0 +1,101 @@
+/* Byzantine design tokens — drawn from Orthodox icon and mosaic palettes:
+   lapis-lazuli skies, oxblood saints' robes, gold-leaf nimbi, parchment vellum,
+   candlelit interiors. Dark dominant surface so gold and reds carry the weight
+   they do in the apse of a katholikon. */
+:root {
+  /* Gold leaf, the sovereign accent */
+  --gold:          #d6ad32;
+  --gold-bright:  #f5e08e;
+  --gold-soft:    #b88a1c;
+  --gold-deep:    #6f4f0e;
+  --gold-shadow:  rgba(214, 173, 50, 0.18);
+
+  /* Lapis-lazuli — the night-sky of the dome */
+  --lapis:        #18254e;
+  --lapis-deep:   #0a1330;
+  --lapis-darker: #060a1e;
+  --lapis-soft:   #2a3a72;
+
+  /* Oxblood and imperial purple — saints' robes and porphyry */
+  --oxblood:      #7b1f2c;
+  --oxblood-deep: #4a0f1a;
+  --imperial:     #4d1a3a;
+  --garnet:       #a02838;
+
+  /* Parchment / vellum — for content cards */
+  --parchment:    #f0e3c4;
+  --parchment-warm: #e8d8b3;
+  --vellum:       #f7eed8;
+  --ivory:        #fbf5e6;
+
+  /* Ink — iron-gall on vellum, with sepia softer tone */
+  --ink:          #1f1408;
+  --ink-soft:     #5c3f1d;
+  --ink-mute:     #8a6f47;
+  --ink-faint:    rgba(31, 20, 8, 0.45);
+
+  /* Candle and incense — warm transient light */
+  --candle:       #ffd87d;
+  --candle-soft:  rgba(255, 216, 125, 0.35);
+  --incense:      rgba(255, 222, 173, 0.06);
+
+  /* Surfaces */
+  --bg:           var(--lapis-deep);
+  --bg-deeper:    var(--lapis-darker);
+  --surface:      var(--parchment);
+  --surface-warm: var(--parchment-warm);
+  --surface-edge: var(--gold-deep);
+
+  /* Rules and dividers */
+  --rule:         rgba(214, 173, 50, 0.35);
+  --rule-strong:  var(--gold);
+  --rule-soft:    rgba(214, 173, 50, 0.15);
+
+  /* Typography */
+  --font-display:    'Cinzel Decorative', 'Cinzel', 'Cardo', Georgia, serif;
+  --font-title:      'Cinzel', 'Cardo', Georgia, serif;
+  --font-body:       'Cormorant Garamond', 'EB Garamond', 'Cardo', Georgia, serif;
+  --font-greek:      'Cardo', 'EB Garamond', 'Cormorant Garamond', serif;
+  --font-mono:       ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Geometry */
+  --radius-sm:     2px;
+  --radius:        4px;
+  --radius-arch:   50% 50% 4px 4px / 32% 32% 4px 4px;
+
+  /* Frames */
+  --frame:         3px double var(--gold);
+  --frame-inner:   1px solid var(--gold-deep);
+  --frame-soft:    1px solid var(--rule);
+
+  /* Shadows — incense haze and candle glow */
+  --shadow-card:   0 1px 0 var(--gold-deep),
+                   0 0 0 1px rgba(214, 173, 50, 0.4),
+                   0 30px 80px -30px rgba(0, 0, 0, 0.85),
+                   0 8px 24px -8px rgba(0, 0, 0, 0.5);
+  --shadow-glow:   0 0 24px var(--gold-shadow),
+                   0 0 60px rgba(214, 173, 50, 0.06);
+
+  --max-w: 1140px;
+
+  /* Greek-key border SVG — embedded as data-URI so it's tilable. The pattern is
+     a single meander unit in gold on transparent ground. */
+  --greek-key:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='14' viewBox='0 0 40 14'><path d='M0 13 H40 M0 1 H40' stroke='%23d6ad32' stroke-width='0.6' fill='none'/><path d='M2 11 V3 H10 V9 H6 V5 H8 M14 11 V3 H22 V9 H18 V5 H20 M26 11 V3 H34 V9 H30 V5 H32' stroke='%23d6ad32' stroke-width='1.1' fill='none' stroke-linecap='square'/></svg>");
+
+  /* Subtle mosaic-tile texture for dark surfaces — diagonal weave of two golds */
+  --mosaic:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 9px,
+      rgba(214, 173, 50, 0.025) 9px 10px,
+      transparent 10px 19px,
+      rgba(120, 90, 30, 0.04) 19px 20px
+    );
+
+  /* Parchment grain — barely-there noise via stacked subtle gradients */
+  --parchment-grain:
+    radial-gradient(circle at 20% 10%, rgba(122, 85, 30, 0.10), transparent 35%),
+    radial-gradient(circle at 80% 80%, rgba(180, 140, 60, 0.08), transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(245, 230, 200, 0.5), rgba(232, 216, 179, 0.0) 70%);
+}
