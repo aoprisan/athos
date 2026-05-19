@@ -862,46 +862,89 @@
 
 .detail__location .medieval-map { margin-top: 1rem; }
 
+/* The "porphyry seal" — a wax-and-gold-leaf action chip styled after the
+   imperial seals affixed to Byzantine chrysobulls. Gold text on oxblood is
+   the highest-contrast pairing in the palette, and reads unambiguously as
+   a primary call to action without breaking the manuscript aesthetic. */
 .detail__open-maps-row {
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 1.6rem;
 }
 .detail__open-maps {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.6em;
-  background: transparent;
-  border: 1px solid var(--gold-deep);
+  gap: 0.8em;
+  padding: 0.85em 1.9em;
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(245, 224, 142, 0.18), transparent 60%),
+    linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-deep) 100%);
   color: var(--gold-bright);
   font-family: var(--font-title);
-  font-size: 0.78rem;
-  letter-spacing: 0.22em;
+  font-size: 0.86rem;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  padding: 0.7em 1.4em;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background 120ms ease, color 120ms ease, box-shadow 120ms ease;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+  /* The double-ring seal: inner gold hairline + outer ambient halo. */
+  box-shadow:
+    inset 0 0 0 1px var(--oxblood-deep),
+    inset 0 0 0 2px var(--gold-deep),
+    inset 0 0 18px rgba(0, 0, 0, 0.35),
+    0 1px 0 var(--gold-deep),
+    0 0 0 4px rgba(214, 173, 50, 0.10),
+    0 10px 24px -10px rgba(0, 0, 0, 0.55);
+  transition: transform 160ms ease, box-shadow 160ms ease, color 160ms ease;
 }
 .detail__open-maps::before,
 .detail__open-maps::after { display: none; }
 .detail__open-maps:hover,
 .detail__open-maps:focus-visible {
-  background: rgba(214, 173, 50, 0.12);
   color: #fffbe6;
-  box-shadow: 0 0 0 1px var(--gold-deep) inset;
   outline: none;
+  /* The seal "presses harder" — inner light intensifies, outer halo blooms. */
+  box-shadow:
+    inset 0 0 0 1px var(--oxblood-deep),
+    inset 0 0 0 2px var(--gold),
+    inset 0 0 24px rgba(0, 0, 0, 0.5),
+    0 1px 0 var(--gold),
+    0 0 0 4px rgba(214, 173, 50, 0.22),
+    0 0 24px var(--gold-shadow),
+    0 14px 28px -12px rgba(0, 0, 0, 0.65);
+}
+.detail__open-maps:active {
+  transform: translateY(1px);
 }
 .detail__open-maps:disabled {
-  opacity: 0.45;
   cursor: not-allowed;
-  background: transparent;
-  color: var(--gold-deep);
-  box-shadow: none;
+  color: var(--ink-mute);
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(120, 90, 30, 0.06) 0 6px,
+      transparent 6px 12px
+    ),
+    var(--parchment-warm);
+  border-color: var(--rule);
+  text-shadow: none;
+  box-shadow:
+    inset 0 0 0 1px var(--vellum),
+    inset 0 0 0 2px var(--rule-soft),
+    0 1px 0 var(--rule-soft);
+}
+.detail__open-maps:disabled .detail__open-maps-mark {
+  color: var(--ink-mute);
+  filter: none;
 }
 .detail__open-maps-mark {
-  color: var(--gold);
-  font-size: 1.05em;
+  color: var(--gold-bright);
+  font-size: 1.15em;
   line-height: 1;
+  /* Tiny halo behind the registration mark — like a hot seal's emblem. */
+  filter: drop-shadow(0 0 6px rgba(245, 224, 142, 0.55));
 }
 
 .detail__links ul {
