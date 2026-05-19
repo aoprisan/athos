@@ -651,6 +651,12 @@
   font-weight: 400;
   text-transform: none;
 }
+.monastery-list__tags {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
 .monastery-list__tradition {
   font-family: var(--font-title);
   font-size: 0.65rem;
@@ -661,6 +667,37 @@
   border: 1px solid var(--gold-deep);
   background: rgba(214, 173, 50, 0.12);
   white-space: nowrap;
+}
+.monastery-list__region {
+  font-family: var(--font-title);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  padding: 0.22em 0.6em;
+  border: 1px solid var(--oxblood);
+  background: rgba(123, 31, 44, 0.22);
+  white-space: nowrap;
+}
+
+.home__regions-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0.4rem 0 0.8rem;
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  cursor: pointer;
+  user-select: none;
+}
+.home__regions-toggle input {
+  accent-color: var(--gold);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
 }
 
 /* Secondary settlements list — sketes & hermitages */
@@ -850,6 +887,142 @@
 }
 .detail__notes p { margin: 0 0 0.5em; }
 .detail__notes p:last-child { margin: 0; }
+
+/* ─── Wonder-working icons & relics ─── */
+.detail__icons,
+.detail__legends {
+  margin: 2.2rem 0 1.6rem;
+}
+.detail__icons > h2,
+.detail__legends > h2 {
+  font-family: var(--font-greek);
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--oxblood);
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin: 0 0 1.2rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+.detail__icons > h2::after,
+.detail__legends > h2::after {
+  content: "❖";
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: -0.15em;
+  transform: translateX(-50%);
+  color: var(--gold);
+  font-size: 0.7rem;
+}
+
+.detail__icon-list,
+.detail__legend-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.detail__icon {
+  position: relative;
+  padding: 1rem 1.2rem 1rem 2.4rem;
+  background:
+    radial-gradient(140% 80% at 50% -20%, rgba(214, 173, 50, 0.10), transparent 60%),
+    rgba(255, 251, 230, 0.55);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  box-shadow: inset 0 0 0 1px rgba(214, 173, 50, 0.18);
+}
+/* A small gold-leaf halo by way of bullet — a stand-in for the icon. */
+.detail__icon::before {
+  content: "";
+  position: absolute;
+  left: 0.85rem;
+  top: 1.15rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 60%, var(--gold-deep));
+  box-shadow:
+    0 0 0 1px var(--ink),
+    0 0 6px rgba(214, 173, 50, 0.55);
+}
+.detail__icon-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.8rem;
+  margin-bottom: 0.35rem;
+}
+.detail__icon-name {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.detail__icon-greek {
+  font-family: var(--font-greek);
+  font-style: italic;
+  font-size: 0.98rem;
+  color: var(--oxblood);
+  letter-spacing: 0.02em;
+}
+.detail__icon-desc {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* ─── Legends & tradition ─── */
+.detail__legend {
+  position: relative;
+  padding: 0.4rem 0 0.4rem 1.4rem;
+  border-left: 2px solid var(--gold-deep);
+}
+.detail__legend::before {
+  content: "☩";
+  position: absolute;
+  left: -0.55rem;
+  top: 0.3rem;
+  background: var(--parchment, #f4e8c8);
+  color: var(--gold);
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 0 0.05rem;
+}
+.detail__legend-title {
+  font-family: var(--font-title);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+  margin: 0 0 0.35rem;
+}
+.detail__legend-desc {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink);
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .detail__icon {
+    padding-left: 2rem;
+  }
+  .detail__icon::before {
+    left: 0.6rem;
+  }
+}
 
 .detail__coords {
   font-family: var(--font-mono);

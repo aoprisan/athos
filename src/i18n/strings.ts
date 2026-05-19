@@ -1,7 +1,7 @@
 /* UI string dictionary. Keys are dot-separated by area. Romanian entries fall
    back to English at runtime when a translation is missing. */
 
-import type { Tradition } from '../types';
+import type { MonasteryRegion, Tradition } from '../types';
 
 export type Lang = 'en' | 'ro';
 
@@ -51,6 +51,8 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'detail.location': 'Location',
     'detail.openInMaps': 'Open in Maps',
     'detail.links': 'Links',
+    'detail.iconsTitle': 'Wonder-working icons & relics',
+    'detail.legendsTitle': 'Legends & tradition',
     'detail.dependencyOf': 'Dependency of',
     'detail.kindSkete': 'Skete',
     'detail.kindHermitage': 'Hermit settlement',
@@ -145,6 +147,15 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'tradition.Romanian': 'Romanian',
     'tradition.Georgian': 'Georgian',
     'tradition.suffix': '{trad} tradition',
+
+    'detail.region': 'Region',
+    'home.regionLabel': 'Region',
+    'region.northwest': 'Northwest interior',
+    'region.northeast-coast': 'Northeast coast',
+    'region.east-slopes': 'East slopes & Karyes',
+    'region.southern-tip': 'Southern tip',
+    'region.southwest-cliffs': 'Southwest cliffs',
+    'region.west-coast': 'West coast',
   },
   ro: {
     'app.brandGreekTagline': 'Sfântul Munte',
@@ -186,6 +197,8 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'detail.location': 'Localizare',
     'detail.openInMaps': 'Deschide în Hărți',
     'detail.links': 'Legături',
+    'detail.iconsTitle': 'Icoane făcătoare de minuni și sfinte moaște',
+    'detail.legendsTitle': 'Tradiție și legende',
     'detail.dependencyOf': 'Dependentă de',
     'detail.kindSkete': 'Schit',
     'detail.kindHermitage': 'Sihăstrie',
@@ -286,6 +299,15 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'tradition.Romanian': 'română',
     'tradition.Georgian': 'georgiană',
     'tradition.suffix': 'tradiție {trad}',
+
+    'detail.region': 'Zonă',
+    'home.regionLabel': 'Zonă',
+    'region.northwest': 'Nord-vest, interior',
+    'region.northeast-coast': 'Coasta de nord-est',
+    'region.east-slopes': 'Pante răsăritene și Kareea',
+    'region.southern-tip': 'Vârful sudic',
+    'region.southwest-cliffs': 'Stâncile de sud-vest',
+    'region.west-coast': 'Coasta de vest',
   },
 };
 
@@ -293,4 +315,10 @@ export function traditionLabel(trad: Tradition, lang: Lang): string {
   const dict = STRINGS[lang];
   const fallback = STRINGS.en;
   return dict[`tradition.${trad}`] ?? fallback[`tradition.${trad}`] ?? trad;
+}
+
+export function regionLabel(region: MonasteryRegion, lang: Lang): string {
+  const dict = STRINGS[lang];
+  const fallback = STRINGS.en;
+  return dict[`region.${region}`] ?? fallback[`region.${region}`] ?? region;
 }

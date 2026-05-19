@@ -5,7 +5,7 @@ import type { View } from '../types';
 import { CrossFlourish, DropCap } from './Ornaments';
 import { useI18n } from '../i18n';
 import { MONASTERIES_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
-import { traditionLabel } from '../i18n/strings';
+import { regionLabel, traditionLabel } from '../i18n/strings';
 import { openInMaps } from '../lib/maps';
 
 interface Props {
@@ -37,6 +37,8 @@ export function SettlementDetail({ slug, onNavigate }: Props) {
   const patronalFeast = tr(s.patronalFeast, ro?.patronalFeast);
   const intro = tr(s.intro, ro?.intro);
   const notes = tr(s.notes, ro?.notes);
+  const icons = tr(s.icons, ro?.icons);
+  const legends = tr(s.legends, ro?.legends);
   const introFirst = intro.charAt(0);
   const introRest = intro.slice(1);
   const kindLabel =
@@ -88,6 +90,12 @@ export function SettlementDetail({ slug, onNavigate }: Props) {
                 </button>
               </span>
             )}
+            {parent && (
+              <span>
+                <span className="detail__meta-label">{t('detail.region')}</span>
+                {regionLabel(parent.region, lang)}
+              </span>
+            )}
           </div>
         </header>
 
@@ -101,6 +109,39 @@ export function SettlementDetail({ slug, onNavigate }: Props) {
             {notes.map((n, i) => (
               <p key={i}>{n}</p>
             ))}
+          </section>
+        )}
+
+        {icons && icons.length > 0 && (
+          <section className="detail__icons">
+            <h2>{t('detail.iconsTitle')}</h2>
+            <ul className="detail__icon-list">
+              {icons.map((ic, i) => (
+                <li key={i} className="detail__icon">
+                  <div className="detail__icon-head">
+                    <span className="detail__icon-name">{ic.name}</span>
+                    {ic.nameGreek && (
+                      <span className="detail__icon-greek">{ic.nameGreek}</span>
+                    )}
+                  </div>
+                  <p className="detail__icon-desc">{ic.description}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {legends && legends.length > 0 && (
+          <section className="detail__legends">
+            <h2>{t('detail.legendsTitle')}</h2>
+            <ul className="detail__legend-list">
+              {legends.map((lg, i) => (
+                <li key={i} className="detail__legend">
+                  <h3 className="detail__legend-title">{lg.title}</h3>
+                  <p className="detail__legend-desc">{lg.description}</p>
+                </li>
+              ))}
+            </ul>
           </section>
         )}
 

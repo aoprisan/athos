@@ -8,6 +8,38 @@ export type Tradition =
 
 export type MonasteryRank = 'ruling' | 'skete' | 'kellion';
 
+/** Coarse geographic regions of the Athonite peninsula. Each ruling monastery
+    is assigned to exactly one; settlements inherit their region from the
+    ruling monastery they depend on. Not an administrative division — the
+    Holy Mountain is a single autonomous state — but a working pilgrim's
+    sense of where on the peninsula a house lies. */
+export type MonasteryRegion =
+  | 'northwest'
+  | 'northeast-coast'
+  | 'east-slopes'
+  | 'southern-tip'
+  | 'southwest-cliffs'
+  | 'west-coast';
+
+export interface SacredIcon {
+  /** English / common name (often a Greek epithet transliterated). */
+  name: string;
+  /** Original Greek name, where applicable. */
+  nameGreek?: string;
+  /** Two- to four-sentence note on what the icon is, what it depicts, and
+      why it is famous. Treats relics in the same shape — a fragment of the
+      True Cross or the head of a saint is grouped here as a holy object the
+      monastery is known to keep. */
+  description: string;
+}
+
+export interface Legend {
+  /** Short headline (e.g. "Star above the cliff", "Foot of St Anne"). */
+  title: string;
+  /** Two- to four-sentence retelling of the traditional story. */
+  description: string;
+}
+
 export interface Monastery {
   slug: string;
   name: string;
@@ -16,6 +48,8 @@ export interface Monastery {
   /** Position in the canonical hierarchical order (1–20 for the ruling monasteries). */
   hierarchyOrder: number;
   tradition: Tradition;
+  /** Geographic region of the peninsula. */
+  region: MonasteryRegion;
   founded: string;
   patronalFeast: string;
   /** Decimal degrees, WGS84. */
@@ -25,6 +59,10 @@ export interface Monastery {
   intro: string;
   /** Optional longer notes — history, what to see, dependencies. */
   notes?: string[];
+  /** Wonder-working icons and notable relics housed at the monastery. */
+  icons?: SacredIcon[];
+  /** Foundation legends and traditional stories tied to the place. */
+  legends?: Legend[];
   links: Array<{ label: string; url: string }>;
 }
 
@@ -51,6 +89,10 @@ export interface Settlement {
   intro: string;
   /** Optional longer notes. */
   notes?: string[];
+  /** Wonder-working icons and notable relics, where any are kept on site. */
+  icons?: SacredIcon[];
+  /** Legends and traditional stories tied to the place. */
+  legends?: Legend[];
   links: Array<{ label: string; url: string }>;
 }
 

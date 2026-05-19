@@ -10,12 +10,16 @@
      pelerinajesfantulmunteathos.ro, sfantulmunteathos.wordpress.com,
      ziarullumina.ro, agerpres.ro, radiorenasterea.ro, athos.guide. */
 
+import type { Legend, SacredIcon } from '../types';
+
 interface PlaceRo {
   name?: string;
   founded?: string;
   patronalFeast?: string;
   intro?: string;
   notes?: string[];
+  icons?: SacredIcon[];
+  legends?: Legend[];
 }
 
 export const MONASTERIES_RO: Record<string, PlaceRo> = {
@@ -28,6 +32,32 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
     notes: [
       'În katholikonul mănăstirii se află mormântul Sfântului Atanasie Athonitul; alături se păstrează toiagul său de fier cu patru muchii și crucea de lemn ferecată în fier pe care o purta la piept.',
     ],
+    icons: [
+      {
+        name: 'Maica Domnului Cucuzelița',
+        nameGreek: 'Παναγία Κουκουζέλισσα',
+        description:
+          'Icoană făcătoare de minuni cinstită de Sfântul Ioan Cucuzel, marele psalt athonit al secolului al XIV-lea, care a auzit, în timpul priveghii, glasul Maicii Domnului zicând: „Cântă, Ioane, și nu vei lipsi de plată" — iar la trezire a aflat în mâna sa o monedă de aur.',
+      },
+      {
+        name: 'Maica Domnului Iconoma',
+        nameGreek: 'Παναγία Οἰκονόμισσα',
+        description:
+          'Icoana înaintea căreia Maica Domnului însăși i-a făgăduit Sfântului Atanasie că va fi de aici înainte iconoama mănăstirii. Din ziua aceea Marea Lavră nu mai are iconom dintre monahi: dregătoria a rămas Maicii Domnului.',
+      },
+      {
+        name: 'Mormântul și toiagul Sfântului Atanasie',
+        description:
+          'Ctitorul este îngropat în katholikon; alături se păstrează toiagul său greu, ferecat în fier, și crucea de lemn pe care o purta la piept.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Maica Domnului Iconoma',
+        description:
+          'În vremea unei foamete grele de la începutul mănăstirii, Sfântul Atanasie a pornit să părăsească Sfântul Muntele. Pe drum i s-a arătat o femeie luminoasă, care a lovit cu toiagul în stâncă scoțând un izvor — „Aghiasma Maicii Domnului", care curge până astăzi — i-a umplut hambarele goale și i-a spus: „De aici înainte, Eu voi fi iconoama acestui locaș". De atunci, niciun monah nu a mai purtat dregătoria de iconom la Marea Lavră.',
+      },
+    ],
   },
   vatopedi: {
     name: 'Vatoped',
@@ -37,6 +67,68 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
       'Una dintre cele mai mari și mai însemnate mănăstiri ale Sfântului Munte, având una dintre cele mai numeroase obști. Așezată în partea de nord-est a peninsulei, este a doua în ierarhia athonită. Aici se păstrează Cinstitul Brâu al Maicii Domnului, dăruit mănăstirii de împăratul Ioan al VI-lea Cantacuzino, precum și șapte icoane făcătoare de minuni ale Maicii Domnului — între care Vimatarissa, Paramythia, Pantanassa, Elaiovrytissa, Antifonitria, Esfagmeni și Pyrovolitheisa.',
     notes: [
       'Paraclisul închinat Sfântului Brâu al Maicii Domnului a fost zidit de Sfântul Neagoe Basarab în anul 1520. Tot de Vatoped sunt legate trei chilii românești: Sfântul Ipatie, Sfântul Ioan Botezătorul și Sfântul Gheorghe Colciu.',
+    ],
+    icons: [
+      {
+        name: 'Cinstitul Brâu al Maicii Domnului',
+        nameGreek: 'Τιμία Ζώνη',
+        description:
+          'Brâul țesut, după tradiție, cu mâinile Preasfintei Născătoare de Dumnezeu din păr de cămilă — singura sfântă moaște trupească a Maicii Domnului rămasă pe pământ. Dăruit Vatopedului de împăratul Ioan al VI-lea Cantacuzino; este cinstit ca tămăduitor de boli grele, mai ales pentru femeile care nu pot avea copii — moaștele se scot afară spre închinare, fără ca femeile să poată trece în Munte.',
+      },
+      {
+        name: 'Maica Domnului Vimatarissa',
+        nameGreek: 'Παναγία Βηματάρισσα',
+        description:
+          'Numită „Locuitoarea altarului". A fost ascunsă sub lespedea Sfântului Altar, împreună cu o lumânare aprinsă, înaintea unui jaf arab din secolul al IX-lea. Șaptezeci de ani mai târziu a fost aflată de diaconul Sava — și icoana, și lumânarea încă ardeau, neatinse.',
+      },
+      {
+        name: 'Maica Domnului Paramythia',
+        nameGreek: 'Παναγία Παραμυθία',
+        description:
+          'Numită „Mângâierea". În dimineața zilei de 21 ianuarie 807, în clipa în care egumenul auzea citindu-se semnele de obște, Pruncul zugrăvit pe icoană a ridicat mâna și a astupat gura Maicii Sale, care îl prevenea să nu deschidă porțile — pirații așezaseră o cursă afară. Icoana se păstrează până astăzi în chipul în care a rămas atunci, cu mâna Pruncului la buzele Maicii Domnului.',
+      },
+      {
+        name: 'Maica Domnului Elaiovritissa',
+        nameGreek: 'Παναγία Ἐλαιοβρύτισσα',
+        description:
+          'Numită „Izvorâtoarea de untdelemn". Când iconomul Sfântul Ghenadie se temea că untdelemnul mănăstirii s-a sfârșit, vasele goale au început să dea pe afară înaintea acestei icoane.',
+      },
+      {
+        name: 'Maica Domnului Antifonitria',
+        nameGreek: 'Παναγία Ἀντιφωνήτρια',
+        description:
+          'Numită „Răspunzătoarea". A mustrat-o pe împărăteasa Placidia, fiica lui Teodosie cel Mare, când a îndrăznit să treacă pragul katholikonului — întărind astfel avatonul, oprirea femeilor de a păși pe Sfântul Munte.',
+      },
+      {
+        name: 'Maica Domnului Pyrovolitheisa',
+        nameGreek: 'Παναγία Πυροβοληθεῖσα',
+        description:
+          'Numită „Cea împușcată". Un ostaș turc a tras în 1822 cu pușca în mâna dreaptă a Maicii Domnului; cuprins de tulburare și remușcare, s-a spânzurat de un măslin din afara zidurilor. Glonțul se vede până astăzi înfipt în panou.',
+      },
+      {
+        name: 'Maica Domnului Esfagmeni',
+        nameGreek: 'Παναγία Ἐσφαγμένη',
+        description:
+          'Numită „Cea înjunghiată". Un diacon, mâniat că nu i s-a dat masa la vreme, a lovit cu cuțitul icoana — și din rana de pe obrazul Maicii Domnului ar fi curs sânge. Diaconul s-a pocăit ani îndelungați, legat cu lanț de această icoană.',
+      },
+      {
+        name: 'Maica Domnului Pantanassa',
+        nameGreek: 'Παναγία Παντάνασσα',
+        description:
+          'Numită „Împărăteasa tuturor". Vestită în vremurile noi prin tămăduirile de cancer și pentru rugăciunea înaintea ei pentru bolnavii grei; copii ale icoanei sunt trimise de obștea de la Vatopedi în toată lumea.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Pruncul aflat în rug',
+        description:
+          'Numele „Vatopedi" — „rugul pruncului" — vine, după tradiție, de la fiul împăratului Teodosie cel Mare, Arcadie, căzut în mare în largul țărmului. Împărăteasa și călugării l-au căutat în deznădejde, până l-au aflat dormind nevătămat într-un rug, deasupra locului unde se înalță astăzi katholikonul. Icoana Vimatarissa este cea înaintea căreia s-au plecat în mulțumire.',
+      },
+      {
+        title: 'Întărirea avatonului',
+        description:
+          'Când Placidia, fiica lui Teodosie, a încercat să intre în katholikon în veacul al V-lea, un glas din icoana Antifonitria a oprit-o la prag: „Rămâi afară — locul acesta aparține altei Împărătese". Din ziua aceea, nicio femeie nu a mai pășit pe Sfântul Munte.',
+      },
     ],
   },
   iviron: {
@@ -48,6 +140,26 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
     notes: [
       'La paraclisul de la poarta mănăstirii se află icoana făcătoare de minuni a Maicii Domnului Portărița (Portaitissa), venită pe mare de la Constantinopol în vremea iconoclasmului. A fost scoasă din valuri de monahul Gavriil, fiul femeii care o trimisese din Constantinopol.',
     ],
+    icons: [
+      {
+        name: 'Maica Domnului Portărița',
+        nameGreek: 'Παναγία Πορταΐτισσα',
+        description:
+          'Cea mai vestită icoană a Sfântului Munte. Se află într-un paraclis așezat lângă poarta mănăstirii, nu în katholikon, fiindcă Maica Domnului însăși a oprit-o acolo: „Nu am venit ca să Mă păziți voi — Eu am venit să vă păzesc". Pe obrazul Maicii Domnului se vede o rană adâncă, dintr-o lovitură de suliță a unui ostaș iconoclast din Constantinopol — din care, spune tradiția, a curs sânge.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Icoana venită pe mare',
+        description:
+          'În vremea prigoanei iconoclaste, o văduvă din Niceea, silită să ardă icoana Maicii Domnului, a încredințat-o mării. Două veacuri mai târziu, monahii de la Iviron au văzut, în largul țărmului lor, un stâlp de foc stând drept deasupra apei. După multe încercări nereușite, sihastrul Cuvios Gavriil Iviritul a pășit pe valuri și a luat icoana în brațe, aducând-o la mal. Au așezat-o în katholikon — dar dimineața de dimineață a fost aflată singură la poartă. Atunci au înțeles și au zidit paraclisul în care se află până astăzi.',
+      },
+      {
+        title: 'Un semn înainte de sfârșit',
+        description:
+          'În Sfântul Munte se spune că, atunci când Portărița se va întoarce de la sine în mare, va fi semn că se apropie sfârșitul lumii.',
+      },
+    ],
   },
   hilandar: {
     name: 'Hilandar',
@@ -58,6 +170,31 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
     notes: [
       'A suferit un puternic incendiu în anul 2004; lucrările de restaurare continuă de atunci. Mănăstirea a fost locuită neîntrerupt de monahi sârbi de la întemeiere și până astăzi.',
     ],
+    icons: [
+      {
+        name: 'Maica Domnului cu trei mâini',
+        nameGreek: 'Παναγία Τριχερούσα',
+        description:
+          'Icoana făcătoare de minuni a Sfântului Ioan Damaschin. După ce calif Walid i-a tăiat mâna dreaptă pe nedrept, Sfântul Ioan s-a rugat înaintea acestei icoane și mâna sa a fost lipită la loc; în semn de mulțumire, a prins de panou o a treia mână de argint. Icoana, adusă mai târziu la Hilandar, stă astăzi pe scaunul stăreției — Hilandarul nu are stareț dintre monahi, ci doar pe Maica Domnului, pe care părinții o cinstesc ca „Egumena" lor.',
+      },
+      {
+        name: 'Vița Sfântului Simeon',
+        description:
+          'O viță-de-vie crescută din mormântul Sfântului Simeon (Nemania), ctitorul mănăstirii, prin zidul katholikonului. Strugurii ei uscați sunt trimiși în toată lumea și sunt cinstiți pentru nenumărate minuni asupra soților ce nu pot avea copii.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Maica Domnului — Egumena',
+        description:
+          'În urma unei tulburări în obște, icoana Tricherusa, după tradiție, ar fi coborât singură de la locul ei pe scaunul stăreției. De atunci scaunul a rămas neocupat: la fiecare slujbă a Sfintei Liturghii cheile mănăstirii se așază pe icoana Maicii Domnului, iar ea singură este socotită Egumena Hilandarului.',
+      },
+      {
+        title: 'Focul din 2004',
+        description:
+          'În noaptea de 4 martie 2004, un foc puternic a mistuit jumătate din mănăstire în câteva ceasuri. Katholikonul și icoana Tricherusa au rămas neatinse în mijlocul flăcărilor — semn citit de obște ca un răspuns al Maicii Domnului însăși.',
+      },
+    ],
   },
   dionysiou: {
     name: 'Dionisiu',
@@ -67,6 +204,26 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
       'A cincea în ierarhia athonită, ridicată în secolul al XIV-lea de Cuviosul Dionisie din Korisos, cu sprijinul împăratului Alexie al III-lea Comnenul al Trapezuntului, după hrisovul de întemeiere din 1374. Locul ctitoriei i-a fost arătat printr-o lumină ca o stea ce cobora din cer noapte de noapte, până în zori.',
     notes: [
       'Aici se păstrează mâna dreaptă a Sfântului Ioan Botezătorul, hramul mănăstirii, un dinte al Sfântului Hristofor și părticele din moaștele Sfinților Apostol Luca și Întâi-Mucenic Ștefan. În 1535 mănăstirea a fost mistuită de un incendiu.',
+    ],
+    icons: [
+      {
+        name: 'Maica Domnului a Acatistului (Chairetismos)',
+        nameGreek: 'Παναγία τοῦ Ἀκαθίστου · Χαιρετισμός',
+        description:
+          'Icoana „Bucură-te" — chiar înaintea căreia împăratul Alexie al III-lea Comnenul al Trapezuntului a cântat Imnul Acatist al Maicii Domnului în mulțumire, după ce fiica lui s-a tămăduit. Dăruită mănăstirii la întemeiere; cea mai vestită icoană a Acatistului din Sfântul Munte.',
+      },
+      {
+        name: 'Mâna dreaptă a Sfântului Ioan Botezătorul',
+        description:
+          'Mâna cu care Înaintemergătorul L-a botezat pe Hristos — păstrată ca cel mai de preț odor al mănăstirii, alături de un dinte al Sfântului Hristofor și de părticele din moaștele Sfinților Apostol Luca și Întâi-Mucenic Ștefan.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Lumina ce cobora din cer',
+        description:
+          'Un păstor de pe povârnișurile de sud-vest a văzut, noapte de noapte, o lumină ca o stea coborând din cer peste o anumită stâncă deasupra mării. A spus părinților; Sfântul Dionisie a venit să cerceteze locul și a ridicat acolo mănăstirea — în chiar locul arătat de sus.',
+      },
     ],
   },
   koutloumousiou: {
@@ -105,6 +262,26 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
     patronalFeast: 'Sfântul Mare Mucenic Gheorghe (23 aprilie / 6 mai)',
     intro:
       'A noua în ierarhie, mănăstirea bulgarilor de la Sfântul Munte, ascunsă în interiorul împădurit al peninsulei. Întemeiată în secolul al X-lea, după tradiție, de trei frați monahi din Ohrida — Moise, Aron și Ioan. Fiecare voia un alt hram, așa că au pus în biserică o scândură nezugrăvită și au priveghet o noapte; dimineața s-au trezit cu chipul Sfântului Gheorghe zugrăvit pe ea, „nefăcut de mână omenească". De atunci mănăstirea poartă numele Zografu („Pictorul"), iar hramul este al Sfântului Mare Mucenic Gheorghe.',
+    icons: [
+      {
+        name: 'Icoana nefăcută de mână omenească a Sfântului Gheorghe',
+        nameGreek: 'Ἁγίος Γεώργιος ὁ Ζωγραφικός',
+        description:
+          'Icoana „nezugrăvită de mână" a Sfântului Mare Mucenic Gheorghe — apărută peste noapte pe o scândură curată la începutul secolului al X-lea. Episcopul de Lida, venit să cerceteze adevărul, ar fi atins chipul sfântului: urma degetului a rămas adâncită în lemn, iar mâna lui s-a lipit de icoană și a trebuit să fie retezată.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Cei trei frați și scândura curată',
+        description:
+          'Trei frați monahi din Ohrida — Moise, Aron și Ioan — se certau cărui sfânt să închine mănăstirea. Au pus o scândură curată pe Sfântul Altar și au priveghet toată noaptea. Dimineața, chipul Sfântului Gheorghe se afla pe ea, zugrăvit de nicio mână omenească. De atunci mănăstirea se cheamă „Zografu" — „Pictorul".',
+      },
+      {
+        title: 'Cei douăzeci și șase de mucenici',
+        description:
+          'În 1276, când împăratul Mihail al VIII-lea Paleologul și patriarhul Ioan al XI-lea Bekkos au semnat Unirea de la Lyon și au trimis trupe să o impună în Sfântul Munte, douăzeci și șase de monahi de la Zografu s-au închis în turnul cetății și au refuzat să-l pomenească pe patriarhul unionist. Latinii au dat foc turnului peste ei. Athonul îi cinstește în 10/23 octombrie.',
+      },
+    ],
   },
   docheiariou: {
     name: 'Dochiariu',
@@ -114,6 +291,21 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
       'A zecea în ierarhie din anul 1046, așezată pe partea de sud-vest a peninsulei, între portul Mănăstirii Zografu și Mănăstirea Xenofont. Are una dintre cele mai elegante arhitecturi ale Sfântului Munte. Inițial închinată Sfântului Ierarh Nicolae, are astăzi hramul Soborul Sfinților Arhangheli Mihail și Gavriil, schimbat în urma mai multor minuni săvârșite prin mijlocirea Sfinților Arhangheli.',
     notes: [
       'Într-un paraclis alipit zidului trapezei se află icoana făcătoare de minuni a Maicii Domnului „Gorgoepicoos" — adică „Grabnic-Ascultătoarea".',
+    ],
+    icons: [
+      {
+        name: 'Maica Domnului Grabnic-Ascultătoarea',
+        nameGreek: 'Παναγία Γοργοϋπήκοος',
+        description:
+          'Frescă din secolul al XIV-lea în trecerea îngustă dintre trapeză și katholikon. În 1664, iconomul Nilo, trecând în grabă cu o lumânare de pin, a fost mustrat cu glas tare de către icoană pentru că îi înnegrea fața cu fum; nedând ascultare, a fost lovit cu orbire. După lungă pocăință la picioarele Maicii Domnului și-a recăpătat vederea, iar icoana este de atunci cinstită în toată lumea ortodoxă pentru grabnica ei ascultare a rugăciunilor.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Sfinții Arhangheli și tânărul cu aurul',
+        description:
+          'Frate Varnava, trimis peste mare să strângă milostenie pentru mănăstire, a fost prins de pirați pe corabie și aruncat în mare cu o piatră legată de picioare. A strigat către Sfinții Arhangheli; ei i s-au arătat pe corabie în chip de doi ostași și, în clipa următoare, Varnava era pus în paraclisul Sfinților Arhangheli de la Dochiariu — încă ud de apa mării, dar cu aurul furat de pirați în traistă. Mănăstirea, care era închinată Sfântului Nicolae, a fost de atunci închinată Sfinților Arhangheli.',
+      },
     ],
   },
   karakallou: {
@@ -135,6 +327,21 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
     notes: [
       'Adăpostește icoana făcătoare de minuni a Maicii Domnului „Dulcea Sărutare" (Glykofilousa), care, după tradiție, datează din vremea iconoclasmului (sec. VIII–IX) și a venit pe mare de la Constantinopol, de la jupâneasa Victoria. În fiecare luni a Săptămânii Luminate părinții mănăstirii merg cu icoana în procesiune până la izvorul de pe țărm, locul unde a fost aflată.',
     ],
+    icons: [
+      {
+        name: 'Maica Domnului Dulcea Sărutare',
+        nameGreek: 'Παναγία Γλυκοφιλούσα',
+        description:
+          'Icoană în care Pruncul Hristos își apasă obrazul de obrazul Maicii Sale. După tradiție, datează din vremea prigoanei iconoclaste (sec. VIII–IX) și a fost încredințată mării de jupâneasa Victoria din Constantinopol, când soțul ei a cerut-o spre a fi distrusă. A fost aflată de monahii Filoteului pe țărm în Lunea Luminată — iar pe locul găsirii a țâșnit un izvor.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Icoana de la țărm',
+        description:
+          'În fiecare an, în Lunea din Săptămâna Luminată, icoana Dulcei Sărutări este purtată în procesiune până la izvorul de la mal, locul unde a fost aflată. Spune tradiția că izvorul a țâșnit din pământ uscat în chiar ceasul în care icoana a venit la țărm. Litia se ține neîntrerupt de peste o mie de ani.',
+      },
+    ],
   },
   simonopetra: {
     name: 'Simonos Petras (Simonopetra)',
@@ -144,6 +351,20 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
       'A treisprezecea în ierarhia athonită, așezată pe vârful unei stânci, la 230 m deasupra mării, în partea de sud-vest a peninsulei. După tradiție, în noaptea Nașterii Domnului, o stea a coborât din cer arătând Cuviosului Simon Athonitul locul unde să zidească mănăstirea — de aceea s-a și numit „Noul Vitleem". Hramul este Nașterea Domnului.',
     notes: [
       'În 1580 (sau 1581) mănăstirea a fost mistuită cu totul de un incendiu, care a luat viața multor monahi; supraviețuitorii, în frunte cu egumenul Evghenie, au reușit să salveze odoarele.',
+    ],
+    icons: [
+      {
+        name: 'Mâna stângă a Sfintei Maria Magdalena',
+        description:
+          'Mâna stângă neputrezită a Sfintei Mironosițe Maria Magdalena — caldă la atingere și revărsând o mireasmă blândă; se păstrează într-o raclă de argint în katholikon.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Steaua deasupra stâncii',
+        description:
+          'În noaptea Nașterii Domnului, Sfântul Simon — care nevoia într-o peșteră pe povârniș — a văzut o stea coborând din cer și oprindu-se deasupra unei stânci abrupte deasupra mării. A înțeles semnul și a numit locul „Noul Vitleem". Zidarii trimiși să ridice mănăstirea s-au temut să urce pe stâncă — până când un meșter, urcând cu o tavă de vin, s-a împiedicat și a alunecat tot drumul în jos. A ajuns la poale cu tava și vinul nevărsate. De atunci nimeni nu s-a mai împotrivit.',
+      },
     ],
   },
   'agiou-pavlou': {
@@ -155,6 +376,26 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
     notes: [
       'Aici se păstrează darurile aduse de magi la Nașterea Mântuitorului: 14 bucățele de aur și 62 de boabe de smirnă și tămâie înșirate pe fir. Darurile au fost aduse, după tradiție, de împărăteasa Maro (Mara), fiica sultanului Murad al II-lea; oprită de un glas din cer la jumătatea drumului spre mănăstire — „Maro, stai! Nu mai trece înainte: de aici începe împărăția altei Împărătese, a Maicii Domnului, ocrotitoarea Sfântului Munte" — le-a dat egumenului și s-a întors la corabie.',
     ],
+    icons: [
+      {
+        name: 'Darurile aduse de Magi',
+        description:
+          'O parte din darurile aduse de Magi Pruncului Hristos la Nașterea Sa: 14 plăcuțe de aur și 62 de boabe de smirnă și tămâie înșirate pe fir de argint. Aduse pe Athos în secolul al XV-lea de prințesa Maro, fiica sultanului Murad al II-lea. Boabele răspândesc până astăzi mireasmă.',
+      },
+      {
+        name: 'Maica Domnului Mirovlitisa',
+        nameGreek: 'Παναγία Μυροβλύτισσα',
+        description:
+          'Icoana „Izvorâtoarea de mir", care a izvorât mir bineînmiresmat în vremuri de necaz pentru mănăstire.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Împărăteasa Maro întoarsă din drum',
+        description:
+          'Maro, soția creștină ortodoxă (sârbă) a sultanului Murad al II-lea — și păstrătoarea darurilor Magilor după căderea Constantinopolului — a pornit să le aducă ea însăși la mănăstire. Pe cărarea ce urcă din golf, un glas a oprit-o: „Maro, stai! Nu mai trece înainte: de aici începe împărăția altei Împărătese". A dat darurile egumenului și s-a întors la corabie. O cruce de marmură marchează până astăzi locul: „Crucea Împărătesei".',
+      },
+    ],
   },
   stavronikita: {
     name: 'Stavronikita',
@@ -164,6 +405,21 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
       'A cincisprezecea în ierarhia athonită și cea mai mică dintre cele douăzeci de mănăstiri conducătoare. Refăcută între 1527–1546 prin râvna Patriarhului Ieremia I al Constantinopolului, socotit „al doilea și cel mai însemnat ctitor". Biserica cea nouă, închinată Sfântului Nicolae, a fost zugrăvită în 1546 de Teofan Cretanul împreună cu fiul său Simeon.',
     notes: [
       'Mănăstirea a primit ajutor și de la voievozii români Vlad Vintilă, Radu Paisie, Ieremia Movilă, Matei Basarab și Ștefan Cantacuzino.',
+    ],
+    icons: [
+      {
+        name: 'Sfântul Nicolae „cel cu stridia"',
+        nameGreek: 'Ἅγιος Νικόλαος ὁ Στρειδᾶς',
+        description:
+          'Icoană în mozaic din secolul al XIV-lea, scoasă din mare de pescari în plasă, în vremea refacerii mănăstirii. O stridie (στρείδι) crescuse peste fruntea sfântului. Când patriarhul Ieremia a încercat să o desprindă, din locul cu pricina ar fi izvorât sânge; semnul se vede până astăzi pe fruntea icoanei.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Mozaicul aflat în plasă',
+        description:
+          'În 1546, pescarii noii obști, lucrând în largul țărmului de răsărit, au tras în plase icoana în mozaic a Sfântului Nicolae — pierdută în mare în vremea iconoclasmului, șapte veacuri mai înainte. Stridia desprinsă de pe fruntea sfântului ar fi sângerat: jumătatea cochiliei a fost prinsă ca dar de mulțumire pe o sfântă Evanghelie de argint, cealaltă a fost măcinată și dată bolnavilor.',
+      },
     ],
   },
   xenophontos: {
@@ -225,6 +481,20 @@ export const SETTLEMENTS_RO: Record<string, PlaceRo> = {
     notes: [
       'La 25 octombrie 1686, moaștele Sfintei Ana — partea de jos a piciorului stâng, acoperită cu pielea — au fost aduse de la Schitul Provata și așezate în biserica cea nouă; de atunci, schitul, numit înainte „Schitul Lavrei", a luat numele Sfintei Ana, bunica Domnului. Cuprinde astăzi 44 de chilii cu circa 120 de monahi, care se îndeletnicesc cu împletitul de coșuri, sculptură în lemn, alcătuirea de cântări, prepararea tămâiei, croitorie și pictură de icoane.',
     ],
+    icons: [
+      {
+        name: 'Piciorul stâng al Sfintei Ana',
+        description:
+          'Piciorul stâng neputrezit al Sfintei Ana, mama Maicii Domnului și bunica Mântuitorului — adus de la Provata în 1686 și așezat în kiriakon. Moaștele sunt cinstite mai ales de femeile care cer darul nașterii de prunci; cererile lor sunt aduse de rude bărbătești sau citite de monahi, fiindcă avatonul oprește intrarea femeilor pe Sfântul Munte.',
+      },
+    ],
+    legends: [
+      {
+        title: 'Casa bunicii lui Dumnezeu',
+        description:
+          'Întreg schitul este socotit la Sfântul Munte „casa Sfintei Ana". Pelerinii spun că aerul miroase a pâine coaptă — și într-adevăr, chiliile de pe potecă coc prescuri și dulciuri tradiționale, vândute spre ajutorul vieții schitului. Praznicul Sfintei Ana, în 25 iulie, este cel mai mult cercetat din toată coasta de sud-vest.',
+      },
+    ],
   },
   'skete-nea': {
     name: 'Schitul Nou (Nea Skiti)',
@@ -242,6 +512,18 @@ export const SETTLEMENTS_RO: Record<string, PlaceRo> = {
     notes: [
       'Kiriakonul de astăzi, închinat Sfintei Treimi, a fost zidit în 1745. Pe lângă biserica cea mare, schitul are alte trei biserici mai mici. Astăzi viețuiesc aici aproximativ 30 de monahi, care se îndeletnicesc cu sculptura în lemn, cu pictura de icoane și cu împletirea metaniilor.',
     ],
+    legends: [
+      {
+        title: 'Cel ce-și arde colibele',
+        description:
+          'Sfântul Maxim († 1365), marele isihast cunoscut ca „nebun pentru Hristos" al Athonului, a viețuit pe acest țărm de stâncă. De câte ori o colibă devenea prea ușor de locuit sau pelerinii începeau să-l caute și să-i tulbure rugăciunea, o ardea și se muta mai adânc în stânci. De aici numele de „Kavsokalivia" — „colibele arse".',
+      },
+      {
+        title: 'Sfântul Maxim în zbor',
+        description:
+          'Sfântul Grigorie Sinaitul, mergând pe coasta de stâncă, l-a întâlnit pe Maxim coborând de pe o stâncă înaltă. Întrebat cum a coborât, Maxim a răspuns: „Îngerul Domnului m-a purtat". Grigorie a recunoscut darul vederii dumnezeiești în el și s-a despărțit de el cu evlavie.',
+      },
+    ],
   },
   'skete-prodromou-romanian': {
     name: 'Schitul Românesc Prodromu',
@@ -251,6 +533,14 @@ export const SETTLEMENTS_RO: Record<string, PlaceRo> = {
       'Cea mai mare așezare monahală românească de la Sfântul Munte, schit chinovial dependent de Marea Lavră. Reorganizat în forma de astăzi între 1852 și 1866 prin osteneala ieroschimonahilor Nifon Ionescu și Nectarie, veniți de la Mănăstirea Horaița din ținutul Neamțului. Piatra de temelie a noii biserici a fost pusă în martie 1857 cu binecuvântarea Marii Lavre, iar târnosirea s-a săvârșit în 1866. Hramul este Nașterea Sfântului Ioan Botezătorul (gr. Prodromos — „Înaintemergătorul").',
     notes: [
       'Ridicarea și întărirea schitului au fost sprijinite de domnitorul Moldovei Grigore Alexandru Ghica, de caimacamul Țării Românești Alexandru Ghica, de mitropoliții Sofronie al Moldovei și Nifon al Țării Românești, precum și de numeroși credincioși din Principatele Române. Primul stareț a fost ieroschimonahul Nifon Ionescu însuși, care a adunat în jurul lui până la 60 de ucenici.',
+    ],
+    icons: [
+      {
+        name: 'Maica Domnului Prodromița',
+        nameGreek: 'Παναγία Προδρομίτισσα',
+        description:
+          'Icoană făcătoare de minuni „nefăcută de mână omenească". Comandată în 1853 zugravului ieșean Iordache Nicolau, fețele Maicii Domnului și ale Pruncului au apărut peste noapte zugrăvite singure pe lemn — meșterul lăsase chipurile neterminate, tulburat că nu putea reda dumnezeiasca lor lumină. Este cea mai cinstită icoană a vetrei monahale românești de la Athos.',
+      },
     ],
   },
   'skete-iviron-prodromou': {
@@ -326,6 +616,18 @@ export const SETTLEMENTS_RO: Record<string, PlaceRo> = {
       'Cea mai aspră sihăstrie a Sfântului Munte, așezată în punctul cel mai sudic al peninsulei, pe o stâncă uscată și abruptă, cu chilii risipite prin scobiturile firești ale stâncilor. Numele vine de la „karouli" — micile scripeți cu care sihaștrii trag în coșuri apa și pâinea aduse ca milostenie de monahi sau de pescari. Locul este împărțit în Karulia exterioară și Karulia interioară.',
     notes: [
       'Cele mai multe chilii sunt mici și ridicate cu mâna lor, din materiale adunate. Trecerea dinspre Karulia exterioară spre cea interioară se face cu ajutorul unor lanțuri de sprijin, iar coborârea pe peretele de stâncă se face ținându-te cu amândouă mâinile de lanț și sprijinindu-te în scobituri în care abia încape vârful piciorului. La începutul secolului XX viețuiau aici 30 de pustnici; astăzi numărul lor se mișcă între 10 și 20. La început a aparținut de Schitul „Mica Sfântă Ana"; în 1877 a fost vândută de Marea Lavră unor monahi ruși.',
+    ],
+    legends: [
+      {
+        title: 'Lanțurile și scripetele',
+        description:
+          'Coborârea din Karulia exterioară spre cele dinăuntru se face pe bucăți de lanț bătute în peretele stâncii; pe alocuri sprijinul piciorului nu e mai larg decât vârful unei tălpi. Scripetele cu care i se ridică pustnicului în coș pâinea și apa se numește *karouli* — și el dă numele întregului loc.',
+      },
+      {
+        title: 'O școală a celor mai aspri nevoitori',
+        description:
+          'Karulia nu are kiriakon, nu are drum, nu are obște și nu are stareț. Sihaștrii care aleg locul acesta o fac pentru rugăciunea inimii în singurătate extremă; mulți sunt cunoscuți la Sfântul Munte doar după numele de botez, iar o parte nu coboară de pe stâncă niciodată.',
+      },
     ],
   },
   kapsala: {
