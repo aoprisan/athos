@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920" role="img" aria-label="Screenshot 4 — Diamonitirion and how to enter">
+  <title>Athos Pilgrim — Getting there</title>
+  <defs>
+    <linearGradient id="sh4-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#0a1330"/>
+      <stop offset="50%" stop-color="#18254e"/>
+      <stop offset="100%" stop-color="#060a1e"/>
+    </linearGradient>
+    <linearGradient id="sh4-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#f6e198"/>
+      <stop offset="48%" stop-color="#d6ad32"/>
+      <stop offset="100%" stop-color="#7a5b12"/>
+    </linearGradient>
+    <pattern id="sh4-glitter" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <circle cx="14" cy="20" r="1.0" fill="#f5e08e" opacity="0.5"/>
+      <circle cx="54" cy="8"  r="0.7" fill="#fff3c4" opacity="0.4"/>
+      <circle cx="36" cy="46" r="1.2" fill="#d6ad32" opacity="0.45"/>
+    </pattern>
+    <pattern id="sh4-meander" x="0" y="0" width="80" height="28" patternUnits="userSpaceOnUse">
+      <path d="M0 26 H80 M0 2 H80" stroke="#d6ad32" stroke-width="1.2" fill="none"/>
+      <path d="M4 22 V6 H20 V18 H12 V10 H16 M28 22 V6 H44 V18 H36 V10 H40 M52 22 V6 H68 V18 H60 V10 H64"
+            stroke="#d6ad32" stroke-width="2.2" fill="none" stroke-linecap="square"/>
+    </pattern>
+  </defs>
+
+  <rect width="1080" height="1920" fill="url(#sh4-bg)"/>
+  <rect width="1080" height="1920" fill="url(#sh4-glitter)" opacity="0.6"/>
+
+  <rect x="60" y="68" width="960" height="28" fill="url(#sh4-meander)" opacity="0.9"/>
+
+  <text x="540" y="210" text-anchor="middle"
+        font-family="'Cinzel Decorative', Cinzel, serif" font-weight="900"
+        font-size="80" fill="url(#sh4-gold)" letter-spacing="3">DIAMONITIRION</text>
+  <text x="540" y="304" text-anchor="middle"
+        font-family="'Cormorant Garamond', Cardo, serif" font-style="italic"
+        font-size="44" fill="#f0e3c4" letter-spacing="1">the permit · the gate · the bureau</text>
+
+  <g transform="translate(180 380)">
+    <rect x="8" y="14" width="720" height="1240" rx="32" fill="rgba(0,0,0,0.5)"/>
+    <rect x="0" y="0" width="720" height="1240" rx="28"
+          fill="#0a1330" stroke="url(#sh4-gold)" stroke-width="4"/>
+    <rect x="10" y="10" width="700" height="1220" rx="20"
+          fill="none" stroke="#7a5b12" stroke-width="1" opacity="0.65"/>
+    <clipPath id="sh4-clip">
+      <rect x="18" y="18" width="684" height="1204" rx="16"/>
+    </clipPath>
+    <image href="screenshots-raw/04-cum-ajungi.png"
+           x="18" y="18" width="684" height="1204"
+           preserveAspectRatio="xMidYMid slice"
+           clip-path="url(#sh4-clip)"/>
+  </g>
+
+  <rect x="60" y="1696" width="960" height="28" fill="url(#sh4-meander)" opacity="0.9"/>
+
+  <text x="540" y="1816" text-anchor="middle"
+        font-family="'Cinzel Decorative', Cinzel, serif" font-weight="700"
+        font-size="46" fill="url(#sh4-gold)" letter-spacing="3">PRACTICAL · VERIFIED · OFFLINE</text>
+  <text x="540" y="1864" text-anchor="middle"
+        font-family="'Cormorant Garamond', Cardo, serif" font-style="italic"
+        font-size="26" fill="#f0e3c4">addresses · phones · canonical hours</text>
+</svg>

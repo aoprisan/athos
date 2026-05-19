@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2732 2732" width="2732" height="2732" role="img" aria-label="Athos Pilgrim — splash">
+  <title>Athos Pilgrim — splash background</title>
+  <!--
+    Square 2732×2732 splash so it center-crops correctly on every device
+    (phones portrait + landscape, tablets). Capacitor config sets
+    androidScaleType: 'CENTER_CROP'. backgroundColor #0f1a16 matches the bleed.
+  -->
+  <defs>
+    <radialGradient id="sp-bg" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0%"  stop-color="#1a2840"/>
+      <stop offset="55%" stop-color="#0f1a30"/>
+      <stop offset="100%" stop-color="#0a1024"/>
+    </radialGradient>
+    <radialGradient id="sp-mandorla" cx="0.5" cy="0.5" r="0.42">
+      <stop offset="0%"  stop-color="#fff3c4" stop-opacity="0.55"/>
+      <stop offset="40%" stop-color="#f5e08e" stop-opacity="0.35"/>
+      <stop offset="70%" stop-color="#d6ad32" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#6f4f0e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sp-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#f6e198"/>
+      <stop offset="48%" stop-color="#d6ad32"/>
+      <stop offset="100%" stop-color="#7a5b12"/>
+    </linearGradient>
+    <linearGradient id="sp-peak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c9b078"/>
+      <stop offset="35%" stop-color="#a04030"/>
+      <stop offset="100%" stop-color="#4a0f1a"/>
+    </linearGradient>
+    <pattern id="sp-glitter" x="0" y="0" width="140" height="140" patternUnits="userSpaceOnUse">
+      <circle cx="22"  cy="32" r="1.4" fill="#f5e08e" opacity="0.4"/>
+      <circle cx="94"  cy="14" r="1.0" fill="#fff3c4" opacity="0.3"/>
+      <circle cx="58"  cy="74" r="1.8" fill="#d6ad32" opacity="0.35"/>
+      <circle cx="118" cy="100" r="1.0" fill="#f5e08e" opacity="0.3"/>
+      <circle cx="36"  cy="116" r="0.9" fill="#fff3c4" opacity="0.25"/>
+    </pattern>
+  </defs>
+
+  <rect width="2732" height="2732" fill="url(#sp-bg)"/>
+  <rect width="2732" height="2732" fill="url(#sp-glitter)" opacity="0.65"/>
+  <circle cx="1366" cy="1366" r="1080" fill="url(#sp-mandorla)"/>
+
+  <!-- Center composition: peak + cross + wordmark -->
+  <g transform="translate(1366 1366)">
+    <!-- Peak silhouette — wide pyramid widening to a forest base -->
+    <g transform="translate(0 -40)">
+      <path d="M 0 -360
+               C -30 -50, -110 220, -260 460
+               Q -300 510 -240 524
+               L 0 540
+               L 240 524
+               Q 300 510 260 460
+               C 110 220, 30 -50, 0 -360 Z" fill="url(#sp-peak)"/>
+      <path d="M 0 -360 L 0 540 L 240 524 Q 300 510 260 460 C 110 220, 30 -50, 0 -360 Z"
+            fill="#000" opacity="0.25"/>
+      <!-- Snow cap — only the summit -->
+      <path d="M 0 -360
+               C -12 -240, -38 -150, -64 -90
+               Q -32 -68 0 -68
+               Q 32 -68 64 -90
+               C 38 -150, 12 -240, 0 -360 Z" fill="#fbf5e6" opacity="0.95"/>
+      <path d="M 0 -360 L 0 -68 Q 32 -68 64 -90 C 38 -150, 12 -240, 0 -360 Z"
+            fill="#000" opacity="0.18"/>
+      <!-- Outline -->
+      <path d="M 0 -360 C -30 -50, -110 220, -260 460 Q -300 510 -240 524 L 0 540 L 240 524 Q 300 510 260 460 C 110 220, 30 -50, 0 -360 Z"
+            fill="none" stroke="#2e2618" stroke-width="5" stroke-linejoin="round" opacity="0.65"/>
+    </g>
+
+    <!-- Crowning Athonite cross -->
+    <g transform="translate(0 -460)" stroke="url(#sp-gold)" stroke-width="22" stroke-linecap="square" fill="none">
+      <line x1="0" y1="-180" x2="0" y2="80"/>
+      <line x1="-90" y1="-110" x2="90" y2="-110"/>
+      <line x1="-120" y1="-50" x2="120" y2="-50"/>
+      <line x1="-70" y1="36" x2="70" y2="22"/>
+    </g>
+    <!-- Cross sheen -->
+    <g transform="translate(0 -460)" stroke="#fff3c4" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.65">
+      <line x1="-6" y1="-176" x2="-6" y2="76"/>
+    </g>
+
+    <!-- Wordmark below -->
+    <g transform="translate(0 680)">
+      <text x="0" y="0" text-anchor="middle"
+            font-family="'Cinzel Decorative', Cinzel, serif" font-weight="900"
+            font-size="120" fill="url(#sp-gold)" letter-spacing="10">ATHOS PILGRIM</text>
+      <line x1="-360" y1="42" x2="-50" y2="42" stroke="url(#sp-gold)" stroke-width="2"/>
+      <line x1="50" y1="42" x2="360" y2="42" stroke="url(#sp-gold)" stroke-width="2"/>
+      <circle cx="0" cy="42" r="6" fill="#d6ad32"/>
+      <text x="0" y="100" text-anchor="middle"
+            font-family="Cardo, serif" font-size="56" fill="#f0e3c4" letter-spacing="14" font-weight="700">ἉΓΙΟΝ ὌΡΟΣ</text>
+    </g>
+  </g>
+</svg>

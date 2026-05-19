@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Athos Pilgrim</string>
+    <string name="title_activity_main">Athos Pilgrim</string>
+    <string name="package_name">org.athos.pilgrim</string>
+    <string name="custom_url_scheme">org.athos.pilgrim</string>
+</resources>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <title>Athos Pilgrim — notification icon</title>
+  <!--
+    Android status-bar notification icons must be solid white on transparent;
+    the system tints them. Use the Athonite cross silhouette: simplest,
+    most legible at 24dp.
+  -->
+  <g fill="#ffffff">
+    <rect x="11" y="2"  width="2"   height="20"/>
+    <rect x="7"  y="6"  width="10"  height="2"/>
+    <rect x="5"  y="10" width="14"  height="2"/>
+    <polygon points="8,16 16,15 16,17.5 8,18.5"/>
+  </g>
+</svg>

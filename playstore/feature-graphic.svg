@@ -1,0 +1,373 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 500" width="1024" height="500" role="img" aria-label="Athos Pilgrim — A pilgrim's guide to the Holy Mountain">
+  <title>Athos Pilgrim — feature graphic</title>
+  <defs>
+    <!-- Deep lapis ground -->
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#0a1330"/>
+      <stop offset="55%" stop-color="#18254e"/>
+      <stop offset="100%" stop-color="#060a1e"/>
+    </linearGradient>
+
+    <!-- Painted plaster of the fresco panel -->
+    <linearGradient id="plaster" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#f4e6c0"/>
+      <stop offset="60%" stop-color="#ead8a8"/>
+      <stop offset="100%" stop-color="#c9b078"/>
+    </linearGradient>
+
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#f6e198"/>
+      <stop offset="48%" stop-color="#d6ad32"/>
+      <stop offset="100%" stop-color="#7a5b12"/>
+    </linearGradient>
+
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"  stop-color="#fff3c4"/>
+      <stop offset="55%" stop-color="#d6ad32"/>
+      <stop offset="100%" stop-color="#6f4f0e"/>
+    </radialGradient>
+
+    <linearGradient id="maphorion" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#a02838"/>
+      <stop offset="55%" stop-color="#7b1f2c"/>
+      <stop offset="100%" stop-color="#4a0f1a"/>
+    </linearGradient>
+
+    <linearGradient id="wing" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#e8c598"/>
+      <stop offset="100%" stop-color="#a88660"/>
+    </linearGradient>
+
+    <linearGradient id="peakG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#c9b078"/>
+      <stop offset="22%" stop-color="#a04030"/>
+      <stop offset="62%" stop-color="#7e2b22"/>
+      <stop offset="100%" stop-color="#4a0f1a"/>
+    </linearGradient>
+
+    <linearGradient id="forestG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#7c9560"/>
+      <stop offset="60%" stop-color="#5a7a45"/>
+      <stop offset="100%" stop-color="#3e5530"/>
+    </linearGradient>
+
+    <linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#a3b6be"/>
+      <stop offset="100%" stop-color="#5a7886"/>
+    </linearGradient>
+
+    <pattern id="glitter" x="0" y="0" width="72" height="72" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="14" r="0.8" fill="#f5e08e" opacity="0.5"/>
+      <circle cx="48" cy="6"  r="0.6" fill="#fff3c4" opacity="0.4"/>
+      <circle cx="32" cy="40" r="1.0" fill="#d6ad32" opacity="0.45"/>
+      <circle cx="62" cy="52" r="0.6" fill="#f5e08e" opacity="0.35"/>
+      <circle cx="14" cy="60" r="0.5" fill="#fff3c4" opacity="0.3"/>
+    </pattern>
+
+    <!-- Greek-key meander, single unit -->
+    <pattern id="meander" x="0" y="0" width="40" height="14" patternUnits="userSpaceOnUse">
+      <path d="M0 13 H40 M0 1 H40" stroke="#d6ad32" stroke-width="0.6" fill="none"/>
+      <path d="M2 11 V3 H10 V9 H6 V5 H8 M14 11 V3 H22 V9 H18 V5 H20 M26 11 V3 H34 V9 H30 V5 H32"
+            stroke="#d6ad32" stroke-width="1.2" fill="none" stroke-linecap="square"/>
+    </pattern>
+
+    <!-- Arched fresco panel mask -->
+    <clipPath id="arch">
+      <path d="M 38 96
+               L 38 56
+               Q 38 28 66 28
+               L 358 28
+               Q 386 28 386 56
+               L 386 96
+               Q 386 80 366 80
+               L 58 80
+               Q 38 80 38 96 Z
+               M 38 96
+               L 38 444
+               L 386 444
+               L 386 96 Z"/>
+    </clipPath>
+
+    <clipPath id="archPanel">
+      <path d="M 38 444
+               L 38 96
+               Q 38 56 66 56
+               L 102 56
+               Q 102 28 212 28
+               Q 322 28 322 56
+               L 358 56
+               Q 386 56 386 96
+               L 386 444 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Field -->
+  <rect width="1024" height="500" fill="url(#ground)"/>
+  <rect width="1024" height="500" fill="url(#glitter)" opacity="0.7"/>
+
+  <!-- Outer gold-leaf border -->
+  <rect x="6" y="6" width="1012" height="488" fill="none" stroke="url(#gold)" stroke-width="2"/>
+  <rect x="14" y="14" width="996" height="472" fill="none" stroke="#7a5b12" stroke-width="0.6" opacity="0.6"/>
+  <!-- Greek-key top + bottom rails -->
+  <rect x="20" y="22" width="984" height="14" fill="url(#meander)" opacity="0.85"/>
+  <rect x="20" y="464" width="984" height="14" fill="url(#meander)" opacity="0.85"/>
+
+  <!-- ========== LEFT: fresco panel — Theotokos orant flanked by angels ========== -->
+  <g transform="translate(60 36)">
+    <!-- Painted plaster panel with arch -->
+    <path d="M 38 444
+             L 38 96
+             Q 38 56 66 56
+             L 102 56
+             Q 102 28 212 28
+             Q 322 28 322 56
+             L 358 56
+             Q 386 56 386 96
+             L 386 444 Z" fill="url(#plaster)"/>
+
+    <!-- Faint fresco craquelure -->
+    <g clip-path="url(#archPanel)" opacity="0.18" stroke="#5a4836" stroke-width="0.4" fill="none">
+      <path d="M 60 120 Q 180 90 320 130"/>
+      <path d="M 70 230 L 280 220"/>
+      <path d="M 100 320 Q 200 340 360 310"/>
+      <path d="M 50 400 L 380 410"/>
+      <path d="M 200 60 L 210 440"/>
+    </g>
+
+    <!-- Greek inscription arch -->
+    <text x="212" y="80" text-anchor="middle" font-family="Cardo, 'EB Garamond', serif"
+          font-size="22" fill="#7b1f2c" letter-spacing="6" font-weight="700">ΜΡ ΘΥ</text>
+
+    <!-- Theotokos Orant (Sign / Znamenie) -->
+    <g transform="translate(212 280)">
+      <!-- Halo -->
+      <circle cx="0" cy="-110" r="48" fill="url(#halo)"/>
+      <circle cx="0" cy="-110" r="48" fill="none" stroke="#7a5b12" stroke-width="1.2"/>
+      <circle cx="0" cy="-110" r="42" fill="none" stroke="#7a5b12" stroke-width="0.6" opacity="0.6"/>
+
+      <!-- Maphorion silhouette (body + cowl) -->
+      <path d="M -64 0
+               Q -82 -40 -68 -76
+               Q -52 -118 -36 -130
+               Q -18 -148 0 -148
+               Q 18 -148 36 -130
+               Q 52 -118 68 -76
+               Q 82 -40 64 0
+               L 60 110
+               Q 0 122 -60 110 Z" fill="url(#maphorion)"/>
+
+      <!-- Face / hands tunic -->
+      <path d="M -22 -130
+               Q 0 -148 22 -130
+               Q 24 -110 18 -100
+               Q 12 -90 0 -88
+               Q -12 -90 -18 -100
+               Q -24 -110 -22 -130 Z" fill="#e8c598"/>
+
+      <!-- Eyes/brow — iconographic, two strokes -->
+      <g stroke="#2e2618" stroke-width="0.9" fill="none" stroke-linecap="round">
+        <path d="M -10 -118 Q -7 -120 -4 -118"/>
+        <path d="M  4 -118 Q  7 -120 10 -118"/>
+        <path d="M 0 -114 L 0 -106"/>
+        <path d="M -3 -100 Q 0 -98 3 -100"/>
+      </g>
+
+      <!-- Gold maphorion stars (shoulders + brow) — sign of perpetual virginity -->
+      <g fill="#d6ad32">
+        <circle cx="-44" cy="-72" r="3.2"/>
+        <circle cx="44" cy="-72" r="3.2"/>
+        <circle cx="0" cy="-138" r="2.6"/>
+      </g>
+
+      <!-- Orant hands raised -->
+      <g fill="#e8c598" stroke="#7b1f2c" stroke-width="0.8">
+        <path d="M -52 -54 Q -58 -78 -48 -94 Q -42 -100 -38 -86 Q -36 -72 -42 -56 Z"/>
+        <path d="M  52 -54 Q  58 -78  48 -94 Q  42 -100  38 -86 Q  36 -72  42 -56 Z"/>
+      </g>
+
+      <!-- Christ medallion at chest (Sign type) -->
+      <circle cx="0" cy="-30" r="26" fill="url(#halo)" stroke="#7a5b12" stroke-width="1"/>
+      <circle cx="0" cy="-30" r="20" fill="#7b1f2c"/>
+      <path d="M -8 -40 Q 0 -46 8 -40 Q 12 -32 8 -22 Q 0 -16 -8 -22 Q -12 -32 -8 -40 Z" fill="#e8c598"/>
+      <!-- Cruciform halo behind Christ -->
+      <line x1="0" y1="-46" x2="0" y2="-14" stroke="#7a5b12" stroke-width="0.6"/>
+      <line x1="-12" y1="-30" x2="12" y2="-30" stroke="#7a5b12" stroke-width="0.6"/>
+    </g>
+
+    <!-- Left angel -->
+    <g transform="translate(96 250)">
+      <circle cx="0" cy="-44" r="22" fill="url(#halo)"/>
+      <circle cx="0" cy="-44" r="22" fill="none" stroke="#7a5b12" stroke-width="0.9"/>
+      <!-- Wing -->
+      <path d="M -8 -20 Q -50 -36 -64 -10 Q -52 6 -28 4 Z" fill="url(#wing)" stroke="#7b1f2c" stroke-width="0.7"/>
+      <path d="M -12 0 Q -40 -8 -48 14 Q -32 22 -16 16 Z" fill="url(#wing)" opacity="0.85" stroke="#7b1f2c" stroke-width="0.6"/>
+      <!-- Face -->
+      <path d="M -10 -56 Q 0 -68 10 -56 Q 12 -42 6 -36 Q 0 -34 -6 -36 Q -12 -42 -10 -56 Z" fill="#e8c598"/>
+      <!-- Body silhouette -->
+      <path d="M -22 -32 Q -10 -36 0 -36 Q 10 -36 22 -32 L 26 40 Q 0 50 -26 40 Z" fill="url(#maphorion)" opacity="0.95"/>
+    </g>
+
+    <!-- Right angel -->
+    <g transform="translate(328 250)">
+      <circle cx="0" cy="-44" r="22" fill="url(#halo)"/>
+      <circle cx="0" cy="-44" r="22" fill="none" stroke="#7a5b12" stroke-width="0.9"/>
+      <path d="M 8 -20 Q 50 -36 64 -10 Q 52 6 28 4 Z" fill="url(#wing)" stroke="#7b1f2c" stroke-width="0.7"/>
+      <path d="M 12 0 Q 40 -8 48 14 Q 32 22 16 16 Z" fill="url(#wing)" opacity="0.85" stroke="#7b1f2c" stroke-width="0.6"/>
+      <path d="M -10 -56 Q 0 -68 10 -56 Q 12 -42 6 -36 Q 0 -34 -6 -36 Q -12 -42 -10 -56 Z" fill="#e8c598"/>
+      <path d="M -22 -32 Q -10 -36 0 -36 Q 10 -36 22 -32 L 26 40 Q 0 50 -26 40 Z" fill="url(#maphorion)" opacity="0.95"/>
+    </g>
+
+    <!-- Base inscription ribbon -->
+    <rect x="86" y="408" width="252" height="22" fill="#7b1f2c"/>
+    <rect x="86" y="408" width="252" height="22" fill="none" stroke="url(#gold)" stroke-width="1"/>
+    <text x="212" y="425" text-anchor="middle" font-family="Cinzel, serif"
+          font-size="12" fill="#f5e08e" letter-spacing="5" font-weight="700">ΑΓΙΟΝ ΟΡΟΣ</text>
+
+    <!-- Panel gold frame -->
+    <path d="M 38 444
+             L 38 96
+             Q 38 56 66 56
+             L 102 56
+             Q 102 28 212 28
+             Q 322 28 322 56
+             L 358 56
+             Q 386 56 386 96
+             L 386 444 Z"
+          fill="none" stroke="url(#gold)" stroke-width="2.4"/>
+    <path d="M 46 444
+             L 46 100
+             Q 46 64 70 64
+             L 108 64
+             Q 108 36 212 36
+             Q 316 36 316 64
+             L 354 64
+             Q 378 64 378 100
+             L 378 444 Z"
+          fill="none" stroke="#7a5b12" stroke-width="0.7" opacity="0.6"/>
+  </g>
+
+  <!-- ========== CENTER: wordmark ========== -->
+  <g transform="translate(460 110)">
+    <!-- Decorative gold rule above -->
+    <g stroke="url(#gold)" stroke-width="1" fill="none">
+      <line x1="0" y1="0" x2="280" y2="0"/>
+      <circle cx="140" cy="0" r="4" fill="#d6ad32"/>
+      <line x1="130" y1="-6" x2="150" y2="-6"/>
+      <line x1="130" y1="6" x2="150" y2="6"/>
+    </g>
+
+    <text x="140" y="56" text-anchor="middle"
+          font-family="'Cinzel Decorative', Cinzel, serif" font-weight="900"
+          font-size="44" fill="url(#gold)" letter-spacing="2">ATHOS</text>
+    <text x="140" y="104" text-anchor="middle"
+          font-family="'Cinzel Decorative', Cinzel, serif" font-weight="900"
+          font-size="44" fill="url(#gold)" letter-spacing="2">PILGRIM</text>
+
+    <!-- Greek subtitle, painted oxblood on parchment ribbon -->
+    <rect x="20" y="124" width="240" height="32" fill="#7b1f2c" stroke="url(#gold)" stroke-width="1"/>
+    <text x="140" y="146" text-anchor="middle"
+          font-family="Cardo, 'EB Garamond', serif" font-size="18"
+          fill="#f5e08e" letter-spacing="5" font-weight="700">ἉΓΙΟΝ ὌΡΟΣ</text>
+
+    <text x="140" y="186" text-anchor="middle"
+          font-family="'Cormorant Garamond', Cardo, serif" font-style="italic"
+          font-size="17" fill="#f0e3c4" letter-spacing="0.5">a pilgrim's guide</text>
+    <text x="140" y="208" text-anchor="middle"
+          font-family="'Cormorant Garamond', Cardo, serif" font-style="italic"
+          font-size="17" fill="#f0e3c4" letter-spacing="0.5">to the Holy Mountain</text>
+
+    <!-- Decorative gold rule below -->
+    <g stroke="url(#gold)" stroke-width="1" fill="none" transform="translate(0 230)">
+      <line x1="0" y1="0" x2="280" y2="0"/>
+      <circle cx="140" cy="0" r="4" fill="#d6ad32"/>
+      <line x1="130" y1="-6" x2="150" y2="-6"/>
+      <line x1="130" y1="6" x2="150" y2="6"/>
+    </g>
+
+    <!-- Tiny Athonite cross seal -->
+    <g transform="translate(140 260)" stroke="url(#gold)" stroke-width="2" fill="none" stroke-linecap="square">
+      <line x1="0" y1="-12" x2="0" y2="14"/>
+      <line x1="-9" y1="-4" x2="9" y2="-4"/>
+      <line x1="-12" y1="2" x2="12" y2="2"/>
+      <line x1="-7" y1="10" x2="7" y2="8"/>
+    </g>
+  </g>
+
+  <!-- ========== RIGHT: painted landscape vignette ========== -->
+  <g transform="translate(770 60)">
+    <!-- Vignette panel: rounded rectangle in painted-plaster frame -->
+    <rect x="0" y="0" width="220" height="380" rx="14" fill="url(#plaster)"/>
+    <rect x="0" y="0" width="220" height="380" rx="14" fill="none" stroke="url(#gold)" stroke-width="2"/>
+    <rect x="6" y="6" width="208" height="368" rx="10" fill="none" stroke="#7a5b12" stroke-width="0.6" opacity="0.6"/>
+
+    <!-- Sky band -->
+    <clipPath id="vClip">
+      <rect x="6" y="6" width="208" height="368" rx="10"/>
+    </clipPath>
+    <g clip-path="url(#vClip)">
+      <rect x="6" y="6" width="208" height="118" fill="#c8d0c8"/>
+      <!-- Sun mandorla -->
+      <circle cx="110" cy="80" r="44" fill="url(#halo)" opacity="0.75"/>
+
+      <!-- Sea -->
+      <rect x="6" y="280" width="208" height="94" fill="url(#seaG)"/>
+      <g stroke="#f0e3c4" stroke-width="0.9" fill="none" opacity="0.5" stroke-linecap="round">
+        <path d="M 16 304 Q 26 300 36 304 T 56 304"/>
+        <path d="M 72 316 Q 82 312 92 316 T 112 316"/>
+        <path d="M 130 308 Q 140 304 150 308 T 170 308"/>
+        <path d="M 28 332 Q 38 328 48 332 T 68 332"/>
+        <path d="M 124 340 Q 134 336 144 340 T 164 340"/>
+      </g>
+
+      <!-- Forested base -->
+      <path d="M 6 286 Q 56 266 110 280 Q 164 266 214 286 L 214 300 L 6 300 Z" fill="url(#forestG)"/>
+
+      <!-- Athos peak -->
+      <path d="M 110 86
+               L 76 232
+               Q 70 246 82 250
+               L 100 252
+               L 110 296
+               L 120 252
+               L 138 250
+               Q 150 246 144 232 Z" fill="url(#peakG)"/>
+      <path d="M 110 86
+               L 110 296
+               L 120 252
+               L 138 250
+               Q 150 246 144 232 Z" fill="#000" opacity="0.3"/>
+      <!-- Snow -->
+      <path d="M 106 110 L 110 86 L 114 110 L 112 122 L 108 122 Z" fill="#fbf5e6" opacity="0.85"/>
+
+      <!-- Cross atop -->
+      <g stroke="url(#gold)" stroke-width="2" fill="none" stroke-linecap="square">
+        <line x1="110" y1="60" x2="110" y2="86"/>
+        <line x1="100" y1="68" x2="120" y2="68"/>
+        <line x1="96" y1="76" x2="124" y2="76"/>
+      </g>
+
+      <!-- Monastery silhouette (right side) -->
+      <g transform="translate(160 260)">
+        <rect x="0" y="0" width="28" height="22" fill="#ead8a8" stroke="#2e2618" stroke-width="0.6"/>
+        <path d="M -3 0 L 14 -14 L 31 0 Z" fill="#7e2b22" stroke="#2e2618" stroke-width="0.6"/>
+        <rect x="4" y="10" width="4" height="8" fill="#2e2618"/>
+        <rect x="20" y="10" width="4" height="8" fill="#2e2618"/>
+        <!-- Cypress beside -->
+        <ellipse cx="-8" cy="6" rx="3" ry="14" fill="#3e5530"/>
+      </g>
+      <g transform="translate(40 268)">
+        <rect x="0" y="0" width="20" height="16" fill="#ead8a8" stroke="#2e2618" stroke-width="0.5"/>
+        <path d="M -2 0 L 10 -10 L 22 0 Z" fill="#7e2b22" stroke="#2e2618" stroke-width="0.5"/>
+        <ellipse cx="-6" cy="4" rx="2.5" ry="10" fill="#3e5530"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Decorative corner stars -->
+  <g fill="url(#gold)">
+    <g transform="translate(36 36)"><circle r="2.5"/></g>
+    <g transform="translate(988 36)"><circle r="2.5"/></g>
+    <g transform="translate(36 464)"><circle r="2.5"/></g>
+    <g transform="translate(988 464)"><circle r="2.5"/></g>
+  </g>
+</svg>

@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Athos Pilgrim — app icon">
+  <title>Athos Pilgrim</title>
+  <defs>
+    <!-- Night sky of the dome: lapis lazuli graduated, with a faint warmth where the mandorla will rise. -->
+    <radialGradient id="sky" cx="0.5" cy="0.62" r="0.95">
+      <stop offset="0%"  stop-color="#2a3a72"/>
+      <stop offset="48%" stop-color="#18254e"/>
+      <stop offset="100%" stop-color="#060a1e"/>
+    </radialGradient>
+
+    <!-- Gold-leaf mandorla — a sun nimbus the peak rises out of. -->
+    <radialGradient id="mandorla" cx="0.5" cy="0.6" r="0.55">
+      <stop offset="0%"  stop-color="#fff3c4" stop-opacity="0.95"/>
+      <stop offset="30%" stop-color="#f5e08e" stop-opacity="0.78"/>
+      <stop offset="60%" stop-color="#d6ad32" stop-opacity="0.42"/>
+      <stop offset="85%" stop-color="#b88a1c" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#6f4f0e" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#f6e198"/>
+      <stop offset="48%" stop-color="#d6ad32"/>
+      <stop offset="100%" stop-color="#7a5b12"/>
+    </linearGradient>
+
+    <!-- Painted plaster of the peak — oxblood/umber rising from sage forest. -->
+    <linearGradient id="peak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#c9b078"/>
+      <stop offset="22%" stop-color="#a04030"/>
+      <stop offset="62%" stop-color="#7e2b22"/>
+      <stop offset="100%" stop-color="#4a0f1a"/>
+    </linearGradient>
+
+    <linearGradient id="peakShade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"  stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.45"/>
+    </linearGradient>
+
+    <linearGradient id="forest" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#7c9560"/>
+      <stop offset="60%" stop-color="#5a7a45"/>
+      <stop offset="100%" stop-color="#3e5530"/>
+    </linearGradient>
+
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#a3b6be"/>
+      <stop offset="100%" stop-color="#5a7886"/>
+    </linearGradient>
+
+    <!-- Mosaic-tile glitter on the lapis ground. -->
+    <pattern id="stars" x="0" y="0" width="64" height="64" patternUnits="userSpaceOnUse">
+      <circle cx="8"  cy="14" r="0.9" fill="#f5e08e" opacity="0.55"/>
+      <circle cx="44" cy="6"  r="0.6" fill="#fff3c4" opacity="0.45"/>
+      <circle cx="28" cy="36" r="1.1" fill="#d6ad32" opacity="0.5"/>
+      <circle cx="56" cy="48" r="0.7" fill="#f5e08e" opacity="0.4"/>
+      <circle cx="12" cy="54" r="0.5" fill="#fff3c4" opacity="0.35"/>
+    </pattern>
+
+    <!-- Brush-stroke texture for painted look. -->
+    <filter id="paint" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"/>
+      <feColorMatrix values="0 0 0 0 0.18  0 0 0 0 0.14  0 0 0 0 0.08  0 0 0 0.10 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+
+    <clipPath id="rounded">
+      <rect x="0" y="0" width="512" height="512" rx="96" ry="96"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#rounded)">
+    <!-- Lapis sky -->
+    <rect width="512" height="512" fill="url(#sky)"/>
+    <rect width="512" height="512" fill="url(#stars)" opacity="0.65"/>
+
+    <!-- Gold mandorla -->
+    <circle cx="256" cy="288" r="230" fill="url(#mandorla)"/>
+
+    <!-- Aegean sea band -->
+    <path d="M 0 430 Q 128 416 256 426 Q 384 436 512 422 L 512 512 L 0 512 Z" fill="url(#sea)"/>
+    <!-- Wavelet hatching, fresco-style -->
+    <g stroke="#f0e3c4" stroke-width="1.2" fill="none" opacity="0.45" stroke-linecap="round">
+      <path d="M 40 458 Q 60 452 80 458 T 120 458"/>
+      <path d="M 160 470 Q 180 464 200 470 T 240 470"/>
+      <path d="M 290 462 Q 310 456 330 462 T 370 462"/>
+      <path d="M 400 478 Q 420 472 440 478 T 480 478"/>
+      <path d="M 80 488 Q 100 482 120 488 T 160 488"/>
+      <path d="M 240 492 Q 260 486 280 492 T 320 492"/>
+    </g>
+
+    <!-- Forested base of the mountain -->
+    <path d="M 24 444 Q 110 418 196 432 Q 256 408 318 432 Q 410 416 488 444 L 488 470 L 24 470 Z" fill="url(#forest)"/>
+
+    <!-- Painted peak of Athos — tall pyramid widening to the forest line,
+         drawn with a slight asymmetry so it reads as fresco, not geometry. -->
+    <path d="M 256 78
+             C 246 180, 222 270, 168 400
+             Q 152 428 184 436
+             L 256 442
+             L 332 436
+             Q 360 428 344 400
+             C 290 270, 266 180, 256 78
+             Z" fill="url(#peak)"/>
+    <!-- Light/shadow modulation on the right flank -->
+    <path d="M 256 78
+             L 256 442
+             L 332 436
+             Q 360 428 344 400
+             C 290 270, 266 180, 256 78
+             Z" fill="url(#peakShade)" opacity="0.55"/>
+
+    <!-- Snow-cap of the summit — only the very top -->
+    <path d="M 256 78
+             C 253 110, 247 138, 240 158
+             Q 248 164 256 164
+             Q 264 164 272 158
+             C 265 138, 259 110, 256 78
+             Z" fill="#fbf5e6" opacity="0.95"/>
+    <path d="M 256 78 L 256 164 Q 264 164 272 158 C 265 138, 259 110, 256 78 Z"
+          fill="#000" opacity="0.18"/>
+
+    <!-- Painted ridge contour, umber outline -->
+    <path d="M 256 78
+             C 246 180, 222 270, 168 400
+             Q 152 428 184 436
+             L 256 442
+             L 332 436
+             Q 360 428 344 400
+             C 290 270, 266 180, 256 78
+             Z"
+          fill="none" stroke="#2e2618" stroke-width="2.4" stroke-linejoin="round" opacity="0.75"/>
+
+    <!-- Crowning Byzantine cross atop the peak -->
+    <g stroke="url(#gold)" stroke-width="7" stroke-linecap="square" fill="none">
+      <line x1="256" y1="14" x2="256" y2="78"/>
+      <line x1="232" y1="32" x2="280" y2="32"/>
+      <line x1="222" y1="48" x2="290" y2="48"/>
+      <line x1="236" y1="68" x2="276" y2="62"/>
+    </g>
+    <!-- Cross sheen highlight -->
+    <g stroke="#fff3c4" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.7">
+      <line x1="254" y1="18" x2="254" y2="74"/>
+    </g>
+
+    <!-- Inset Greek-key gold frame -->
+    <rect x="14" y="14" width="484" height="484" rx="84" ry="84"
+          fill="none" stroke="url(#gold)" stroke-width="2.5" opacity="0.95"/>
+    <rect x="22" y="22" width="468" height="468" rx="78" ry="78"
+          fill="none" stroke="#7a5b12" stroke-width="0.8" opacity="0.7"/>
+
+    <!-- Painted vignette darkening to the edges -->
+    <radialGradient id="vignette" cx="0.5" cy="0.5" r="0.75">
+      <stop offset="60%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.45"/>
+    </radialGradient>
+    <rect width="512" height="512" fill="url(#vignette)"/>
+  </g>
+</svg>

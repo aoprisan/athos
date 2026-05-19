@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 432 432" width="432" height="432">
+  <title>Athos Pilgrim — monochrome themed icon (Android 13+)</title>
+  <!--
+    Android 13+ themed icons. White on transparent. The launcher recolors
+    using the user's wallpaper-derived theme. Solid shapes only; no gradients.
+    Critical mass kept within the central 264×264 safe zone.
+  -->
+  <g fill="#ffffff">
+    <!-- Peak -->
+    <path d="M 216 80
+             L 158 268
+             Q 150 286 166 290
+             L 196 294
+             L 216 388
+             L 236 294
+             L 266 290
+             Q 282 286 274 268
+             Z"/>
+    <!-- Forest mound base -->
+    <path d="M 60 380 Q 130 358 196 372 Q 216 348 236 372 Q 302 358 372 380 L 372 396 L 60 396 Z"/>
+    <!-- Sea band -->
+    <rect x="40" y="404" width="352" height="14" rx="2"/>
+    <!-- Athonite cross -->
+    <rect x="213" y="32" width="6" height="52"/>
+    <rect x="196" y="44" width="40" height="5"/>
+    <rect x="188" y="56" width="56" height="5"/>
+    <polygon points="200,72 232,68 232,76 200,80"/>
+  </g>
+</svg>
