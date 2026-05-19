@@ -18,6 +18,7 @@ import {
 import { CrossFlourish } from './Ornaments';
 import { useI18n } from '../i18n';
 import { MONASTERIES_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
+import { openItineraryInMaps, type MapPoint } from '../lib/maps';
 
 const TripItineraryMap = lazy(() => import('./TripItineraryMap'));
 
@@ -152,6 +153,17 @@ export function TripDetail({ slug, onNavigate }: Props) {
     update({ ...trip, days: nextDays });
   };
 
+  const itineraryPoints: MapPoint[] = trip.days.flatMap((day) =>
+    day.places.flatMap((place) => {
+      const located =
+        place.kind === 'monastery'
+          ? findMonastery(place.slug)
+          : findSettlement(place.slug);
+      return located ? [{ lat: located.lat, lng: located.lng }] : [];
+    }),
+  );
+  const hasItinerary = itineraryPoints.length > 0;
+
   return (
     <article className="detail">
       <button
@@ -215,6 +227,18 @@ export function TripDetail({ slug, onNavigate }: Props) {
           >
             <TripItineraryMap trip={trip} onNavigate={onNavigate} />
           </Suspense>
+          <div className="detail__open-maps-row">
+            <button
+              type="button"
+              className="detail__open-maps"
+              onClick={() => openItineraryInMaps(itineraryPoints, trip.name)}
+              disabled={!hasItinerary}
+              title={hasItinerary ? undefined : t('tripDetail.openInMapsEmpty')}
+            >
+              <span className="detail__open-maps-mark" aria-hidden="true">⌖</span>
+              {t('tripDetail.openInMaps')}
+            </button>
+          </div>
         </section>
 
         <section className="trip-detail__days">

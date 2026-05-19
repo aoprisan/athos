@@ -891,6 +891,13 @@
   box-shadow: 0 0 0 1px var(--gold-deep) inset;
   outline: none;
 }
+.detail__open-maps:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: transparent;
+  color: var(--gold-deep);
+  box-shadow: none;
+}
 .detail__open-maps-mark {
   color: var(--gold);
   font-size: 1.05em;

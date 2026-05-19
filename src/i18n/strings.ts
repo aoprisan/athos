@@ -118,6 +118,8 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'tripDetail.deleteTrip': 'Delete trip',
     'tripDetail.itineraryMap': 'Itinerary map',
     'tripDetail.loadingMap': 'Loading itinerary map…',
+    'tripDetail.openInMaps': 'Open itinerary in Maps',
+    'tripDetail.openInMapsEmpty': 'Add places to a day to open the itinerary in Maps.',
     'tripDetail.dayN': 'Day {n}',
     'tripDetail.dayEmpty': 'No places yet.',
     'tripDetail.unknownMonastery': 'Unknown monastery',
@@ -253,6 +255,9 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'tripDetail.deleteTrip': 'Șterge pelerinajul',
     'tripDetail.itineraryMap': 'Harta itinerariului',
     'tripDetail.loadingMap': 'Se încarcă harta itinerariului…',
+    'tripDetail.openInMaps': 'Deschide itinerariul în Hărți',
+    'tripDetail.openInMapsEmpty':
+      'Adaugă locuri într-o zi pentru a deschide itinerariul în Hărți.',
     'tripDetail.dayN': 'Ziua {n}',
     'tripDetail.dayEmpty': 'Niciun loc încă.',
     'tripDetail.unknownMonastery': 'Mănăstire necunoscută',
