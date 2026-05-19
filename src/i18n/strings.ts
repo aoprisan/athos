@@ -146,7 +146,7 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
   ro: {
     'app.brandGreekTagline': 'Sfântul Munte',
     'app.footer':
-      'Informații pentru pelerinii Sfântului Munte. Verificați cursele de feribot și {diamonitirion}-ul la sursele oficiale înainte de plecare.',
+      'Informații pentru pelerinii la Sfântul Munte Athos — „Grădina Maicii Domnului". Verifică cursele de feribot și {diamonitirion}-ul la sursele oficiale înainte de plecare.',
     'app.footer.diamonitirion': 'Diamonitirion',
     'lang.label': 'Limbă',
 
@@ -155,14 +155,14 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'nav.gettingThere': 'Cum ajungi',
     'nav.ferries': 'Feriboturi',
 
-    'home.subtitle': 'Sfântul Munte · Grădina Maicii Domnului',
+    'home.subtitle': 'Sfântul Munte Athos · Grădina Maicii Domnului',
     'home.title': 'Pelerin la Athos',
     'home.lede':
-      'Un ghid practic pentru cele douăzeci de mănăstiri conducătoare ale Sfântului Munte Athos, pentru permisul de intrare {diamonitirion} și pentru feriboturile care duc pelerinii spre vârful estic al peninsulei Halkidiki.',
+      'Un ghid practic pentru cele douăzeci de mănăstiri conducătoare ale Sfântului Munte Athos, pentru permisul de intrare {diamonitirion} și pentru feriboturile care duc pelerinii spre vârful estic al peninsulei Halkidiki, în nordul Greciei.',
     'home.listTitle': 'Cele douăzeci de mănăstiri conducătoare',
     'home.listSubtitle': 'în ordinea ierarhică canonică',
     'home.settlementsTitle': 'Schituri și sihăstrii',
-    'home.settlementsSubtitle': 'dependențe ale mănăstirilor conducătoare',
+    'home.settlementsSubtitle': 'dependențele mănăstirilor conducătoare',
     'home.hermitageLabel': 'sihăstrie',
 
     'map.styleLabel': 'Stilul hărții',
@@ -191,7 +191,7 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'getting.eyebrow': 'πῶς ἀναβαίνομεν · cum urcăm',
     'getting.title': 'Cum se ajunge la Sfântul Munte',
     'getting.lede':
-      'Sfântul Munte este o republică monastică autonomă, situată pe vârful estic al peninsulei Halkidiki din nordul Greciei. Nu există acces rutier — toți pelerinii ajung cu barca din Ouranoupoli sau Ierissos, și numai după obținerea permisului de intrare {diamonitirion}.',
+      'Sfântul Munte Athos este o republică monastică autonomă pe vârful estic al peninsulei Halkidiki, în nordul Greciei. Nu există cale de uscat — toți pelerinii ajung pe mare, din Ouranoupoli sau Ierissos, și numai după obținerea permisului de intrare {diamonitirion}. După tradiția păstrată din vremea împăratului Ioan I Tzimiskes (970), avatonul oprește accesul femeilor pe Athos.',
     'getting.diamonitirionH2': 'Diamonitirion-ul',
     'getting.entryPermit': 'permis de intrare',
     'getting.bureauName': 'Biroul de eliberare',
