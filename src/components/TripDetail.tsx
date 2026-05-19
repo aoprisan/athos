@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import type { Trip, TripPlace, View } from '../types';
 import { MONASTERIES, findMonastery } from '../data/monasteries';
 import { SETTLEMENTS, findSettlement } from '../data/settlements';
@@ -16,6 +16,8 @@ import {
   upsertTrip,
 } from '../lib/trips';
 import { CrossFlourish } from './Ornaments';
+
+const TripItineraryMap = lazy(() => import('./TripItineraryMap'));
 
 interface Props {
   slug: string;
@@ -194,6 +196,21 @@ export function TripDetail({ slug, onNavigate }: Props) {
             </button>
           </div>
         </header>
+
+        <section className="trip-detail__map" aria-label="Itinerary map">
+          <Suspense
+            fallback={
+              <div
+                className="trip-map trip-map--loading"
+                role="status"
+              >
+                <span>Loading itinerary map…</span>
+              </div>
+            }
+          >
+            <TripItineraryMap trip={trip} onNavigate={onNavigate} />
+          </Suspense>
+        </section>
 
         <section className="trip-detail__days">
           {trip.days.map((day, dayIndex) => (
