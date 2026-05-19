@@ -31,6 +31,12 @@ export interface SacredIcon {
       True Cross or the head of a saint is grouped here as a holy object the
       monastery is known to keep. */
   description: string;
+  /** Optional hot-linked image. Should be a direct image URL (not a wiki
+      article page), typically a Wikimedia Commons thumb. */
+  imageUrl?: string;
+  /** Short credit line shown beneath the image, e.g. "Wikimedia Commons /
+      Public domain". */
+  imageCredit?: string;
 }
 
 export interface Legend {

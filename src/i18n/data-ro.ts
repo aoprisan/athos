@@ -74,18 +74,27 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
         nameGreek: 'Τιμία Ζώνη',
         description:
           'Brâul țesut, după tradiție, cu mâinile Preasfintei Născătoare de Dumnezeu din păr de cămilă — singura sfântă moaște trupească a Maicii Domnului rămasă pe pământ. Dăruit Vatopedului de împăratul Ioan al VI-lea Cantacuzino; este cinstit ca tămăduitor de boli grele, mai ales pentru femeile care nu pot avea copii — moaștele se scot afară spre închinare, fără ca femeile să poată trece în Munte.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/7/75/Assumptiongirdle.jpg',
+        imageCredit: 'Wikimedia Commons · domeniu public',
       },
       {
         name: 'Maica Domnului Vimatarissa',
         nameGreek: 'Παναγία Βηματάρισσα',
         description:
           'Numită „Locuitoarea altarului". A fost ascunsă sub lespedea Sfântului Altar, împreună cu o lumânare aprinsă, înaintea unui jaf arab din secolul al IX-lea. Șaptezeci de ani mai târziu a fost aflată de diaconul Sava — și icoana, și lumânarea încă ardeau, neatinse.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/4/47/%D0%A1%D0%B2%D0%B5%D1%82%D0%B0_%D0%91%D0%BE%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%B8%D1%86%D0%B0_%D0%9E%D0%BB%D1%82%D0%B0%D1%80%D0%BD%D0%B8%D1%86%D0%B0_%D0%92%D0%B8%D0%BC%D0%B0%D1%82%D0%B8%D1%80%D0%B8%D1%81%D0%B0%2C_%D0%BA%D1%80%D0%B0%D0%B9_%D0%BD%D0%B0_XII_%D0%B2%D0%B5%D0%BA%2C_%D0%92%D0%B0%D1%82%D0%BE%D0%BF%D0%B5%D0%B4.jpg',
+        imageCredit: 'Wikimedia Commons · domeniu public',
       },
       {
         name: 'Maica Domnului Paramythia',
         nameGreek: 'Παναγία Παραμυθία',
         description:
           'Numită „Mângâierea". În dimineața zilei de 21 ianuarie 807, în clipa în care egumenul auzea citindu-se semnele de obște, Pruncul zugrăvit pe icoană a ridicat mâna și a astupat gura Maicii Sale, care îl prevenea să nu deschidă porțile — pirații așezaseră o cursă afară. Icoana se păstrează până astăzi în chipul în care a rămas atunci, cu mâna Pruncului la buzele Maicii Domnului.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/f/ff/Panagia_Paramythia_Icon_from_Vatopedi_Monastery_14th_Century.jpg',
+        imageCredit: 'Wikimedia Commons · domeniu public',
       },
       {
         name: 'Maica Domnului Elaiovritissa',
@@ -110,12 +119,18 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
         nameGreek: 'Παναγία Ἐσφαγμένη',
         description:
           'Numită „Cea înjunghiată". Un diacon, mâniat că nu i s-a dat masa la vreme, a lovit cu cuțitul icoana — și din rana de pe obrazul Maicii Domnului ar fi curs sânge. Diaconul s-a pocăit ani îndelungați, legat cu lanț de această icoană.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/5/54/%D0%A1%D0%B2%D0%B5%D1%82%D0%B0_%D0%91%D0%BE%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%B8%D1%86%D0%B0_%D0%97%D0%B0%D0%BA%D0%BB%D0%B0%D0%BD%D0%B0_%D0%95%D1%81%D1%84%D0%B0%D0%B3%D0%BC%D0%B5%D0%BD%D0%B8%2C_XIV_%D0%B2%D0%B5%D0%BA%2C_%D0%92%D0%B0%D1%82%D0%BE%D0%BF%D0%B5%D0%B4.jpg',
+        imageCredit: 'Wikimedia Commons · domeniu public',
       },
       {
         name: 'Maica Domnului Pantanassa',
         nameGreek: 'Παναγία Παντάνασσα',
         description:
           'Numită „Împărăteasa tuturor". Vestită în vremurile noi prin tămăduirile de cancer și pentru rugăciunea înaintea ei pentru bolnavii grei; copii ale icoanei sunt trimise de obștea de la Vatopedi în toată lumea.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/5/5e/Pantanassa_%28Vatopedi_monastery%29.jpg',
+        imageCredit: 'Wikimedia Commons · domeniu public',
       },
     ],
     legends: [
@@ -146,6 +161,9 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
         nameGreek: 'Παναγία Πορταΐτισσα',
         description:
           'Cea mai vestită icoană a Sfântului Munte. Se află într-un paraclis așezat lângă poarta mănăstirii, nu în katholikon, fiindcă Maica Domnului însăși a oprit-o acolo: „Nu am venit ca să Mă păziți voi — Eu am venit să vă păzesc". Pe obrazul Maicii Domnului se vede o rană adâncă, dintr-o lovitură de suliță a unui ostaș iconoclast din Constantinopol — din care, spune tradiția, a curs sânge.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/7/73/Iveron.jpg',
+        imageCredit: 'Wikimedia Commons · domeniu public',
       },
     ],
     legends: [
@@ -176,6 +194,9 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
         nameGreek: 'Παναγία Τριχερούσα',
         description:
           'Icoana făcătoare de minuni a Sfântului Ioan Damaschin. După ce calif Walid i-a tăiat mâna dreaptă pe nedrept, Sfântul Ioan s-a rugat înaintea acestei icoane și mâna sa a fost lipită la loc; în semn de mulțumire, a prins de panou o a treia mână de argint. Icoana, adusă mai târziu la Hilandar, stă astăzi pe scaunul stăreției — Hilandarul nu are stareț dintre monahi, ci doar pe Maica Domnului, pe care părinții o cinstesc ca „Egumena" lor.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/9/95/VergineTricherusa.jpg',
+        imageCredit: 'Wikimedia Commons · domeniu public',
       },
       {
         name: 'Vița Sfântului Simeon',
@@ -211,6 +232,9 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
         nameGreek: 'Παναγία τοῦ Ἀκαθίστου · Χαιρετισμός',
         description:
           'Icoana „Bucură-te" — chiar înaintea căreia împăratul Alexie al III-lea Comnenul al Trapezuntului a cântat Imnul Acatist al Maicii Domnului în mulțumire, după ce fiica lui s-a tămăduit. Dăruită mănăstirii la întemeiere; cea mai vestită icoană a Acatistului din Sfântul Munte.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/a/aa/Akafist_bogomateri.jpg',
+        imageCredit: 'Frescă a Acatistului · Wikimedia Commons',
       },
       {
         name: 'Mâna dreaptă a Sfântului Ioan Botezătorul',
@@ -268,6 +292,9 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
         nameGreek: 'Ἁγίος Γεώργιος ὁ Ζωγραφικός',
         description:
           'Icoana „nezugrăvită de mână" a Sfântului Mare Mucenic Gheorghe — apărută peste noapte pe o scândură curată la începutul secolului al X-lea. Episcopul de Lida, venit să cerceteze adevărul, ar fi atins chipul sfântului: urma degetului a rămas adâncită în lemn, iar mâna lui s-a lipit de icoană și a trebuit să fie retezată.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/b/b6/%D0%A1%D0%B2%D0%B5%D1%82%D0%B8_%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8_%D0%9D%D0%B5%D1%80%D1%8A%D0%BA%D0%BE%D1%82%D0%B2%D0%BE%D1%80%D0%B5%D0%BD%2C_%D0%BA%D1%80%D0%B0%D0%B9_%D0%BD%D0%B0_XIII_%D0%B2%D0%B5%D0%BA%2C_%D0%BE%D0%B1%D0%BA%D0%BE%D0%B2_%D0%BE%D1%82_1837%2C_%D0%97%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D1%81%D0%BA%D0%B8_%D0%BC%D0%B0%D0%BD%D0%B0%D1%81%D1%82%D0%B8%D1%80.jpg',
+        imageCredit: 'Wikimedia Commons · domeniu public',
       },
     ],
     legends: [
@@ -357,6 +384,9 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
         name: 'Mâna stângă a Sfintei Maria Magdalena',
         description:
           'Mâna stângă neputrezită a Sfintei Mironosițe Maria Magdalena — caldă la atingere și revărsând o mireasmă blândă; se păstrează într-o raclă de argint în katholikon.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/8/83/Left-hand-Mary-Magdalene-foto-1.jpg',
+        imageCredit: 'Wikimedia Commons · CC0',
       },
     ],
     legends: [
@@ -381,6 +411,9 @@ export const MONASTERIES_RO: Record<string, PlaceRo> = {
         name: 'Darurile aduse de Magi',
         description:
           'O parte din darurile aduse de Magi Pruncului Hristos la Nașterea Sa: 14 plăcuțe de aur și 62 de boabe de smirnă și tămâie înșirate pe fir de argint. Aduse pe Athos în secolul al XV-lea de prințesa Maro, fiica sultanului Murad al II-lea. Boabele răspândesc până astăzi mireasmă.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/6/6a/Gifts_of_the_magi_look.jpg',
+        imageCredit: 'George Malkov · Wikimedia Commons · CC BY-SA 3.0',
       },
       {
         name: 'Maica Domnului Mirovlitisa',

@@ -93,14 +93,35 @@ export function MonasteryDetail({ slug, onNavigate }: Props) {
             <h2>{t('detail.iconsTitle')}</h2>
             <ul className="detail__icon-list">
               {icons.map((ic, i) => (
-                <li key={i} className="detail__icon">
-                  <div className="detail__icon-head">
-                    <span className="detail__icon-name">{ic.name}</span>
-                    {ic.nameGreek && (
-                      <span className="detail__icon-greek">{ic.nameGreek}</span>
-                    )}
+                <li
+                  key={i}
+                  className={`detail__icon ${ic.imageUrl ? 'has-image' : ''}`}
+                >
+                  {ic.imageUrl && (
+                    <figure className="detail__icon-figure">
+                      <img
+                        className="detail__icon-image"
+                        src={ic.imageUrl}
+                        alt={ic.name}
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
+                      />
+                      {ic.imageCredit && (
+                        <figcaption className="detail__icon-credit">
+                          {ic.imageCredit}
+                        </figcaption>
+                      )}
+                    </figure>
+                  )}
+                  <div className="detail__icon-body">
+                    <div className="detail__icon-head">
+                      <span className="detail__icon-name">{ic.name}</span>
+                      {ic.nameGreek && (
+                        <span className="detail__icon-greek">{ic.nameGreek}</span>
+                      )}
+                    </div>
+                    <p className="detail__icon-desc">{ic.description}</p>
                   </div>
-                  <p className="detail__icon-desc">{ic.description}</p>
                 </li>
               ))}
             </ul>

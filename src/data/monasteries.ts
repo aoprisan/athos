@@ -71,18 +71,27 @@ export const MONASTERIES: Monastery[] = [
         nameGreek: 'Τιμία Ζώνη',
         description:
           'The Holy Belt, traditionally woven by the Theotokos herself from camel hair, the only known relic of her bodily remains on earth. Given to Vatopedi by Emperor John VI Kantakouzenos and venerated for healing illness, especially of women unable to conceive — though the relic itself is borne out for veneration, never the women.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/7/75/Assumptiongirdle.jpg',
+        imageCredit: 'Wikimedia Commons · Public domain',
       },
       {
         name: 'Panagia Vimatarissa',
         nameGreek: 'Παναγία Βηματάρισσα',
         description:
           'The "Sanctuary-Dweller". Hidden under the floor of the altar with a lit candle during a 9th-century Arab raid, found seventy years later by the deacon Sabbas — both icon and candle still burning, unharmed.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/4/47/%D0%A1%D0%B2%D0%B5%D1%82%D0%B0_%D0%91%D0%BE%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%B8%D1%86%D0%B0_%D0%9E%D0%BB%D1%82%D0%B0%D1%80%D0%BD%D0%B8%D1%86%D0%B0_%D0%92%D0%B8%D0%BC%D0%B0%D1%82%D0%B8%D1%80%D0%B8%D1%81%D0%B0%2C_%D0%BA%D1%80%D0%B0%D0%B9_%D0%BD%D0%B0_XII_%D0%B2%D0%B5%D0%BA%2C_%D0%92%D0%B0%D1%82%D0%BE%D0%BF%D0%B5%D0%B4.jpg',
+        imageCredit: 'Wikimedia Commons · Public domain',
       },
       {
         name: 'Panagia Paramythia',
         nameGreek: 'Παναγία Παραμυθία',
         description:
           'The "Consolation". On 21 January 807 the painted Christ Child reached up and covered His mother\'s mouth as she warned the abbot not to open the gates that morning; pirates had laid an ambush outside. The icon is still kept in the position it took in that moment, with Christ\'s hand to her lips.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/f/ff/Panagia_Paramythia_Icon_from_Vatopedi_Monastery_14th_Century.jpg',
+        imageCredit: 'Wikimedia Commons · Public domain',
       },
       {
         name: 'Panagia Elaiovrytissa',
@@ -107,12 +116,18 @@ export const MONASTERIES: Monastery[] = [
         nameGreek: 'Παναγία Ἐσφαγμένη',
         description:
           'The "Slain". A monk-deacon struck the icon with a knife after being denied his meal late one evening; blood is said to have flowed from the wound on the cheek, and the monk repented in a long ascesis chained to the icon.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/5/54/%D0%A1%D0%B2%D0%B5%D1%82%D0%B0_%D0%91%D0%BE%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%B8%D1%86%D0%B0_%D0%97%D0%B0%D0%BA%D0%BB%D0%B0%D0%BD%D0%B0_%D0%95%D1%81%D1%84%D0%B0%D0%B3%D0%BC%D0%B5%D0%BD%D0%B8%2C_XIV_%D0%B2%D0%B5%D0%BA%2C_%D0%92%D0%B0%D1%82%D0%BE%D0%BF%D0%B5%D0%B4.jpg',
+        imageCredit: 'Wikimedia Commons · Public domain',
       },
       {
         name: 'Panagia Pantanassa',
         nameGreek: 'Παναγία Παντάνασσα',
         description:
           'The "Queen of All". Famous in modern times for healings of cancer; copies of the icon are sent out from Vatopedi throughout the world.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/5/5e/Pantanassa_%28Vatopedi_monastery%29.jpg',
+        imageCredit: 'Wikimedia Commons · Public domain',
       },
     ],
     legends: [
@@ -149,6 +164,9 @@ export const MONASTERIES: Monastery[] = [
         nameGreek: 'Παναγία Πορταΐτισσα',
         description:
           'The "Gate-Keeper" — perhaps the most famous icon on Athos. Kept in a small chapel beside the gate of the monastery rather than in the katholikon, because the Mother of God refused to be moved any further: "I have not come for you to guard me — I am here to guard you." A long scar across her cheek is said to be from the spear of an iconoclast soldier in Constantinople, from which fresh blood is said to have flowed.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/7/73/Iveron.jpg',
+        imageCredit: 'Wikimedia Commons · Public domain',
       },
     ],
     legends: [
@@ -185,6 +203,9 @@ export const MONASTERIES: Monastery[] = [
         nameGreek: 'Παναγία Τριχερούσα',
         description:
           'The "Three-Handed" icon — the wonder-working image of St John of Damascus. After Caliph al-Walid had John\'s right hand cut off on a false charge, the saint prayed before this icon and his hand was restored; in gratitude he affixed a third silver hand to the panel. The icon was brought to Hilandar from Serbia and stands today on the abbot\'s throne — Hilandar has no human abbot, only the Theotokos, and the monks venerate her there as their hēgoumeni.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/9/95/VergineTricherusa.jpg',
+        imageCredit: 'Wikimedia Commons · Public domain',
       },
       {
         name: 'Vine of St Simeon',
@@ -226,6 +247,9 @@ export const MONASTERIES: Monastery[] = [
         nameGreek: 'Παναγία τοῦ Ἀκαθίστου · Χαιρετισμός',
         description:
           'The icon of the "Salutation" — the very image before which Emperor Alexios III Komnenos of Trebizond chanted the Akathist hymn in thanksgiving when his daughter was healed. Given to the monastery at its foundation; the most celebrated icon of the Akathistos type on Athos.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/a/aa/Akafist_bogomateri.jpg',
+        imageCredit: 'Akathist fresco · Wikimedia Commons',
       },
       {
         name: 'Right hand of St John the Baptist',
@@ -286,6 +310,9 @@ export const MONASTERIES: Monastery[] = [
         nameGreek: 'Παναγία Γερόντισσα',
         description:
           'The "Elderess" — a full-length icon of the Theotokos standing without the Christ Child, which spoke three times in the monastery\'s history: ordering the priest to give the dying abbot communion at once, multiplying oil from an empty jar, and standing firm during the fire of 1948 when the flames stopped at her chapel door.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/2/26/Gerontissa.jpg',
+        imageCredit: 'Wikimedia Commons · Public domain',
       },
     ],
     legends: [
@@ -352,6 +379,9 @@ export const MONASTERIES: Monastery[] = [
         nameGreek: 'Ἁγίος Γεώργιος ὁ Ζωγραφικός',
         description:
           'The "not painted by hand" icon of St George — appeared overnight on a blank panel in the early 10th century. The bishop of Lydda who came to dispute its authenticity is said to have touched the saint\'s face: the print of his finger remained sunk into the wood, and the bishop\'s hand fused to the icon and had to be cut off.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/b/b6/%D0%A1%D0%B2%D0%B5%D1%82%D0%B8_%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8_%D0%9D%D0%B5%D1%80%D1%8A%D0%BA%D0%BE%D1%82%D0%B2%D0%BE%D1%80%D0%B5%D0%BD%2C_%D0%BA%D1%80%D0%B0%D0%B9_%D0%BD%D0%B0_XIII_%D0%B2%D0%B5%D0%BA%2C_%D0%BE%D0%B1%D0%BA%D0%BE%D0%B2_%D0%BE%D1%82_1837%2C_%D0%97%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D1%81%D0%BA%D0%B8_%D0%BC%D0%B0%D0%BD%D0%B0%D1%81%D1%82%D0%B8%D1%80.jpg',
+        imageCredit: 'Wikimedia Commons · Public domain',
       },
     ],
     legends: [
@@ -479,6 +509,9 @@ export const MONASTERIES: Monastery[] = [
         name: 'Left hand of St Mary Magdalene',
         description:
           'The undecomposed left hand of the Myrrh-bearer Mary Magdalene — warm to the touch and exuding a soft fragrance, kept in a silver reliquary in the katholikon.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/8/83/Left-hand-Mary-Magdalene-foto-1.jpg',
+        imageCredit: 'Wikimedia Commons · CC0',
       },
     ],
     legends: [
@@ -509,6 +542,9 @@ export const MONASTERIES: Monastery[] = [
         name: 'Holy Gifts of the Magi',
         description:
           'A portion of the gold, frankincense and myrrh brought by the Magi to the Christ Child — fourteen small plaques of gold and sixty-two beads of myrrh and frankincense threaded on a silver wire. Brought to Athos in the 15th century by Princess Maro, daughter of Sultan Murad II. They are still fragrant.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/6/6a/Gifts_of_the_magi_look.jpg',
+        imageCredit: 'George Malkov · Wikimedia Commons · CC BY-SA 3.0',
       },
       {
         name: 'Panagia Myrovlytissa',
@@ -576,6 +612,9 @@ export const MONASTERIES: Monastery[] = [
         name: 'Mosaic icons of St George and St Demetrios',
         description:
           'Two large 10th–11th-century mosaic icons — both 1.20 × 0.55 m — set into the wall of the old katholikon. The saints are shown not as soldiers but in the robes of imperial court officials, a rare iconographic type on the Mountain.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/a/af/%CE%9C%CE%BF%CE%BD%CE%AE_%CE%9E%CE%B5%CE%BD%CE%BF%CF%86%CF%8E%CE%BD%CF%84%CE%BF%CF%82_%CE%91%CE%B3%CE%AF%CE%BF%CF%85_%CE%8C%CF%81%CE%BF%CF%85%CF%82_%CE%94%CF%8D%CE%BF_%CF%86%CE%BF%CF%81%CE%B7%CF%84%CE%AD%CF%82_%CF%88%CE%B7%CF%86%CE%B9%CE%B4%CF%89%CF%84%CE%AD%CF%82_%CE%B5%CE%B9%CE%BA%CF%8C%CE%BD%CE%B5%CF%82_%CE%BC%CE%B5_%CF%84%CE%BF%CE%BD_%CE%86%CE%B3%CE%B9%CE%BF_%CE%93%CE%B5%CF%8E%CF%81%CE%B3%CE%B9%CE%BF_%CE%BA%CE%B1%CE%B9_%CF%84%CE%BF%CE%BD_%CE%86%CE%B3%CE%B9%CE%BF_%CE%94%CE%B7%CE%BC%CE%AE%CF%84%CF%81%CE%B9%CE%BF%2C_%CF%84%CE%BF%CF%85_12%CE%BF%CF%85_%CE%B1%CE%B9%CF%8E%CE%BD%CE%B1_%CE%B5%CF%81%CE%B3%CE%B1%CF%83%CF%84%CE%AE%CF%81%CE%B9%CE%BF_%CF%84%CE%B7.jpg',
+        imageCredit: 'Wikimedia Commons · Public domain',
       },
       {
         name: 'Panagia Hodegetria of Xenophontos',
