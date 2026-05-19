@@ -168,6 +168,17 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'tripDetail.alertEndBeforeStart': 'End date must be on or after the start date.',
     'tripDetail.feastToday': 'Patronal feast today',
 
+    'fast.label': 'Fast',
+    'fast.great-lent': 'Great Lent',
+    'fast.holy-week': 'Holy Week',
+    'fast.bright-week': 'Bright Week · fast-free',
+    'fast.apostles': "Apostles' Fast",
+    'fast.dormition': 'Dormition Fast',
+    'fast.nativity': 'Nativity Fast',
+    'fast.christmastide': 'Christmastide · fast-free',
+    'fast.dayOf': 'Day {n} of {total}',
+    'fast.fishAllowed': 'fish allowed',
+
     'tripMap.empty': "Add places to a day below and they'll appear on the map.",
     'tripMap.legendAria': 'Map legend',
 
@@ -349,6 +360,17 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'tripDetail.alertEndBeforeStart':
       'Data de sfârșit trebuie să fie după data de început.',
     'tripDetail.feastToday': 'Hram astăzi',
+
+    'fast.label': 'Post',
+    'fast.great-lent': 'Postul Mare',
+    'fast.holy-week': 'Săptămâna Patimilor',
+    'fast.bright-week': 'Săptămâna Luminată · fără post',
+    'fast.apostles': 'Postul Sfinților Apostoli',
+    'fast.dormition': 'Postul Adormirii Maicii Domnului',
+    'fast.nativity': 'Postul Nașterii Domnului',
+    'fast.christmastide': 'Zilele Crăciunului · fără post',
+    'fast.dayOf': 'Ziua {n} din {total}',
+    'fast.fishAllowed': 'dezlegare la pește',
 
     'tripMap.empty':
       'Adaugă locuri la o zi mai jos și vor apărea pe hartă.',

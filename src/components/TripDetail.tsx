@@ -20,6 +20,7 @@ import { useI18n } from '../i18n';
 import { MONASTERIES_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
 import { openItineraryInMaps, type MapPoint } from '../lib/maps';
 import { getFeastsForDate, type FeastMatch } from '../lib/feasts';
+import { getFastForDate, type FastForDate } from '../lib/fasts';
 
 const TripItineraryMap = lazy(() => import('./TripItineraryMap'));
 
@@ -44,6 +45,33 @@ function decodePlaceOption(value: string): TripPlace | null {
     return { kind, slug };
   }
   return null;
+}
+
+function FastChip({ fast }: { fast: FastForDate }) {
+  const { t } = useI18n();
+  const isFastFree = fast.kind === 'bright-week' || fast.kind === 'christmastide';
+  const classes = [
+    'trip-detail__fast',
+    `trip-detail__fast--${fast.kind}`,
+    isFastFree ? 'trip-detail__fast--free' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+  return (
+    <span className={classes}>
+      <span className="trip-detail__fast-name">{t(`fast.${fast.kind}`)}</span>
+      {fast.dayOfFast && fast.lengthDays && (
+        <span className="trip-detail__fast-day">
+          {t('fast.dayOf', { n: fast.dayOfFast, total: fast.lengthDays })}
+        </span>
+      )}
+      {fast.fishAllowed && (
+        <span className="trip-detail__fast-relax">
+          {t('fast.fishAllowed')}
+        </span>
+      )}
+    </span>
+  );
 }
 
 export function TripDetail({ slug, onNavigate }: Props) {
@@ -269,6 +297,7 @@ export function TripDetail({ slug, onNavigate }: Props) {
         <section className="trip-detail__days">
           {trip.days.map((day, dayIndex) => {
             const feasts = getFeastsForDate(day.date);
+            const fast = getFastForDate(day.date);
             return (
             <div key={day.date} className="trip-detail__day">
               <h2 className="trip-detail__day-title">
@@ -276,6 +305,7 @@ export function TripDetail({ slug, onNavigate }: Props) {
                 <span className="trip-detail__day-date">
                   {formatTripDate(day.date, lang)}
                 </span>
+                {fast.kind !== 'none' && <FastChip fast={fast} />}
               </h2>
               {feasts.length > 0 && (
                 <div className="trip-detail__feasts">
