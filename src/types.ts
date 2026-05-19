@@ -46,6 +46,23 @@ export interface Legend {
   description: string;
 }
 
+/** Daily akolouthia (cycle of services) at a monastery. Times are local civil
+    clock (24h HH:MM) — but the Holy Mountain itself runs on *Byzantine time*,
+    counting from sunset, so the civil time of orthros and vespers shifts with
+    the season. Treat published times as guidance: confirm at the arsanas or
+    archondariki. */
+export interface MonasteryServices {
+  vespers?: string;
+  orthros?: string;
+  liturgy?: string;
+  /** Main meal in the trapeza, served after the Liturgy. */
+  trapezaMid?: string;
+  /** Second meal of the day, served after Vespers. */
+  trapezaEve?: string;
+  /** Free-form notes — feast-day variants, Byzantine vs civil time, etc. */
+  notes?: string[];
+}
+
 export interface Monastery {
   slug: string;
   name: string;
@@ -69,6 +86,9 @@ export interface Monastery {
   icons?: SacredIcon[];
   /** Foundation legends and traditional stories tied to the place. */
   legends?: Legend[];
+  /** Daily cycle of services, if known to differ from the default Athonite
+      horarium. When omitted the detail view falls back to a generic horarium. */
+  services?: MonasteryServices;
   links: Array<{ label: string; url: string }>;
 }
 
@@ -126,11 +146,19 @@ export interface TransportPort {
   notes?: string;
 }
 
+export type ReservationStatus = 'planned' | 'contacted' | 'confirmed';
+
 export interface TripPlace {
   /** Which dataset this slug belongs to. */
   kind: 'monastery' | 'settlement';
   /** Slug from MONASTERIES or SETTLEMENTS. */
   slug: string;
+  /** Where the pilgrim is in the reservation flow for this stop. Defaults to
+      'planned' when omitted. */
+  reservationStatus?: ReservationStatus;
+  /** Free-form per-stop notes — phone number called, contact name, time of
+      arrival agreed with the archondaris, etc. */
+  notes?: string;
 }
 
 export interface TripDay {
@@ -161,4 +189,8 @@ export type View =
   | { kind: 'getting-there' }
   | { kind: 'ferries' }
   | { kind: 'trips' }
-  | { kind: 'trip'; slug: string };
+  | { kind: 'trip'; slug: string }
+  | { kind: 'timeline' }
+  | { kind: 'saint'; slug: string }
+  | { kind: 'saints' }
+  | { kind: 'trip-import'; blob: string };

@@ -11,6 +11,7 @@ export function Header({ view, onNavigate }: Props) {
   const { t } = useI18n();
   const isActive = (kind: View['kind']) => view.kind === kind;
   const tripsActive = view.kind === 'trips' || view.kind === 'trip';
+  const saintsActive = view.kind === 'saints' || view.kind === 'saint';
   return (
     <header className="header">
       <button
@@ -52,6 +53,20 @@ export function Header({ view, onNavigate }: Props) {
           onClick={() => onNavigate({ kind: 'ferries' })}
         >
           {t('nav.ferries')}
+        </button>
+        <button
+          type="button"
+          className={isActive('timeline') ? 'nav__item is-active' : 'nav__item'}
+          onClick={() => onNavigate({ kind: 'timeline' })}
+        >
+          {t('nav.timeline')}
+        </button>
+        <button
+          type="button"
+          className={saintsActive ? 'nav__item is-active' : 'nav__item'}
+          onClick={() => onNavigate({ kind: 'saints' })}
+        >
+          {t('nav.saints')}
         </button>
       </nav>
       <LanguageToggle />

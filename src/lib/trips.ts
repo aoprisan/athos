@@ -1,4 +1,4 @@
-import type { Trip, TripDay, TripPlace } from '../types';
+import type { ReservationStatus, Trip, TripDay, TripPlace } from '../types';
 import type { SuggestedItinerary } from '../data/suggested-itineraries';
 
 const STORAGE_KEY = 'athos:trips';
@@ -112,6 +112,48 @@ export function removePlace(day: TripDay, index: number): TripDay {
   return { ...day, places: next };
 }
 
+const RESERVATION_CYCLE: ReservationStatus[] = [
+  'planned',
+  'contacted',
+  'confirmed',
+];
+
+export function nextReservationStatus(
+  current: ReservationStatus | undefined,
+): ReservationStatus {
+  const start = current ?? 'planned';
+  const idx = RESERVATION_CYCLE.indexOf(start);
+  return RESERVATION_CYCLE[(idx + 1) % RESERVATION_CYCLE.length];
+}
+
+export function setPlaceReservation(
+  day: TripDay,
+  index: number,
+  status: ReservationStatus,
+): TripDay {
+  if (index < 0 || index >= day.places.length) return day;
+  const next = day.places.slice();
+  next[index] = { ...next[index], reservationStatus: status };
+  return { ...day, places: next };
+}
+
+export function setPlaceNotes(
+  day: TripDay,
+  index: number,
+  notes: string,
+): TripDay {
+  if (index < 0 || index >= day.places.length) return day;
+  const next = day.places.slice();
+  const trimmed = notes.trim();
+  if (trimmed.length === 0) {
+    const { notes: _drop, ...rest } = next[index];
+    next[index] = rest;
+  } else {
+    next[index] = { ...next[index], notes: trimmed };
+  }
+  return { ...day, places: next };
+}
+
 export function movePlace(
   day: TripDay,
   index: number,
@@ -184,7 +226,9 @@ function randomSuffix(): string {
 }
 
 function localeTag(lang: string): string {
-  return lang === 'ro' ? 'ro-RO' : 'en-GB';
+  if (lang === 'ro') return 'ro-RO';
+  if (lang === 'el') return 'el-GR';
+  return 'en-GB';
 }
 
 /** Formats an ISO date as a long-form label like "Wed, 10 Jun 2026". */

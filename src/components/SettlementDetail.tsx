@@ -159,7 +159,10 @@ export function SettlementDetail({ slug, onNavigate }: Props) {
               {legends.map((lg, i) => (
                 <li key={i} className="detail__legend">
                   <h3 className="detail__legend-title">{lg.title}</h3>
-                  <p className="detail__legend-desc">{lg.description}</p>
+                  <p className="detail__legend-desc">
+                    <DropCap>{lg.description.charAt(0)}</DropCap>
+                    {lg.description.slice(1)}
+                  </p>
                 </li>
               ))}
             </ul>

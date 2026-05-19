@@ -1,5 +1,6 @@
 import { MONASTERIES } from '../data/monasteries';
 import { SETTLEMENTS } from '../data/settlements';
+import { SAINTS } from '../data/saints';
 import type { Monastery, Settlement } from '../types';
 
 /* Feast-day matching. Athonite monasteries follow the Julian (Old Style)
@@ -53,13 +54,13 @@ export function parseFeastDate(patronalFeast: string): FeastDate | null {
 }
 
 export interface FeastMatch {
-  kind: 'monastery' | 'settlement';
+  kind: 'monastery' | 'settlement' | 'saint';
   slug: string;
-  /** The full `patronalFeast` string from the source data. */
+  /** The full `patronalFeast` / feast string from the source data. */
   feast: string;
   /** Display name from the source data (English). */
   name: string;
-  /** Greek name. */
+  /** Greek name, where one is recorded (saints sometimes have none). */
   nameGreek: string;
 }
 
@@ -95,6 +96,19 @@ function buildIndex(): IndexEntry[] {
       feast: s.patronalFeast,
       name: s.name,
       nameGreek: s.nameGreek,
+      month: date.month,
+      day: date.day,
+    });
+  }
+  for (const sa of SAINTS) {
+    const date = parseFeastDate(sa.feast);
+    if (!date) continue;
+    out.push({
+      kind: 'saint',
+      slug: sa.slug,
+      feast: sa.feast,
+      name: sa.name,
+      nameGreek: sa.nameGreek ?? '',
       month: date.month,
       day: date.day,
     });

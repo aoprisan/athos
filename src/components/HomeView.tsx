@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { MapView } from './MapView';
 import { MONASTERIES, findMonastery } from '../data/monasteries';
 import { SETTLEMENTS } from '../data/settlements';
@@ -7,6 +7,7 @@ import { CrossFlourish, HaloMedallion } from './Ornaments';
 import { useI18n } from '../i18n';
 import { MONASTERIES_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
 import { regionLabel, traditionLabel } from '../i18n/strings';
+import { loadTrips } from '../lib/trips';
 
 interface Props {
   onNavigate: (view: View) => void;
@@ -36,6 +37,7 @@ export function HomeView({ onNavigate }: Props) {
   }, [showRegions]);
 
   const [ledePre, ledePost = ''] = t('home.lede').split('{diamonitirion}');
+  const tripCount = useMemo(() => loadTrips().length, []);
 
   return (
     <div>
@@ -47,6 +49,21 @@ export function HomeView({ onNavigate }: Props) {
           <em>Diamonitirion</em>
           {ledePost}
         </p>
+        {tripCount > 0 && (
+          <button
+            type="button"
+            className="home__trips-stat"
+            onClick={() => onNavigate({ kind: 'trips' })}
+          >
+            <span className="home__trips-stat-mark" aria-hidden="true">☩</span>
+            <span className="home__trips-stat-text">
+              {t(
+                tripCount === 1 ? 'home.tripsOnDevice' : 'home.tripsOnDevicePlural',
+                { n: tripCount },
+              )}
+            </span>
+          </button>
+        )}
         <CrossFlourish className="home__flourish" />
       </section>
 

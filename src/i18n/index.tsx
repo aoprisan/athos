@@ -15,7 +15,7 @@ export { LANGS } from './strings';
 const STORAGE_KEY = 'athos:lang';
 
 function isLang(value: unknown): value is Lang {
-  return value === 'en' || value === 'ro';
+  return value === 'en' || value === 'ro' || value === 'el';
 }
 
 function loadLang(): Lang {
@@ -27,7 +27,9 @@ function loadLang(): Lang {
     /* ignore */
   }
   const nav = typeof navigator !== 'undefined' ? navigator.language : '';
-  if (nav && nav.toLowerCase().startsWith('ro')) return 'ro';
+  const lc = nav.toLowerCase();
+  if (lc.startsWith('ro')) return 'ro';
+  if (lc.startsWith('el') || lc.startsWith('gr')) return 'el';
   return 'en';
 }
 

@@ -9,6 +9,8 @@
 
 import { MONASTERIES } from '../data/monasteries';
 import { SETTLEMENTS } from '../data/settlements';
+import { WALKING_PATHS } from '../data/paths';
+import { SAINTS } from '../data/saints';
 import { parseFeastDate } from './feasts';
 
 export interface DataIssue {
@@ -75,6 +77,43 @@ export function assertData(): DataIssue[] {
       issues.push({
         severity: 'warn',
         message: `Settlement "${s.slug}" patronalFeast does not parse: ${s.patronalFeast}`,
+      });
+    }
+  }
+
+  // Walking-path edges — both endpoints must resolve to a known slug.
+  for (const edge of WALKING_PATHS) {
+    for (const endpoint of [edge.a, edge.b]) {
+      if (!seenSlugs.has(endpoint)) {
+        issues.push({
+          severity: 'error',
+          message: `Walking path ${edge.a}↔${edge.b} references unknown slug "${endpoint}".`,
+        });
+      }
+    }
+  }
+
+  // Saints — duplicate slugs, unknown monastery refs, unparseable feasts.
+  const saintSlugs = new Set<string>();
+  for (const sa of SAINTS) {
+    if (saintSlugs.has(sa.slug)) {
+      issues.push({
+        severity: 'error',
+        message: `Duplicate saint slug "${sa.slug}".`,
+      });
+    } else {
+      saintSlugs.add(sa.slug);
+    }
+    if (sa.monastery && !monasterySlugs.has(sa.monastery)) {
+      issues.push({
+        severity: 'error',
+        message: `Saint "${sa.slug}" references unknown monastery "${sa.monastery}".`,
+      });
+    }
+    if (!/moveable/i.test(sa.feast) && parseFeastDate(sa.feast) === null) {
+      issues.push({
+        severity: 'warn',
+        message: `Saint "${sa.slug}" feast does not parse: ${sa.feast}`,
       });
     }
   }

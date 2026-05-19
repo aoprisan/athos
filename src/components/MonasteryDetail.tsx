@@ -1,7 +1,10 @@
 import { findMonastery } from '../data/monasteries';
+import { saintsForMonastery } from '../data/saints';
 import { MapView } from './MapView';
 import type { View } from '../types';
 import { CrossFlourish, DropCap, HaloMedallion } from './Ornaments';
+import { Horarium } from './Horarium';
+import { ArrivalCompass } from './ArrivalCompass';
 import { useI18n } from '../i18n';
 import { MONASTERIES_RO } from '../i18n/data-ro';
 import { regionLabel, traditionLabel } from '../i18n/strings';
@@ -128,6 +131,35 @@ export function MonasteryDetail({ slug, onNavigate }: Props) {
           </section>
         )}
 
+        <Horarium services={m.services} hasOverride={Boolean(m.services)} />
+
+        {(() => {
+          const saints = saintsForMonastery(m.slug);
+          if (saints.length === 0) return null;
+          return (
+            <section className="detail__saints">
+              <h2>{t('detail.saintsTitle')}</h2>
+              <ul className="detail__saints-list">
+                {saints.map((s) => (
+                  <li key={s.slug}>
+                    <button
+                      type="button"
+                      className="detail__saint-link"
+                      onClick={() => onNavigate({ kind: 'saint', slug: s.slug })}
+                    >
+                      <span className="detail__saint-mark" aria-hidden="true">☩</span>
+                      <span className="detail__saint-body">
+                        <span className="detail__saint-name">{s.name}</span>
+                        <span className="detail__saint-years">{s.years}</span>
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })()}
+
         {legends && legends.length > 0 && (
           <section className="detail__legends">
             <h2>{t('detail.legendsTitle')}</h2>
@@ -135,7 +167,10 @@ export function MonasteryDetail({ slug, onNavigate }: Props) {
               {legends.map((lg, i) => (
                 <li key={i} className="detail__legend">
                   <h3 className="detail__legend-title">{lg.title}</h3>
-                  <p className="detail__legend-desc">{lg.description}</p>
+                  <p className="detail__legend-desc">
+                    <DropCap>{lg.description.charAt(0)}</DropCap>
+                    {lg.description.slice(1)}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -163,6 +198,11 @@ export function MonasteryDetail({ slug, onNavigate }: Props) {
               {t('detail.openInMaps')}
             </button>
           </div>
+          <ArrivalCompass
+            destinationLat={m.lat}
+            destinationLng={m.lng}
+            destinationName={name}
+          />
         </section>
 
         {m.links.length > 0 && (

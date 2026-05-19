@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useState, type ReactElement } from 'react';
 import type { Trip, TripPlace, View } from '../types';
 import { MONASTERIES, findMonastery } from '../data/monasteries';
 import { SETTLEMENTS, findSettlement } from '../data/settlements';
@@ -8,10 +8,13 @@ import {
   formatTripDate,
   loadTrips,
   movePlace,
+  nextReservationStatus,
   regenerateDays,
   removePlace,
   removeTrip,
   saveTrips,
+  setPlaceNotes,
+  setPlaceReservation,
   touch,
   upsertTrip,
 } from '../lib/trips';
@@ -21,6 +24,8 @@ import { MONASTERIES_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
 import { openItineraryInMaps, type MapPoint } from '../lib/maps';
 import { getFeastsForDate, type FeastMatch } from '../lib/feasts';
 import { getFastForDate, type FastForDate } from '../lib/fasts';
+import { findPath, type WalkingEdge } from '../data/paths';
+import { buildShareUrl, downloadText, tripToIcal } from '../lib/tripShare';
 
 const TripItineraryMap = lazy(() => import('./TripItineraryMap'));
 
@@ -45,6 +50,41 @@ function decodePlaceOption(value: string): TripPlace | null {
     return { kind, slug };
   }
   return null;
+}
+
+function formatHours(minutes: number): string {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  if (h === 0) return `${m} min`;
+  if (m === 0) return `${h} h`;
+  return `${h} h ${String(m).padStart(2, '0')}`;
+}
+
+function WalkingLeg({ edge }: { edge: WalkingEdge }) {
+  const { t } = useI18n();
+  return (
+    <li className="trip-detail__leg" aria-label={t('walking.legAria')}>
+      <span className="trip-detail__leg-mark" aria-hidden="true">⤳</span>
+      <span className="trip-detail__leg-body">
+        <span className="trip-detail__leg-distance">
+          {edge.km.toFixed(1)} km · {formatHours(edge.minutes)}
+        </span>
+        <span
+          className={`trip-detail__leg-difficulty trip-detail__leg-difficulty--${edge.difficulty}`}
+        >
+          {t(`walking.difficulty.${edge.difficulty}`)}
+        </span>
+        {edge.ascentM > 0 && (
+          <span className="trip-detail__leg-ascent">
+            {t('walking.ascent', { m: edge.ascentM })}
+          </span>
+        )}
+        {edge.notes && (
+          <span className="trip-detail__leg-notes">{edge.notes}</span>
+        )}
+      </span>
+    </li>
+  );
 }
 
 function FastChip({ fast }: { fast: FastForDate }) {
@@ -92,6 +132,14 @@ export function TripDetail({ slug, onNavigate }: Props) {
         nameGreek: match.nameGreek,
         feast: m ? tr(m.patronalFeast, ro?.patronalFeast) : match.feast,
         view: { kind: 'monastery', slug: match.slug } as View,
+      };
+    }
+    if (match.kind === 'saint') {
+      return {
+        name: match.name,
+        nameGreek: match.nameGreek,
+        feast: match.feast,
+        view: { kind: 'saint', slug: match.slug } as View,
       };
     }
     const s = findSettlement(match.slug);
@@ -182,6 +230,35 @@ export function TripDetail({ slug, onNavigate }: Props) {
     onNavigate({ kind: 'trips' });
   };
 
+  const onShare = async () => {
+    const baseHref = window.location.href.split('#')[0];
+    const url = buildShareUrl(trip, baseHref);
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: trip.name, url });
+        return;
+      } catch {
+        /* fall through to clipboard */
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      window.alert(t('tripDetail.shareCopied'));
+    } catch {
+      window.prompt(t('tripDetail.sharePromptCopy'), url);
+    }
+  };
+
+  const onExportIcal = () => {
+    const baseHref = window.location.href.split('#')[0];
+    const ical = tripToIcal(trip, buildShareUrl(trip, baseHref));
+    downloadText(`${trip.slug}.ics`, ical, 'text/calendar');
+  };
+
+  const onPrint = () => {
+    if (typeof window !== 'undefined') window.print();
+  };
+
   const onAddPlace = (dayIndex: number, value: string) => {
     const place = decodePlaceOption(value);
     if (!place) return;
@@ -203,6 +280,26 @@ export function TripDetail({ slug, onNavigate }: Props) {
   ) => {
     const nextDays = trip.days.slice();
     nextDays[dayIndex] = movePlace(nextDays[dayIndex], placeIndex, direction);
+    update({ ...trip, days: nextDays });
+  };
+
+  const onCycleReservation = (dayIndex: number, placeIndex: number) => {
+    const current = trip.days[dayIndex].places[placeIndex].reservationStatus;
+    const nextDays = trip.days.slice();
+    nextDays[dayIndex] = setPlaceReservation(
+      nextDays[dayIndex],
+      placeIndex,
+      nextReservationStatus(current),
+    );
+    update({ ...trip, days: nextDays });
+  };
+
+  const onEditNotes = (dayIndex: number, placeIndex: number) => {
+    const current = trip.days[dayIndex].places[placeIndex].notes ?? '';
+    const input = window.prompt(t('tripDetail.notesPrompt'), current);
+    if (input === null) return;
+    const nextDays = trip.days.slice();
+    nextDays[dayIndex] = setPlaceNotes(nextDays[dayIndex], placeIndex, input);
     update({ ...trip, days: nextDays });
   };
 
@@ -263,6 +360,17 @@ export function TripDetail({ slug, onNavigate }: Props) {
               onClick={onDeleteTrip}
             >
               {t('tripDetail.deleteTrip')}
+            </button>
+          </div>
+          <div className="trip-detail__share-row">
+            <button type="button" onClick={onShare} className="trip-detail__share">
+              {t('tripDetail.share')}
+            </button>
+            <button type="button" onClick={onExportIcal} className="trip-detail__share">
+              {t('tripDetail.exportIcal')}
+            </button>
+            <button type="button" onClick={onPrint} className="trip-detail__share">
+              {t('tripDetail.print')}
             </button>
           </div>
         </header>
@@ -344,13 +452,24 @@ export function TripDetail({ slug, onNavigate }: Props) {
                 <p className="trip-detail__day-empty">{t('tripDetail.dayEmpty')}</p>
               ) : (
                 <ol className="trip-detail__places">
-                  {day.places.map((place, placeIndex) => {
+                  {day.places.flatMap((place, placeIndex) => {
                     const label = resolvePlace(place);
                     const unknownLabel =
                       place.kind === 'monastery'
                         ? t('tripDetail.unknownMonastery')
                         : t('tripDetail.unknownSettlement');
-                    return (
+                    const prior = placeIndex > 0 ? day.places[placeIndex - 1] : null;
+                    const leg = prior ? findPath(prior.slug, place.slug) : undefined;
+                    const items: ReactElement[] = [];
+                    if (leg) {
+                      items.push(
+                        <WalkingLeg
+                          key={`leg:${prior!.slug}:${place.slug}`}
+                          edge={leg}
+                        />,
+                      );
+                    }
+                    items.push(
                       <li
                         key={`${place.kind}:${place.slug}`}
                         className="trip-detail__place"
@@ -373,6 +492,39 @@ export function TripDetail({ slug, onNavigate }: Props) {
                           )}
                         </button>
                         <div className="trip-detail__place-actions">
+                          <button
+                            type="button"
+                            className={`trip-detail__pip trip-detail__pip--${place.reservationStatus ?? 'planned'}`}
+                            onClick={() =>
+                              onCycleReservation(dayIndex, placeIndex)
+                            }
+                            title={t(
+                              `tripDetail.reservation.${place.reservationStatus ?? 'planned'}`,
+                            )}
+                            aria-label={t('tripDetail.cycleReservation', {
+                              status: t(
+                                `tripDetail.reservation.${place.reservationStatus ?? 'planned'}`,
+                              ),
+                            })}
+                          >
+                            <span className="trip-detail__pip-mark" aria-hidden="true">●</span>
+                            <span className="trip-detail__pip-label">
+                              {t(
+                                `tripDetail.reservation.${place.reservationStatus ?? 'planned'}`,
+                              )}
+                            </span>
+                          </button>
+                          <button
+                            type="button"
+                            className="trip-detail__notes-btn"
+                            onClick={() =>
+                              onEditNotes(dayIndex, placeIndex)
+                            }
+                            title={place.notes || t('tripDetail.notesAdd')}
+                            aria-label={t('tripDetail.notesAria')}
+                          >
+                            {place.notes ? '✎' : '+'}
+                          </button>
                           <button
                             type="button"
                             onClick={() =>
@@ -403,8 +555,14 @@ export function TripDetail({ slug, onNavigate }: Props) {
                             {t('tripDetail.remove')}
                           </button>
                         </div>
-                      </li>
+                        {place.notes && (
+                          <p className="trip-detail__place-notes">
+                            {place.notes}
+                          </p>
+                        )}
+                      </li>,
                     );
+                    return items;
                   })}
                 </ol>
               )}

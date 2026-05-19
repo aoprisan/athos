@@ -6,6 +6,9 @@ import {
   addPlace,
   removePlace,
   movePlace,
+  nextReservationStatus,
+  setPlaceReservation,
+  setPlaceNotes,
 } from './trips';
 import type { TripDay, TripPlace } from '../types';
 import type { SuggestedItinerary } from '../data/suggested-itineraries';
@@ -171,5 +174,28 @@ describe('addPlace / removePlace / movePlace', () => {
     const day = { date: 'd', places: [iviron, vatopedi] };
     expect(movePlace(day, 0, -1)).toBe(day);
     expect(movePlace(day, 1, 1)).toBe(day);
+  });
+});
+
+describe('reservation status helpers', () => {
+  const day = { date: 'd', places: [{ kind: 'monastery' as const, slug: 'iviron' }] };
+
+  it('cycles planned → contacted → confirmed → planned', () => {
+    expect(nextReservationStatus(undefined)).toBe('contacted');
+    expect(nextReservationStatus('planned')).toBe('contacted');
+    expect(nextReservationStatus('contacted')).toBe('confirmed');
+    expect(nextReservationStatus('confirmed')).toBe('planned');
+  });
+
+  it('setPlaceReservation updates the indexed place only', () => {
+    const next = setPlaceReservation(day, 0, 'confirmed');
+    expect(next.places[0].reservationStatus).toBe('confirmed');
+  });
+
+  it('setPlaceNotes trims whitespace and removes the field on empty input', () => {
+    const with_ = setPlaceNotes(day, 0, '  Called yesterday  ');
+    expect(with_.places[0].notes).toBe('Called yesterday');
+    const cleared = setPlaceNotes(with_, 0, '   ');
+    expect('notes' in cleared.places[0]).toBe(false);
   });
 });

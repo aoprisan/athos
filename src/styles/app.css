@@ -29,6 +29,100 @@
   z-index: 0;
 }
 
+/* ───────── Saint of the day strip — a synaxarion line ─────────
+   A vellum ribbon below the iconostasis carrying today's commemoration.
+   The mark is gold-leaf, the date in iron-gall mono, the saint's name in
+   italic Greek as it would be read in choir. */
+.today-band {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.7rem;
+  width: 100%;
+  background:
+    var(--parchment-grain),
+    linear-gradient(180deg, var(--vellum) 0%, var(--parchment-warm) 100%);
+  color: var(--ink);
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-bottom: 1px solid var(--gold-deep);
+  box-shadow: inset 0 -1px 0 var(--rule-soft);
+  font: inherit;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  transition: background 200ms ease;
+}
+.today-band:hover {
+  background:
+    var(--parchment-grain),
+    linear-gradient(180deg, var(--ivory) 0%, var(--vellum) 100%);
+}
+.today-band__mark {
+  color: var(--gold-deep);
+  font-size: 1.05em;
+  line-height: 1;
+  text-shadow: 0 0 6px var(--gold-shadow);
+}
+.today-band__label {
+  font-family: var(--font-title);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.today-band__date {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+.today-band__sep { color: var(--gold); font-weight: 700; }
+.today-band__name {
+  font-family: var(--font-greek);
+  font-style: italic;
+  font-size: 1.02rem;
+  color: var(--oxblood);
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 480px) {
+  .today-band { flex-wrap: wrap; gap: 0.35rem 0.55rem; padding: 0.4rem 0.7rem; }
+  .today-band__name { font-size: 0.94rem; }
+}
+
+/* ───────── Offline indicator — porphyry band ───────── */
+.offline-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.9rem;
+  background:
+    linear-gradient(180deg, var(--oxblood) 0%, var(--oxblood-deep) 100%);
+  color: var(--parchment);
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  border-top: 1px solid rgba(245, 224, 142, 0.25);
+  border-bottom: 1px solid var(--gold-deep);
+  box-shadow:
+    inset 0 1px 0 rgba(245, 224, 142, 0.18),
+    inset 0 -8px 18px -10px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+}
+.offline-banner__mark {
+  color: var(--gold-bright);
+  font-size: 1.1em;
+  line-height: 1;
+  text-shadow: 0 0 8px rgba(245, 224, 142, 0.5);
+}
+
 /* ───────── Header — iconostasis ───────── */
 
 .header {
@@ -330,6 +424,39 @@
   line-height: 1.55;
 }
 .home__lede em { color: var(--gold-bright); font-style: italic; }
+
+/* A small porphyry-style chip linking back to the user's saved trips. */
+.home__trips-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 1.4rem auto 0;
+  padding: 0.55em 1.2em;
+  background: linear-gradient(180deg, var(--imperial) 0%, var(--oxblood-deep) 100%);
+  border: 1px solid var(--gold-deep);
+  box-shadow:
+    inset 0 0 0 1px rgba(245, 224, 142, 0.2),
+    inset 0 1px 0 rgba(245, 224, 142, 0.18),
+    0 1px 0 rgba(0, 0, 0, 0.4);
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  cursor: pointer;
+  transition: filter 160ms ease, transform 160ms ease;
+}
+.home__trips-stat:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+.home__trips-stat-mark {
+  color: var(--gold);
+  font-size: 1.1em;
+  line-height: 1;
+  text-shadow: 0 0 8px var(--gold-shadow);
+}
 
 .home__flourish {
   color: var(--gold);
@@ -1151,6 +1278,677 @@
   }
 }
 
+/* ─── Saints index & detail ─── */
+.saints {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+.saints__header { text-align: center; }
+.saints__list {
+  list-style: none;
+  margin: 2.4rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+.saints__item {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  gap: 0 1rem;
+  align-items: center;
+  width: 100%;
+  background:
+    var(--parchment-grain),
+    linear-gradient(180deg, var(--vellum) 0%, var(--parchment) 100%);
+  border: 1px solid var(--gold-deep);
+  box-shadow:
+    inset 0 0 0 1px var(--rule),
+    0 1px 0 var(--gold-deep);
+  padding: 0.85rem 1.1rem;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+.saints__item:hover {
+  background:
+    var(--parchment-grain),
+    linear-gradient(180deg, var(--ivory) 0%, var(--vellum) 100%);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 0 0 1px var(--rule),
+    0 2px 0 var(--gold-deep),
+    0 8px 18px -10px rgba(31, 20, 8, 0.4);
+}
+.saints__item-nimbus {
+  width: 2.6rem;
+  height: 2.6rem;
+  display: block;
+  grid-row: span 2;
+}
+.saints__item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+.saints__item-name {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.saints__item-greek {
+  font-family: var(--font-greek);
+  font-style: italic;
+  font-size: 1.02rem;
+  color: var(--oxblood);
+  letter-spacing: 0.01em;
+}
+.saints__item-years {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  align-self: center;
+}
+
+.saint__nimbus {
+  display: block;
+  width: 5.4rem;
+  height: 5.4rem;
+  margin: -0.2rem auto 0.8rem;
+  filter: drop-shadow(0 0 18px var(--gold-shadow));
+}
+.saint__house-link {
+  font: inherit;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--lapis);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-color: var(--gold-deep);
+  cursor: pointer;
+}
+.saint__house-link:hover { color: var(--oxblood); }
+
+.detail__saints {
+  margin: 1.8rem auto 0;
+  max-width: 32rem;
+}
+.detail__saints > h2 {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  text-align: center;
+  margin: 0 0 1rem;
+  padding-bottom: 0.45rem;
+  position: relative;
+}
+.detail__saints > h2::after {
+  content: "❖";
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: -0.15em;
+  transform: translateX(-50%);
+  color: var(--gold);
+  font-size: 0.7rem;
+  background: var(--vellum);
+  padding: 0 0.4em;
+}
+.detail__saints-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.detail__saint-link {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.6rem;
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 0.55em 0.8em;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+.detail__saint-link:hover {
+  background: rgba(214, 173, 50, 0.14);
+  border-color: var(--gold-deep);
+}
+.detail__saint-mark {
+  color: var(--gold-deep);
+  font-size: 1.05rem;
+  line-height: 1;
+}
+.detail__saint-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  min-width: 0;
+}
+.detail__saint-name {
+  font-family: var(--font-title);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.detail__saint-years {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+/* ─── Founders timeline (kataloghion) ───
+   A parchment ribbon strung across the page with a Greek-key meander at
+   top and bottom. Each monastery is a haloed medallion held by a slender
+   gold stem; pins alternate above and below the band to give the eye the
+   feel of a Byzantine *kataloghion* rather than a modern infographic. */
+.timeline-view {
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 2.4rem 1rem 3.5rem;
+}
+.timeline-view__header { text-align: center; }
+.timeline {
+  margin-top: 2.6rem;
+  position: relative;
+  background:
+    var(--parchment-grain),
+    linear-gradient(180deg, var(--vellum) 0%, var(--parchment) 60%, var(--parchment-warm) 100%);
+  border: 1px solid var(--gold-deep);
+  box-shadow:
+    inset 0 0 0 1px var(--rule),
+    inset 0 0 40px rgba(214, 173, 50, 0.10),
+    0 2px 0 var(--gold-deep),
+    0 20px 50px -28px rgba(31, 20, 8, 0.55);
+  padding: 2.2rem 1.5rem 2.6rem;
+  overflow: hidden;
+}
+.timeline::before,
+.timeline::after {
+  content: "";
+  position: absolute;
+  left: 1.2rem;
+  right: 1.2rem;
+  height: 14px;
+  background-image: var(--greek-key);
+  background-repeat: repeat-x;
+  background-size: auto 14px;
+  opacity: 0.9;
+}
+.timeline::before { top: 0.55rem; }
+.timeline::after { bottom: 0.55rem; transform: rotate(180deg); }
+.timeline__band {
+  position: relative;
+  height: 22rem;
+  margin: 4.5rem 1.4rem 4.5rem;
+}
+.timeline__rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 6px;
+  margin-top: -3px;
+  background:
+    linear-gradient(180deg,
+      var(--gold-deep) 0%,
+      var(--gold-bright) 40%,
+      var(--gold) 60%,
+      var(--gold-deep) 100%);
+  border-top: 1px solid var(--gold-deep);
+  border-bottom: 1px solid var(--gold-deep);
+  box-shadow:
+    0 0 12px rgba(214, 173, 50, 0.5),
+    inset 0 1px 0 rgba(255, 249, 217, 0.5);
+}
+.timeline__century {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.timeline__tick {
+  display: block;
+  width: 1px;
+  height: 28px;
+  background: var(--ink);
+  margin-top: -14px;
+  opacity: 0.55;
+}
+.timeline__century-label {
+  display: block;
+  margin-top: 1.1rem;
+  font-family: var(--font-greek);
+  font-style: italic;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.timeline__pin {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  width: 6rem;
+  transform: translate(-50%, 0);
+}
+.timeline__pin--up   { transform: translate(-50%, -100%); }
+.timeline__pin--down { flex-direction: column-reverse; }
+.timeline__pin-tick {
+  width: 1px;
+  height: 8px;
+  background: var(--gold-deep);
+  display: block;
+}
+.timeline__pin-stem {
+  width: 1px;
+  height: 4.2rem;
+  background: var(--gold-deep);
+  opacity: 0.85;
+  display: block;
+}
+.timeline__pin-halo {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: block;
+  filter: drop-shadow(0 0 8px var(--gold-shadow));
+  transition: transform 220ms ease, filter 220ms ease;
+}
+.timeline__pin-card {
+  margin-top: 0.45rem;
+  background:
+    linear-gradient(180deg, var(--vellum) 0%, var(--parchment) 100%);
+  border: 1px solid var(--gold-deep);
+  padding: 0.35em 0.7em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 5.4rem;
+  box-shadow:
+    inset 0 0 0 1px var(--rule-soft),
+    0 1px 0 var(--gold-deep),
+    0 4px 10px -6px rgba(31, 20, 8, 0.4);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+.timeline__pin--down .timeline__pin-card { margin-top: 0; margin-bottom: 0.45rem; }
+.timeline__pin:hover .timeline__pin-halo,
+.timeline__pin:focus-visible .timeline__pin-halo {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 14px rgba(245, 224, 142, 0.7));
+}
+.timeline__pin:hover .timeline__pin-card,
+.timeline__pin:focus-visible .timeline__pin-card {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 0 0 1px var(--gold),
+    0 2px 0 var(--gold-deep),
+    0 10px 18px -10px rgba(31, 20, 8, 0.5);
+}
+.timeline__pin:focus-visible {
+  outline: none;
+}
+.timeline__pin-name {
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.2;
+}
+.timeline__pin-year {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-top: 1px;
+}
+.timeline__hint {
+  margin: 1.4rem 0 0;
+  text-align: center;
+  font-family: var(--font-greek);
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 700px) {
+  .timeline { padding: 2rem 0.5rem 2.4rem; }
+  .timeline__band {
+    height: 26rem;
+    margin: 3.5rem 0.4rem 3rem;
+  }
+  .timeline__pin { width: 4.6rem; margin-left: -2.3rem; }
+  .timeline__pin-card { min-width: 4rem; padding: 0.3em 0.5em; }
+  .timeline__pin-name { font-size: 0.65rem; letter-spacing: 0.1em; }
+  .timeline__pin-stem { height: 3.4rem; }
+}
+
+/* ─── Arrival compass ─── */
+.compass {
+  margin: 1.4rem auto 0;
+  max-width: 28rem;
+  padding: 1.1rem 1.3rem 1.2rem;
+  background:
+    var(--parchment-grain),
+    linear-gradient(180deg, var(--vellum) 0%, var(--parchment-warm) 100%);
+  border: 1px solid var(--gold-deep);
+  border-radius: var(--radius);
+  box-shadow:
+    inset 0 0 0 1px var(--rule),
+    inset 0 0 24px rgba(214, 173, 50, 0.10),
+    0 1px 0 var(--gold-deep);
+  position: relative;
+}
+.compass::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+}
+.compass--idle,
+.compass--error {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.compass__intro {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  color: var(--ink);
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+.compass__intro-mark {
+  color: var(--gold-deep);
+  font-size: 1.5em;
+  line-height: 1;
+}
+.compass__request {
+  font: inherit;
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--gold-deep);
+  box-shadow: inset 0 0 0 1px var(--rule-soft);
+  padding: 0.55em 1.4em;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+.compass__request:hover:not(:disabled) {
+  background: var(--gold);
+  color: var(--lapis-deep);
+}
+.compass__request:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.compass__error {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--oxblood);
+  font-style: italic;
+}
+.compass--ready {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+.compass__rose {
+  width: 7rem;
+  height: 7rem;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(31, 20, 8, 0.35));
+}
+.compass__readout { min-width: 0; }
+.compass__primary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.compass__distance {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.compass__cardinal {
+  font-family: var(--font-title);
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.compass__secondary {
+  margin-top: 0.25rem;
+  font-family: var(--font-greek);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.compass__caption {
+  margin-top: 0.55rem;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--ink);
+  border-top: 1px solid var(--rule);
+  padding-top: 0.5rem;
+}
+.compass--nearby .compass__distance { color: var(--oxblood); }
+
+@media (max-width: 480px) {
+  .compass--ready {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+/* ─── Horarium (daily akolouthia) ───
+   Styled as a *programma* poster: parchment with a gold rule at top and
+   bottom, the title in display caps, services laid out in a Greek-key
+   stratigraphy of time / Latin name / Greek epithet. */
+.horarium {
+  margin: 2.4rem auto 1.8rem;
+  max-width: 34rem;
+  padding: 1.6rem 1.8rem 1.4rem;
+  background:
+    var(--parchment-grain),
+    linear-gradient(180deg, var(--vellum) 0%, var(--parchment) 100%);
+  border: 1px solid var(--gold-deep);
+  position: relative;
+  box-shadow:
+    inset 0 0 0 1px var(--rule),
+    inset 0 0 32px rgba(214, 173, 50, 0.08),
+    0 2px 0 var(--gold-deep),
+    0 14px 30px -18px rgba(31, 20, 8, 0.4);
+}
+.horarium::before,
+.horarium::after {
+  content: "";
+  position: absolute;
+  left: 1.4rem;
+  right: 1.4rem;
+  height: 14px;
+  background-image: var(--greek-key);
+  background-repeat: repeat-x;
+  background-size: auto 14px;
+  opacity: 0.85;
+  pointer-events: none;
+}
+.horarium::before { top: 0.5rem; }
+.horarium::after { bottom: 0.5rem; transform: rotate(180deg); }
+
+.horarium > h2 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  text-align: center;
+  margin: 0.9rem 0 1.2rem;
+  padding: 0 0 0.55rem;
+  position: relative;
+}
+.horarium > h2::after {
+  content: "☩";
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: -0.45em;
+  transform: translateX(-50%);
+  color: var(--gold);
+  background: var(--vellum);
+  padding: 0 0.4em;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.horarium__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  grid-template-columns: auto 1fr;
+  align-items: stretch;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.horarium__row {
+  display: contents;
+}
+.horarium__row > * {
+  padding: 0.55rem 0.4rem;
+  border-bottom: 1px dotted var(--rule);
+}
+.horarium__row:last-child > * {
+  border-bottom: 0;
+}
+.horarium__time {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  text-align: right;
+  padding-right: 1rem;
+  border-right: 1px solid var(--gold-deep);
+  min-width: 4.8rem;
+  align-self: center;
+}
+.horarium__service {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 1rem;
+  padding-left: 1rem;
+  align-self: center;
+}
+.horarium__service-name {
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.horarium__service-greek {
+  font-family: var(--font-greek);
+  font-style: italic;
+  font-size: 1.08rem;
+  color: var(--oxblood);
+  letter-spacing: 0.01em;
+}
+.horarium__note {
+  margin: 1.1rem 0 0;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  font-style: italic;
+  text-align: center;
+}
+.horarium__overrides {
+  list-style: none;
+  margin: 0.8rem 0 0;
+  padding: 0.7rem 0 0;
+  border-top: 1px dotted var(--rule);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.horarium__overrides li {
+  margin: 0.3rem 0;
+  padding-left: 1.2rem;
+  position: relative;
+}
+.horarium__overrides li::before {
+  content: "☩";
+  position: absolute;
+  left: 0;
+  color: var(--gold-deep);
+  font-size: 0.78rem;
+  top: 0.1em;
+}
+
+@media (max-width: 480px) {
+  .horarium { padding: 1.3rem 1.1rem 1.1rem; }
+  .horarium__time { font-size: 1rem; min-width: 3.8rem; padding-right: 0.7rem; }
+  .horarium__service { padding-left: 0.7rem; }
+  .horarium__service-greek { font-size: 1rem; }
+}
+
 .detail__coords {
   font-family: var(--font-mono);
   color: var(--ink-soft);
@@ -1814,6 +2612,123 @@
   margin-right: 0;
 }
 
+.trip-detail__share-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+.trip-detail__share {
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--vellum);
+  border: 1px solid var(--gold-deep);
+  box-shadow: inset 0 0 0 1px var(--rule-soft);
+  padding: 0.5em 1.2em;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+.trip-detail__share:hover {
+  background: var(--gold);
+  color: var(--lapis-deep);
+}
+
+.trip-import { text-align: center; }
+.trip-import__summary {
+  list-style: none;
+  margin: 1.4rem auto;
+  padding: 1rem 1.2rem;
+  max-width: 24rem;
+  text-align: left;
+  display: grid;
+  gap: 0.5rem;
+  background:
+    var(--parchment-grain),
+    var(--vellum);
+  border: 1px solid var(--gold-deep);
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+.trip-import__summary li {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+}
+.trip-import__summary strong {
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-right: 0.5em;
+}
+.trip-import__actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 1.2rem;
+}
+.trip-import__actions button {
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background: var(--vellum);
+  border: 1px solid var(--gold-deep);
+  color: var(--ink);
+  padding: 0.55em 1.4em;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+.trip-import__actions button:hover { background: var(--gold); color: var(--lapis-deep); }
+.trip-import__confirm {
+  background: var(--oxblood) !important;
+  color: var(--parchment) !important;
+  border-color: var(--oxblood-deep) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(245, 224, 142, 0.4),
+    0 1px 0 var(--oxblood-deep),
+    0 6px 16px -8px rgba(74, 15, 26, 0.6);
+}
+.trip-import__confirm:hover {
+  background: var(--garnet) !important;
+  color: var(--ivory) !important;
+}
+.trip-import__hint {
+  margin-top: 0.9rem;
+  font-family: var(--font-greek);
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+@media print {
+  .header, .footer, .offline-banner, .lang-toggle, .nav__item,
+  .trip-detail__share-row, .trip-detail__delete, .trip-detail__rename,
+  .trip-detail__place-actions, .trip-detail__add-place, .trip-detail__map,
+  .detail__back, .home__regions-toggle, .home__map {
+    display: none !important;
+  }
+  body, .app, .parchment, .layout {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  .trip-detail__day {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
 .trip-detail__map {
   margin-top: 1.6rem;
 }
@@ -1998,7 +2913,168 @@
 }
 .trip-detail__place-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.3rem;
+  align-items: center;
+}
+/* Wax-seal style status pip. The marker is a small circular disc with a
+   contrasting rim that reads like an imperial seal on a folded letter. */
+.trip-detail__pip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.32em 0.7em 0.32em 0.45em;
+  border: 1px solid var(--gold-deep);
+  background: var(--vellum);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease, box-shadow 140ms ease;
+}
+.trip-detail__pip-mark {
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  font-size: 1em;
+  line-height: 0;
+  display: inline-block;
+  background: currentColor;
+  box-shadow:
+    inset 0 0 0 2px var(--vellum),
+    inset 0 0 0 3px currentColor;
+}
+.trip-detail__pip-label { display: inline-block; }
+.trip-detail__pip--planned   { color: var(--ink-mute); }
+.trip-detail__pip--contacted {
+  color: var(--gold-deep);
+  background: rgba(214, 173, 50, 0.18);
+  box-shadow: inset 0 0 0 1px var(--gold);
+}
+.trip-detail__pip--confirmed {
+  color: var(--oxblood);
+  background: rgba(123, 31, 44, 0.10);
+  box-shadow: inset 0 0 0 1px var(--oxblood);
+}
+.trip-detail__pip:hover { background: var(--ivory); }
+
+.trip-detail__notes-btn {
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0;
+  background: var(--vellum);
+  border: 1px solid var(--gold-deep);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 140ms ease;
+}
+.trip-detail__notes-btn:hover { background: var(--gold); color: var(--lapis-deep); }
+
+.trip-detail__place-notes {
+  grid-column: 1 / -1;
+  margin: 0.5rem 0 0 1.4em;
+  padding: 0.55em 0.9em;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--ink);
+  background:
+    var(--parchment-grain),
+    var(--vellum);
+  border-left: 2px solid var(--gold-deep);
+  position: relative;
+}
+.trip-detail__place-notes::before {
+  content: "❝";
+  position: absolute;
+  left: 0.3em;
+  top: -0.1em;
+  font-size: 1.4em;
+  color: var(--gold-deep);
+  line-height: 1;
+  opacity: 0.5;
+}
+/* A walking-leg between two consecutive places: drawn as a stadia line of
+   stones laid between milestones. The left rail is a stone-laid path of
+   alternating dots; the leg sits in the rhythm of the place items. */
+.trip-detail__leg {
+  list-style: none;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.65rem;
+  align-items: start;
+  padding: 0.5rem 0.6rem 0.5rem 0.55rem;
+  margin: 0.1rem 0 0.1rem 0.6em;
+  background:
+    linear-gradient(to bottom,
+      transparent 0,
+      transparent 0.35rem,
+      var(--gold-deep) 0.35rem,
+      var(--gold-deep) calc(100% - 0.35rem),
+      transparent calc(100% - 0.35rem),
+      transparent 100%) no-repeat left center / 2px 100%;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+.trip-detail__leg-mark {
+  font-family: var(--font-display);
+  color: var(--gold-deep);
+  font-size: 1.15em;
+  line-height: 1;
+  padding: 0.3em 0.55em 0.25em;
+  background: var(--vellum);
+  border: 1px solid var(--gold-deep);
+  border-radius: 50%;
+  margin-left: -0.65em;
+  z-index: 1;
+}
+.trip-detail__leg-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.8rem;
+  padding-top: 0.2rem;
+}
+.trip-detail__leg-distance {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+}
+.trip-detail__leg-difficulty {
+  font-family: var(--font-title);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.18em 0.65em;
+  border: 1px solid currentColor;
+  background: var(--vellum);
+}
+.trip-detail__leg-difficulty--easy { color: #3f6b3a; }
+.trip-detail__leg-difficulty--medium { color: var(--gold-deep); }
+.trip-detail__leg-difficulty--strenuous { color: var(--oxblood); }
+.trip-detail__leg-ascent {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+.trip-detail__leg-notes {
+  flex-basis: 100%;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ink);
+  margin-top: 0.15rem;
 }
 .trip-detail__place-actions button {
   font-family: var(--font-title, serif);

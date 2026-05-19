@@ -173,6 +173,49 @@ export function DropCap({ children }: { children: string }) {
   return <span className="drop-cap">{children}</span>;
 }
 
+export function SaintNimbus({ className }: { className?: string }) {
+  // Saint's nimbus — a gilded disc with a tau cross at the centre and the
+  // ray burst of a Byzantine halo. The cross arms are inscribed with the
+  // three letters Ὁ Ὤ Ν as on icons of Christ; we leave them blank for
+  // generic saints so it reads as a halo, not as the Pantokrator.
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 80 80"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <radialGradient id="nimbus-fill" cx="0.5" cy="0.45" r="0.6">
+          <stop offset="0%" stopColor="#fff9d9" />
+          <stop offset="55%" stopColor="#d6ad32" />
+          <stop offset="100%" stopColor="#7a5b12" />
+        </radialGradient>
+      </defs>
+      <circle cx="40" cy="40" r="36" fill="url(#nimbus-fill)" stroke="#1f1408" strokeWidth="1" />
+      <circle cx="40" cy="40" r="31" fill="none" stroke="#6f4f0e" strokeWidth="0.6" opacity="0.6" />
+      {/* incised ray burst */}
+      <g stroke="#6f4f0e" strokeWidth="0.55" opacity="0.55">
+        {Array.from({ length: 36 }).map((_, i) => {
+          const a = (i / 36) * Math.PI * 2;
+          const x1 = 40 + Math.cos(a) * 23;
+          const y1 = 40 + Math.sin(a) * 23;
+          const x2 = 40 + Math.cos(a) * 34;
+          const y2 = 40 + Math.sin(a) * 34;
+          return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} />;
+        })}
+      </g>
+      {/* tau cross at centre */}
+      <g stroke="#1f1408" strokeWidth="1.6" strokeLinecap="square" fill="none">
+        <line x1="40" y1="20" x2="40" y2="58" />
+        <line x1="26" y1="28" x2="54" y2="28" />
+        <line x1="22" y1="36" x2="58" y2="36" />
+        <line x1="28" y1="50" x2="52" y2="48" />
+      </g>
+    </svg>
+  );
+}
+
 export function GreekKeyDivider({ className }: { className?: string }) {
   // Decorative ruled divider drawn from the --greek-key data-URI tile.
   return <div className={`greek-key-divider ${className ?? ''}`} aria-hidden="true" />;

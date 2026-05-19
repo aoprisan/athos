@@ -1,0 +1,24 @@
+{
+  "name": "Athos Pilgrim",
+  "short_name": "Athos",
+  "description": "A practical guide for pilgrims to Mount Athos: monasteries, the Diamonitirion, ferries, walking paths, and trip planning.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a1330",
+  "theme_color": "#0a1330",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/theotokos.jpg",
+      "type": "image/jpeg",
+      "sizes": "512x512"
+    }
+  ]
+}
