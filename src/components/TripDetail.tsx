@@ -19,6 +19,7 @@ import { CrossFlourish } from './Ornaments';
 import { useI18n } from '../i18n';
 import { MONASTERIES_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
 import { openItineraryInMaps, type MapPoint } from '../lib/maps';
+import { getFeastsForDate, type FeastMatch } from '../lib/feasts';
 
 const TripItineraryMap = lazy(() => import('./TripItineraryMap'));
 
@@ -53,6 +54,30 @@ export function TripDetail({ slug, onNavigate }: Props) {
   useEffect(() => {
     saveTrips(trips);
   }, [trips]);
+
+  const resolveFeast = (match: FeastMatch) => {
+    if (match.kind === 'monastery') {
+      const m = findMonastery(match.slug);
+      const ro = MONASTERIES_RO[match.slug];
+      return {
+        name: m ? tr(m.name, ro?.name) : match.name,
+        nameGreek: match.nameGreek,
+        feast: m ? tr(m.patronalFeast, ro?.patronalFeast) : match.feast,
+        view: { kind: 'monastery', slug: match.slug } as View,
+      };
+    }
+    const s = findSettlement(match.slug);
+    const ro = SETTLEMENTS_RO[match.slug];
+    return {
+      name: s ? tr(s.name, ro?.name) : match.name,
+      nameGreek: match.nameGreek,
+      feast:
+        s && s.patronalFeast
+          ? tr(s.patronalFeast, ro?.patronalFeast)
+          : match.feast,
+      view: { kind: 'settlement', slug: match.slug } as View,
+    };
+  };
 
   const resolvePlace = (place: TripPlace): PlaceLabel | null => {
     if (place.kind === 'monastery') {
@@ -242,7 +267,9 @@ export function TripDetail({ slug, onNavigate }: Props) {
         </section>
 
         <section className="trip-detail__days">
-          {trip.days.map((day, dayIndex) => (
+          {trip.days.map((day, dayIndex) => {
+            const feasts = getFeastsForDate(day.date);
+            return (
             <div key={day.date} className="trip-detail__day">
               <h2 className="trip-detail__day-title">
                 {t('tripDetail.dayN', { n: dayIndex + 1 })}
@@ -250,6 +277,39 @@ export function TripDetail({ slug, onNavigate }: Props) {
                   {formatTripDate(day.date, lang)}
                 </span>
               </h2>
+              {feasts.length > 0 && (
+                <div className="trip-detail__feasts">
+                  <span className="trip-detail__feasts-label" aria-hidden="true">
+                    ☩
+                  </span>
+                  <div className="trip-detail__feasts-body">
+                    <span className="trip-detail__feasts-heading">
+                      {t('tripDetail.feastToday')}
+                    </span>
+                    <ul className="trip-detail__feasts-list">
+                      {feasts.map((f) => {
+                        const r = resolveFeast(f);
+                        return (
+                          <li key={`${f.kind}:${f.slug}`}>
+                            <button
+                              type="button"
+                              className="trip-detail__feast-link"
+                              onClick={() => onNavigate(r.view)}
+                            >
+                              <span className="trip-detail__feast-name">
+                                {r.name}
+                              </span>
+                              <span className="trip-detail__feast-feast">
+                                {r.feast}
+                              </span>
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              )}
               {day.places.length === 0 ? (
                 <p className="trip-detail__day-empty">{t('tripDetail.dayEmpty')}</p>
               ) : (
@@ -368,7 +428,8 @@ export function TripDetail({ slug, onNavigate }: Props) {
                 </label>
               </div>
             </div>
-          ))}
+            );
+          })}
         </section>
       </div>
     </article>

@@ -37,6 +37,7 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'map.portolano': 'Portolano',
     'map.topographic': 'Topographic',
     'map.loadingTopo': 'Loading topographic map…',
+    'map.showSketes': 'Show sketes & hermitages',
     'map.medievalAria':
       'Painted Byzantine map of Mount Athos and the twenty ruling monasteries, with the Theotokos and two angels in the sky band above',
 
@@ -77,6 +78,25 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'getting.stepsTitle': 'Step by step',
     'getting.portsTitle': 'Ports',
     'getting.seeTimetable': 'See ferry timetable',
+    'getting.feesTitle': 'Issuance fee',
+    'getting.feeOrthodox': 'Orthodox pilgrim',
+    'getting.feeNonOrthodox': 'Non-Orthodox pilgrim',
+    'getting.feeStudent': 'Student (with ID)',
+    'getting.feeNote':
+      'Indicative range — verify the exact amount at reservation. Cash in euros is expected at the Ouranoupoli booth.',
+    'getting.leadTimeTitle': 'How early to book',
+    'getting.leadTimeSeason': 'Season',
+    'getting.leadTimeMonths': 'Months',
+    'getting.leadTimeAdvance': 'Book',
+    'getting.checklistTitle': 'Pilgrim checklist',
+    'getting.checklistSubtitle': 'Saved on this device only.',
+    'getting.checklistReset': 'Reset checklist',
+    'getting.checklistConfirmReset':
+      'Reset the entire checklist? All ticked items will be cleared.',
+    'getting.checklistProgress': '{done} of {total} ready',
+    'getting.checklistSection.documents': 'Documents & money',
+    'getting.checklistSection.clothing': 'Clothing',
+    'getting.checklistSection.practical': 'Practical kit',
 
     'ferry.eyebrow': "δι' ὕδατος · by way of water",
     'ferry.title': 'Ferry Routes & Timetable',
@@ -111,6 +131,16 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'trips.delete': 'Delete',
     'trips.deleteAriaLabel': 'Delete trip {name}',
     'trips.confirmDelete': 'Delete trip "{name}"? This cannot be undone.',
+    'trips.templatesTitle': 'Suggested itineraries',
+    'trips.templatesSubtitle':
+      'Pre-built routes you can clone into your trips list and edit freely.',
+    'trips.templateDuration': '{n} days',
+    'trips.templateUse': 'Use this itinerary',
+    'trips.templateStartDate': 'Start date',
+    'trips.templateConfirm': 'Create trip',
+    'trips.templateCancel': 'Cancel',
+    'trips.templateStops': '{n} stops',
+    'trips.templateDay': 'Day {n}',
 
     'tripDetail.rename': 'Rename',
     'tripDetail.renameAriaLabel': 'Rename trip',
@@ -136,6 +166,7 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'tripDetail.sketesHermitages': 'Sketes & hermitages',
     'tripDetail.alertStartAfterEnd': 'Start date must be on or before the end date.',
     'tripDetail.alertEndBeforeStart': 'End date must be on or after the start date.',
+    'tripDetail.feastToday': 'Patronal feast today',
 
     'tripMap.empty': "Add places to a day below and they'll appear on the map.",
     'tripMap.legendAria': 'Map legend',
@@ -183,6 +214,7 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'map.portolano': 'Portulan',
     'map.topographic': 'Topografică',
     'map.loadingTopo': 'Se încarcă harta topografică…',
+    'map.showSketes': 'Arată schiturile și sihăstriile',
     'map.medievalAria':
       'Hartă bizantină pictată a Sfântului Munte Athos și a celor douăzeci de mănăstiri conducătoare, cu Maica Domnului și doi îngeri în brâul de cer de deasupra',
 
@@ -223,6 +255,25 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'getting.stepsTitle': 'Pas cu pas',
     'getting.portsTitle': 'Porturi',
     'getting.seeTimetable': 'Vezi orarul feriboturilor',
+    'getting.feesTitle': 'Taxa de eliberare',
+    'getting.feeOrthodox': 'Pelerin ortodox',
+    'getting.feeNonOrthodox': 'Pelerin neortodox',
+    'getting.feeStudent': 'Student (cu legitimație)',
+    'getting.feeNote':
+      'Sume orientative — verifică suma exactă la rezervare. La cabina din Ouranoupoli se așteaptă plata în numerar, în euro.',
+    'getting.leadTimeTitle': 'Cu cât timp înainte să rezervi',
+    'getting.leadTimeSeason': 'Sezon',
+    'getting.leadTimeMonths': 'Luni',
+    'getting.leadTimeAdvance': 'Rezervă',
+    'getting.checklistTitle': 'Listă pentru pelerin',
+    'getting.checklistSubtitle': 'Salvată doar pe acest dispozitiv.',
+    'getting.checklistReset': 'Resetează lista',
+    'getting.checklistConfirmReset':
+      'Resetezi întreaga listă? Toate bifările vor fi șterse.',
+    'getting.checklistProgress': '{done} din {total} pregătite',
+    'getting.checklistSection.documents': 'Acte și bani',
+    'getting.checklistSection.clothing': 'Îmbrăcăminte',
+    'getting.checklistSection.practical': 'Echipament practic',
 
     'ferry.eyebrow': "δι' ὕδατος · pe calea apei",
     'ferry.title': 'Rute și orar feribot',
@@ -259,6 +310,16 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
     'trips.deleteAriaLabel': 'Șterge pelerinajul {name}',
     'trips.confirmDelete':
       'Ștergi pelerinajul „{name}"? Această acțiune nu poate fi anulată.',
+    'trips.templatesTitle': 'Pelerinaje sugerate',
+    'trips.templatesSubtitle':
+      'Trasee pre-construite pe care le poți copia în lista ta de pelerinaje și le poți edita liber.',
+    'trips.templateDuration': '{n} zile',
+    'trips.templateUse': 'Folosește acest traseu',
+    'trips.templateStartDate': 'Dată început',
+    'trips.templateConfirm': 'Creează pelerinajul',
+    'trips.templateCancel': 'Anulează',
+    'trips.templateStops': '{n} popasuri',
+    'trips.templateDay': 'Ziua {n}',
 
     'tripDetail.rename': 'Redenumește',
     'tripDetail.renameAriaLabel': 'Redenumește pelerinajul',
@@ -287,6 +348,7 @@ export const STRINGS: Record<Lang, Record<string, string>> = {
       'Data de început trebuie să fie înaintea datei de sfârșit.',
     'tripDetail.alertEndBeforeStart':
       'Data de sfârșit trebuie să fie după data de început.',
+    'tripDetail.feastToday': 'Hram astăzi',
 
     'tripMap.empty':
       'Adaugă locuri la o zi mai jos și vor apărea pe hartă.',

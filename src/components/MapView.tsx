@@ -8,6 +8,7 @@ const ModernMap = lazy(() => import('./ModernMap'));
 type MapMode = 'medieval' | 'modern';
 
 const STORAGE_KEY = 'athos:map-mode';
+const SKETES_STORAGE_KEY = 'athos:map-show-sketes';
 
 function readStoredMode(): MapMode {
   if (typeof window === 'undefined') return 'medieval';
@@ -19,6 +20,17 @@ function readStoredMode(): MapMode {
   }
 }
 
+function readStoredShowSketes(): boolean {
+  if (typeof window === 'undefined') return true;
+  try {
+    const v = window.localStorage.getItem(SKETES_STORAGE_KEY);
+    // Default on: only "0" turns it off.
+    return v !== '0';
+  } catch {
+    return true;
+  }
+}
+
 interface Props {
   onNavigate: (view: View) => void;
   selectedSlug?: string;
@@ -27,6 +39,7 @@ interface Props {
 export function MapView({ onNavigate, selectedSlug }: Props) {
   const { t } = useI18n();
   const [mode, setMode] = useState<MapMode>(readStoredMode);
+  const [showSketes, setShowSketes] = useState<boolean>(readStoredShowSketes);
 
   useEffect(() => {
     try {
@@ -35,6 +48,14 @@ export function MapView({ onNavigate, selectedSlug }: Props) {
       /* ignore quota or privacy-mode failures */
     }
   }, [mode]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(SKETES_STORAGE_KEY, showSketes ? '1' : '0');
+    } catch {
+      /* ignore */
+    }
+  }, [showSketes]);
 
   return (
     <div className="map-view">
@@ -61,9 +82,25 @@ export function MapView({ onNavigate, selectedSlug }: Props) {
         </button>
       </div>
 
+      <div className="map-view__layers">
+        <label className="map-layer-toggle">
+          <input
+            type="checkbox"
+            checked={showSketes}
+            onChange={(e) => setShowSketes(e.target.checked)}
+          />
+          <span className="map-layer-toggle__mark" aria-hidden="true">⛪</span>
+          <span>{t('map.showSketes')}</span>
+        </label>
+      </div>
+
       <div className="map-view__body">
         {mode === 'medieval' ? (
-          <MedievalMap onNavigate={onNavigate} selectedSlug={selectedSlug} />
+          <MedievalMap
+            onNavigate={onNavigate}
+            selectedSlug={selectedSlug}
+            showSettlements={showSketes}
+          />
         ) : (
           <Suspense
             fallback={
@@ -72,7 +109,11 @@ export function MapView({ onNavigate, selectedSlug }: Props) {
               </div>
             }
           >
-            <ModernMap onNavigate={onNavigate} selectedSlug={selectedSlug} />
+            <ModernMap
+              onNavigate={onNavigate}
+              selectedSlug={selectedSlug}
+              showSettlements={showSketes}
+            />
           </Suspense>
         )}
       </div>

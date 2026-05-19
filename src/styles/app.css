@@ -14,15 +14,16 @@
 }
 
 /* Suspended gold halo at the apex of the page — a faint nimbus visible from
-   anywhere in the document. */
+   anywhere in the document. Sized in vmin so the nimbus stays a halo rather
+   than a horizontal wash when the viewport is tall and narrow. */
 .app::before {
   content: "";
   position: fixed;
-  top: -240px;
+  top: clamp(-260px, -30vmin, -160px);
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  height: 800px;
+  width: min(800px, 110vmin);
+  height: min(800px, 110vmin);
   background: radial-gradient(circle, rgba(214, 173, 50, 0.10) 0%, transparent 55%);
   pointer-events: none;
   z-index: 0;
@@ -35,7 +36,13 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 1.5rem;
-  padding: 1.1rem 1.5rem 1.25rem;
+  /* Respect the notch on iOS / Android edge-to-edge so the iconostasis sits
+     just below the status bar rather than under it. */
+  padding:
+    calc(1.1rem + var(--safe-top))
+    calc(1.5rem + var(--safe-right))
+    1.25rem
+    calc(1.5rem + var(--safe-left));
   background:
     linear-gradient(180deg, var(--lapis-deep) 0%, var(--lapis-darker) 100%);
   border-bottom: 1px solid var(--gold-deep);
@@ -115,6 +122,7 @@
   background: transparent;
   border: none;
   padding: 0.55em 1.4em 0.7em;
+  min-height: var(--tap-min);
   position: relative;
   cursor: pointer;
   transition: color 200ms ease;
@@ -188,7 +196,11 @@
   width: 100%;
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 3rem 1.5rem 4rem;
+  padding:
+    3rem
+    calc(1.5rem + var(--safe-right))
+    4rem
+    calc(1.5rem + var(--safe-left));
   position: relative;
   z-index: 1;
   animation: nave-reveal 700ms ease both;
@@ -203,7 +215,11 @@
 
 .footer {
   position: relative;
-  padding: 2rem 1.5rem 2.5rem;
+  padding:
+    2rem
+    calc(1.5rem + var(--safe-right))
+    calc(2.5rem + var(--safe-bottom))
+    calc(1.5rem + var(--safe-left));
   text-align: center;
   font-family: var(--font-greek);
   font-style: italic;
@@ -376,6 +392,65 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 14px rgba(214, 173, 50, 0.45);
 }
 .map-toggle__mark {
+  font-size: 0.95em;
+  line-height: 1;
+}
+
+/* Layer toggles — checkboxes below the style switcher for optional overlays. */
+.map-view__layers {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: -0.1rem;
+}
+
+.map-layer-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  cursor: pointer;
+  padding: 0.35em 0.7em;
+  border: 1px solid transparent;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+.map-layer-toggle:hover {
+  color: var(--gold-bright);
+  border-color: var(--gold-deep);
+  background: rgba(214, 173, 50, 0.04);
+}
+.map-layer-toggle input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 0.95rem;
+  height: 0.95rem;
+  border: 1.5px solid var(--gold-deep);
+  background: var(--lapis-darker);
+  cursor: pointer;
+  position: relative;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+.map-layer-toggle input[type="checkbox"]:checked {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.map-layer-toggle input[type="checkbox"]:checked::after {
+  content: "☩";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: var(--lapis-darker);
+  line-height: 1;
+}
+.map-layer-toggle__mark {
   font-size: 0.95em;
   line-height: 1;
 }
@@ -1564,11 +1639,13 @@
   gap: 2rem;
 }
 .trip-form-card,
-.trips-list-card {
+.trips-list-card,
+.templates-card {
   padding: 1.8rem 2rem;
 }
 .trip-form-card__title,
-.trips-list-card__title {
+.trips-list-card__title,
+.templates-card__title {
   font-family: var(--font-title, serif);
   font-size: 1.3rem;
   margin: 0 0 1rem;
@@ -1971,4 +2048,890 @@
   .trip-detail__dates { flex-direction: column; align-items: stretch; }
   .trip-detail__place { grid-template-columns: 1fr; }
   .trip-detail__place-actions { flex-wrap: wrap; }
+}
+
+/* Feast-day banner inside trip days */
+
+.trip-detail__feasts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: flex-start;
+  margin: 0.4rem 0 0.9rem;
+  padding: 0.7rem 0.95rem;
+  background:
+    linear-gradient(
+      to right,
+      rgba(214, 173, 50, 0.22),
+      rgba(214, 173, 50, 0.07) 70%,
+      transparent
+    );
+  border-left: 3px solid var(--gold);
+  border-top: 1px solid var(--gold-deep);
+  border-bottom: 1px solid var(--gold-deep);
+}
+.trip-detail__feasts-label {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--oxblood);
+  line-height: 1;
+  margin-top: 0.1rem;
+}
+.trip-detail__feasts-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.trip-detail__feasts-heading {
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+}
+.trip-detail__feasts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+.trip-detail__feast-link {
+  background: transparent;
+  border: none;
+  padding: 0.15em 0;
+  font-family: inherit;
+  color: inherit;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+.trip-detail__feast-link:hover .trip-detail__feast-name {
+  color: var(--garnet);
+}
+.trip-detail__feast-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--oxblood);
+  line-height: 1.2;
+}
+.trip-detail__feast-feast {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.3;
+}
+
+/* Suggested itinerary templates — clone-able starter trips */
+
+.templates-card__subtitle {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin: -0.5rem 0 1.2rem;
+}
+
+.templates-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.template-card {
+  background: rgba(255, 245, 220, 0.5);
+  border: 1px solid var(--gold-deep);
+  border-left: 3px solid var(--gold);
+  padding: 1.2rem 1.3rem 1.1rem;
+  position: relative;
+  transition: background 220ms ease, box-shadow 220ms ease;
+}
+.template-card::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(111, 79, 14, 0.3);
+  pointer-events: none;
+}
+.template-card:hover {
+  background: rgba(255, 245, 220, 0.78);
+  box-shadow: var(--shadow-glow);
+}
+
+.template-card__head {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.template-card__head svg {
+  width: 44px;
+  height: 44px;
+}
+
+.template-card__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.template-card__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--oxblood);
+  line-height: 1.2;
+}
+.template-card__meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.template-card__desc {
+  margin: 0.8rem 0 0.7rem;
+  font-family: var(--font-body);
+  font-size: 1.04rem;
+  line-height: 1.5;
+  color: var(--ink);
+  position: relative;
+  z-index: 1;
+}
+
+.template-card__days {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: grid;
+  gap: 0.35rem;
+  position: relative;
+  z-index: 1;
+}
+.template-card__day {
+  display: grid;
+  grid-template-columns: 5.5em 1fr;
+  gap: 0.7rem;
+  align-items: baseline;
+  padding: 0.4rem 0;
+  border-bottom: 1px dotted rgba(111, 79, 14, 0.3);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+.template-card__day:last-child {
+  border-bottom: none;
+}
+.template-card__day-label {
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+}
+.template-card__day-places {
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.template-card__use {
+  font-family: var(--font-title);
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--lapis-darker);
+  color: var(--gold);
+  border: 1px solid var(--gold-deep);
+  padding: 0.55em 1.1em;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: background 200ms ease, color 200ms ease, box-shadow 200ms ease;
+}
+.template-card__use:hover {
+  color: var(--gold-bright);
+  background: var(--lapis-deep);
+  box-shadow: 0 0 14px rgba(214, 173, 50, 0.3);
+}
+
+.template-card__create {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.9rem 1.2rem;
+  padding-top: 0.6rem;
+  border-top: 1px dotted rgba(111, 79, 14, 0.4);
+  position: relative;
+  z-index: 1;
+}
+.template-card__date {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+}
+.template-card__date input {
+  font: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: rgba(255, 251, 230, 0.7);
+  border: 1px solid var(--gold-deep);
+  padding: 0.5em 0.7em;
+}
+.template-card__create-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.template-card__confirm {
+  font-family: var(--font-title);
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background:
+    linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 60%, var(--gold-soft) 100%);
+  color: var(--lapis-darker);
+  border: 1px solid var(--gold-deep);
+  padding: 0.55em 1.2em;
+  cursor: pointer;
+  transition: box-shadow 200ms ease, transform 100ms ease;
+}
+.template-card__confirm:hover {
+  box-shadow: 0 0 16px rgba(214, 173, 50, 0.55);
+}
+.template-card__cancel {
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--gold-deep);
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: color 180ms ease, background 180ms ease;
+}
+.template-card__cancel:hover {
+  color: var(--oxblood);
+  background: rgba(123, 31, 44, 0.06);
+}
+
+@media (max-width: 640px) {
+  .template-card__day { grid-template-columns: 1fr; gap: 0.1rem; }
+  .template-card__create { flex-direction: column; align-items: stretch; }
+  .template-card__create-actions { justify-content: stretch; }
+  .template-card__confirm, .template-card__cancel { flex: 1; }
+}
+
+/* Diamonitirion: fee table, lead-time table, pilgrim checklist */
+
+.diamo__subhead {
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+  margin: 1.6rem 0 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.diamo__subhead::before,
+.diamo__subhead::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--gold-deep) 30%,
+    var(--gold-deep) 70%,
+    transparent
+  );
+  opacity: 0.6;
+}
+
+.kv--compact li {
+  grid-template-columns: 18em 1fr;
+  padding: 0.55em 0;
+  font-size: 0.98rem;
+}
+
+.diamo__fine-print {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  margin: 0.5rem 0 1rem;
+}
+
+.lead-time {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.4rem;
+  display: grid;
+  gap: 0.6rem;
+}
+.lead-time__row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr auto;
+  gap: 0.9rem 1.2rem;
+  align-items: center;
+  padding: 0.7em 1em;
+  background: rgba(255, 245, 220, 0.45);
+  border: 1px solid var(--gold-deep);
+  border-left: 3px solid var(--gold);
+  position: relative;
+}
+.lead-time--peak {
+  border-left-color: var(--oxblood);
+  background: rgba(123, 31, 44, 0.07);
+}
+.lead-time--shoulder {
+  border-left-color: var(--gold);
+}
+.lead-time--off {
+  border-left-color: var(--lapis-soft);
+  background: rgba(42, 58, 114, 0.06);
+}
+.lead-time__season {
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  color: var(--ink);
+}
+.lead-time__months {
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.lead-time__advance {
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+  white-space: nowrap;
+  padding: 0.35em 0.7em;
+  border: 1px solid var(--gold-deep);
+  background: rgba(255, 251, 230, 0.6);
+}
+
+.checklist__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+.checklist__header h2 {
+  margin: 0 0 0.2em;
+}
+.checklist__subtitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.checklist__progress {
+  font-style: normal;
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+  margin-left: 0.4rem;
+}
+.checklist__reset {
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+  background: transparent;
+  border: 1px solid var(--gold-deep);
+  padding: 0.4em 0.9em;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease;
+}
+.checklist__reset:hover:not(:disabled) {
+  background: var(--oxblood);
+  color: var(--ivory);
+}
+.checklist__reset:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.checklist__progress-bar {
+  height: 6px;
+  background: rgba(111, 79, 14, 0.15);
+  border: 1px solid var(--gold-deep);
+  position: relative;
+  margin-bottom: 1.2rem;
+  overflow: hidden;
+}
+.checklist__progress-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    var(--gold-soft),
+    var(--gold) 50%,
+    var(--gold-bright)
+  );
+  transition: width 320ms ease;
+}
+
+.checklist__section {
+  margin-bottom: 1.2rem;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.1rem;
+}
+.checklist__item {
+  margin: 0;
+}
+.checklist__item label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85em;
+  align-items: baseline;
+  padding: 0.55em 0.3em;
+  cursor: pointer;
+  border-bottom: 1px dotted rgba(111, 79, 14, 0.3);
+  transition: background 160ms ease;
+}
+.checklist__item label:hover {
+  background: rgba(255, 245, 220, 0.5);
+}
+.checklist__item input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 1.5px solid var(--gold-deep);
+  background: rgba(255, 251, 230, 0.6);
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+.checklist__item input[type="checkbox"]:checked {
+  background: var(--gold);
+  border-color: var(--oxblood);
+}
+.checklist__item input[type="checkbox"]:checked::after {
+  content: "☩";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  color: var(--oxblood);
+  line-height: 1;
+}
+.checklist__item span {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--ink);
+  line-height: 1.4;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+.checklist__item--done span {
+  color: var(--ink-mute);
+  text-decoration: line-through;
+  text-decoration-color: var(--gold-deep);
+  text-decoration-thickness: 1px;
+}
+
+@media (max-width: 640px) {
+  .kv--compact li { grid-template-columns: 1fr; gap: 0.15em; }
+  .lead-time__row { grid-template-columns: 1fr; gap: 0.3em; }
+  .lead-time__advance { justify-self: start; }
+  .checklist__header { flex-direction: column; }
+}
+
+/* ───────── Mobile refinement ─────────
+   Layered on top of the section-local 600/640/760 queries above. The earlier
+   queries already reflow most grids; this section corrects pixel-level mobile
+   ergonomics — touch targets, frame inset weights, map heights, and the few
+   places where letter-spaced uppercase titles need to give a little to fit. */
+
+@media (max-width: 720px) {
+  /* Maps — shorter portrait canvases so the surrounding text still fits in a
+     single thumb-scroll, and so the gilt frame reads as a frame not a stripe. */
+  .modern-map { height: 420px; }
+  .trip-map__canvas,
+  .trip-map--loading { height: 320px; }
+
+  /* Map style toggle — promoted to a comfortable thumb-tappable segmented
+     control. Each slab gets the touch floor; meander spacing relaxes. */
+  .map-toggle__btn {
+    min-height: var(--tap-min);
+    padding: 0.6em 1em 0.65em;
+    letter-spacing: 0.18em;
+  }
+
+  /* Layer toggles — checkbox and label both enlarged for a fingertip. */
+  .map-layer-toggle {
+    min-height: var(--tap-min);
+    padding: 0.5em 0.85em;
+    font-size: 0.74rem;
+  }
+  .map-layer-toggle input[type="checkbox"] {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .map-layer-toggle input[type="checkbox"]:checked::after {
+    font-size: 1rem;
+  }
+
+  /* Region toggle on the home view — same tap-target reasoning. */
+  .home__regions-toggle {
+    min-height: var(--tap-min);
+    padding: 0.4em 0.2em;
+  }
+  .home__regions-toggle input {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Trip place row — the up / down / remove cluster wants its own line on
+     mobile so each button can be a proper porphyry-edged thumb target. */
+  .trip-detail__place {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    padding-bottom: 0.7rem;
+  }
+  .trip-detail__place-actions {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .trip-detail__place-actions button {
+    min-height: var(--tap-min);
+    min-width: var(--tap-min);
+    padding: 0.55em 0.95em;
+    font-size: 0.78rem;
+  }
+  /* Day-stop markers on the trip map are a primary touch target. */
+  .trip-marker {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* Day-title — let the day count and date stack rather than fight for the
+     same baseline at narrow widths. */
+  .trip-detail__day-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  /* Add-place selector should fill the day card for an easier tap surface. */
+  .trip-detail__add-place select {
+    width: 100%;
+    min-height: var(--tap-min);
+  }
+  /* All native form controls picked up to the touch floor — keeps the date
+     pickers and inputs comfortable in iOS Safari and Chrome Android. */
+  .trip-form__field input,
+  .trip-form__field select,
+  .template-card__date input {
+    min-height: var(--tap-min);
+  }
+
+  /* Drop cap — at 4.6rem it overwhelms a 360px column. Trim, keep the gold
+     drop-shadow so it still reads as illumination. */
+  .drop-cap { font-size: 3.6rem; padding-right: 0.12em; }
+
+  /* Detail title shadow softens at small sizes to avoid muddy halation. */
+  h1 { text-shadow: 0 1px 0 rgba(245, 224, 142, 0.22); }
+
+  /* Section dividers were sized for desktop columns. */
+  .section-divider { width: min(260px, 80%); margin: 1.8rem auto; }
+
+  /* Open-itinerary / create-trip seal — let the gold-on-oxblood plate be
+     genuinely tappable. */
+  .detail__open-maps,
+  .trip-form__submit {
+    width: 100%;
+    justify-content: center;
+    min-height: var(--tap-min);
+    padding: 0.95em 1.4em;
+    letter-spacing: 0.18em;
+  }
+
+  /* Numbered steps — give the I-IV roman the room it needs without spreading
+     the body text away from the eye. */
+  .steps li {
+    padding: 0.95rem 1rem;
+  }
+  .steps li::before {
+    font-size: 1.2rem;
+    padding: 0.15em 0.5em;
+  }
+
+  /* Template start-date row was flex-end; centring keeps the date input from
+     pinning hard to the gold rule on the right. */
+  .template-card__create { align-items: stretch; }
+  .template-card__date input { width: 100%; }
+
+  /* Trip detail dates row already collapses; constrain the inputs so the
+     gold border reads as a true field, not a card. */
+  .trip-detail__dates .trip-form__field input { width: 100%; }
+  .trip-detail__delete { align-self: stretch; }
+
+  /* Checklist items deserve a thumb-print of vertical room. */
+  .checklist__item label { padding: 0.75em 0.3em; }
+  .checklist__item input[type="checkbox"] {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+  .checklist__item input[type="checkbox"]:checked::after { font-size: 1.15rem; }
+}
+
+@media (max-width: 480px) {
+  /* Nave-side padding tightens to give the parchment a real margin from the
+     screen edges without crushing the content column. */
+  .layout {
+    padding:
+      2rem
+      calc(0.9rem + var(--safe-right))
+      3rem
+      calc(0.9rem + var(--safe-left));
+  }
+
+  /* Header — drop the Greek tagline (still in the home hero), shrink the
+     cross mark, and keep the nav as a centred wrap. The lang toggle drops
+     into the nav row, justified between the title and the wrap. */
+  .header {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "title lang"
+      "nav   nav";
+    gap: 0.6rem 0.8rem;
+    padding:
+      calc(0.85rem + var(--safe-top))
+      calc(1rem + var(--safe-right))
+      1rem
+      calc(1rem + var(--safe-left));
+    text-align: left;
+  }
+  .header__title { grid-area: title; justify-self: start; gap: 0.5rem; font-size: 1rem; }
+  .header__title-greek { display: none; }
+  .header__title-mark { width: 22px; height: 34px; }
+  .header__nav {
+    grid-area: nav;
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+    border-top: 1px solid var(--rule-soft);
+    padding-top: 0.55rem;
+  }
+  .nav__item {
+    flex: 1;
+    padding: 0.55em 0.4em 0.65em;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+  }
+  .nav__item + .nav__item { border-left-color: var(--rule-soft); }
+  .lang-toggle { grid-area: lang; justify-self: end; }
+  .lang-toggle__btn { padding: 0.4em 0.7em; min-height: var(--tap-min); }
+
+  /* Parchment frame — the double gilt rings get a touch closer to the edge
+     so the content column doesn't lose 20px of horizontal room to scribal
+     borders alone. */
+  .parchment { padding: 1.4rem 1.1rem; }
+  .parchment::before { inset: 4px; }
+  .parchment::after  { inset: 7px; }
+  .detail .parchment,
+  .page .parchment {
+    padding: 1.8rem 1rem 2.2rem;
+  }
+
+  /* Hero — the home title sits closer to the body copy, lede tightens up. */
+  .home__title { font-size: clamp(1.7rem, 8.5vw, 2.2rem); letter-spacing: 0.08em; }
+  .home__subtitle { font-size: 0.98rem; }
+  .home__lede { font-size: 1.02rem; }
+  .home__flourish { width: 70%; margin: 1rem auto 1.6rem; }
+
+  /* Monastery list — the tradition tag becomes a column-spanning chip on the
+     same row as the name so the layout reads tightly with no orphan gold. */
+  .monastery-list__item {
+    grid-template-columns: 44px 1fr;
+    padding: 0.85rem 0.25rem 0.85rem 0;
+    min-height: var(--tap-min);
+  }
+  .halo-medallion, .settlement-mark {
+    width: 40px; height: 40px;
+  }
+  .monastery-list__tags {
+    grid-column: 2;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    margin-top: 0.3rem;
+  }
+  .monastery-list__tradition,
+  .monastery-list__region {
+    padding: 0.25em 0.55em;
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+  }
+  .monastery-list li + li::before { left: 44px; right: 4px; }
+
+  /* Detail head — order row stacks; the gold halo medallion shrinks; the
+     kind / tradition chips wrap to their own line. */
+  .detail__order-row .halo-medallion { width: 64px; height: 64px; }
+  .detail__order-tradition,
+  .detail__kind-badge { font-size: 0.7rem; letter-spacing: 0.22em; }
+  .detail__name { font-size: clamp(1.45rem, 7vw, 1.95rem); letter-spacing: 0.06em; }
+  .detail__greek { font-size: 1.1rem; }
+  .detail__intro {
+    font-size: 1.04rem;
+    text-align: left;
+    hyphens: none;
+  }
+  .detail__notes { padding: 1rem 1.1rem; font-size: 1rem; }
+  .drop-cap { font-size: 3.1rem; }
+
+  /* Page eyebrow + lede tighten. */
+  .page__header h1 { font-size: clamp(1.5rem, 7vw, 1.9rem); }
+  .page__eyebrow { font-size: 0.95rem; }
+  .page__lede { font-size: 1.04rem; text-align: left; hyphens: none; }
+
+  /* H2 in body content loses some letter-spacing so the chapter labels still
+     fit on one line on a Pixel-class viewport. */
+  h2 { letter-spacing: 0.12em; }
+  .diamo__subhead { font-size: 0.74rem; letter-spacing: 0.18em; }
+
+  /* Maps — slightly shorter still; the medieval map keeps its intrinsic
+     aspect via SVG, but the modern tile map gets the harder cap. */
+  .modern-map { height: 360px; }
+  .modern-map::before { inset: 4px; }
+  .medieval-map::before { inset: 4px; }
+  .trip-map__canvas,
+  .trip-map--loading { height: 260px; }
+  .trip-map__canvas::before { inset: 4px; }
+
+  /* Map controls — two slabs side-by-side without wrapping. */
+  .map-toggle { align-self: stretch; justify-content: center; }
+  .map-toggle__btn {
+    flex: 1;
+    padding: 0.7em 0.5em;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+  }
+  .map-view__layers { gap: 0.5rem; }
+
+  /* Trip detail header — keep the rename chip on a separate line. */
+  .trip-detail__name {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+  .trip-detail__rename {
+    align-self: center;
+    min-height: var(--tap-min);
+    padding: 0.5em 1em;
+  }
+  .trip-detail__day {
+    padding: 1rem 0.95rem;
+  }
+
+  /* Templates — already collapse via the 640px query above; refine the
+     vertical rhythm so each starter trip is its own quiet card. */
+  .template-card { padding: 1rem 1.05rem 0.95rem; }
+  .template-card__head { grid-template-columns: 38px 1fr; gap: 0.7rem; }
+  .template-card__head svg { width: 38px; height: 38px; }
+  .template-card__name { font-size: 1.05rem; }
+  .template-card__use,
+  .template-card__confirm,
+  .template-card__cancel {
+    min-height: var(--tap-min);
+    padding: 0.7em 1em;
+    width: 100%;
+  }
+
+  /* Ferry / port cards — gold inner border shrinks so it doesn't crowd the
+     headline at narrow widths. */
+  .port-list li, .ferry-list li {
+    padding: 0.95rem 1rem;
+  }
+  .port-list li::before, .ferry-list li::before { inset: 3px; }
+
+  /* Lead-time row — chip stays on its own line at 480 (640 already collapsed
+     the grid). Force whitespace to wrap so the months string can break. */
+  .lead-time__months { white-space: normal; }
+
+  /* Footer — softer padding on tight viewports; the ☩ keeps its weight. */
+  .footer {
+    padding:
+      1.4rem
+      calc(1rem + var(--safe-right))
+      calc(1.8rem + var(--safe-bottom))
+      calc(1rem + var(--safe-left));
+    font-size: 0.85rem;
+  }
+
+  /* Arched ornament inset reads thinner on small widths. */
+  .arched-frame__body { padding: 1.1rem 1.1rem 1.2rem; }
+  .arched-frame__body::before { inset: 3px; }
+}
+
+/* Devices that report a coarse pointer (touch-first) — extend the touch
+   floor to every list-item-style button regardless of viewport width. This
+   helps landscape phones where the width-based queries don't fire but the
+   pointer is still a thumb. */
+@media (hover: none) and (pointer: coarse) {
+  .monastery-list__item { min-height: var(--tap-min); }
+  .trips-list__link { min-height: var(--tap-min); padding: 1rem 1.1rem; }
+  .trips-list__delete,
+  .trip-detail__delete,
+  .trip-detail__rename,
+  .checklist__reset {
+    min-height: var(--tap-min);
+  }
+  .template-card__use { min-height: var(--tap-min); }
+  /* Hover effects on touch devices become "sticky" — disable the parchment
+     blooms that depend on cursor presence and keep only active/focus. */
+  .monastery-list__item:hover { background: transparent; }
+  .port-list li:hover, .ferry-list li:hover {
+    background: rgba(255, 245, 220, 0.5);
+    box-shadow: none;
+  }
 }

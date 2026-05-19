@@ -13,6 +13,7 @@ import type { View } from '../types';
 interface Props {
   onNavigate: (view: View) => void;
   selectedSlug?: string;
+  showSettlements?: boolean;
 }
 
 const PENINSULA_CENTRE: [number, number] = [40.255, 24.21];
@@ -37,9 +38,10 @@ function portIcon(): L.DivIcon {
 }
 
 
-export function ModernMap({ onNavigate, selectedSlug }: Props) {
+export function ModernMap({ onNavigate, selectedSlug, showSettlements = true }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<L.Map | null>(null);
+  const settlementLayerRef = useRef<L.LayerGroup | null>(null);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -68,20 +70,37 @@ export function ModernMap({ onNavigate, selectedSlug }: Props) {
         .bindTooltip(p.name, { direction: 'top', offset: [0, -6] });
     }
 
+    settlementLayerRef.current = L.layerGroup();
     for (const s of SETTLEMENTS) {
       const isActive = s.slug === selectedSlug;
       const label = s.kind === 'skete' ? `Skete · ${s.name}` : `Hermitage · ${s.name}`;
-      const marker = L.marker([s.lat, s.lng], { icon: monasteryIcon(isActive), title: s.name }).addTo(map);
+      const marker = L.marker([s.lat, s.lng], { icon: monasteryIcon(isActive), title: s.name });
       marker.bindTooltip(label, { direction: 'top', offset: [0, -6] });
       marker.on('click', () => onNavigate({ kind: 'settlement', slug: s.slug }));
+      settlementLayerRef.current.addLayer(marker);
+    }
+    if (showSettlements) {
+      settlementLayerRef.current.addTo(map);
     }
 
     mapRef.current = map;
     return () => {
       map.remove();
       mapRef.current = null;
+      settlementLayerRef.current = null;
     };
   }, [onNavigate, selectedSlug]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    const layer = settlementLayerRef.current;
+    if (!map || !layer) return;
+    if (showSettlements && !map.hasLayer(layer)) {
+      layer.addTo(map);
+    } else if (!showSettlements && map.hasLayer(layer)) {
+      map.removeLayer(layer);
+    }
+  }, [showSettlements]);
 
   return <div ref={containerRef} className="modern-map" />;
 }

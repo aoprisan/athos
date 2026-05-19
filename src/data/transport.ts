@@ -23,6 +23,11 @@ export const DIAMONITIRION = {
   dailyQuotaOrthodox: 100,
   dailyQuotaNonOrthodox: 10,
   standardStayNights: 3,
+  // Indicative range; verified at reservation. Cash in euros is expected at
+  // the Ouranoupoli booth on the morning of travel.
+  feeRangeOrthodox: '€25–30',
+  feeRangeNonOrthodox: '€30–35',
+  feeRangeStudent: '€10–18',
   notes: [
     'Reservation must be made by phone or email well in advance — peak seasons (Pascha, Dormition, summer) fill months ahead.',
     'Diamonitirion is issued only to adult males. Women are not permitted to enter (avaton).',
@@ -30,6 +35,79 @@ export const DIAMONITIRION = {
     'A second-extension permit can sometimes be obtained from the Holy Epistasia in Karyes once on the Mountain.',
   ],
 };
+
+// Recommended lead time for booking the Diamonitirion, by season. The Pilgrims'
+// Bureau allocates a fixed daily quota and feast-day pilgrimages fill months
+// ahead; winter weekdays can sometimes be booked a few weeks out.
+export const DIAMONITIRION_LEAD_TIME: Array<{
+  id: string;
+  season: string;
+  months: string;
+  advance: string;
+}> = [
+  {
+    id: 'peak',
+    season: 'Pascha week · Dormition (15 Aug) · high summer',
+    months: 'April · July · August',
+    advance: '6+ months ahead',
+  },
+  {
+    id: 'shoulder',
+    season: 'Late-spring & autumn shoulder',
+    months: 'May · June · September · October',
+    advance: '2–3 months ahead',
+  },
+  {
+    id: 'off',
+    season: 'Winter weekdays (outside major feasts)',
+    months: 'November – March',
+    advance: '2–4 weeks ahead',
+  },
+];
+
+// Pilgrim preparation checklist. Each item has a stable id so the checked
+// state can persist in localStorage per device.
+export interface ChecklistItem {
+  id: string;
+  label: string;
+}
+
+export interface ChecklistSection {
+  id: 'documents' | 'clothing' | 'practical';
+  items: ChecklistItem[];
+}
+
+export const DIAMONITIRION_CHECKLIST: ChecklistSection[] = [
+  {
+    id: 'documents',
+    items: [
+      { id: 'reservation', label: 'Diamonitirion reservation confirmed (phone or email)' },
+      { id: 'passport', label: 'Original passport or national ID — valid 6+ months' },
+      { id: 'confirmation', label: 'Reservation confirmation saved (printout or screenshot)' },
+      { id: 'cash', label: 'Cash in euros for the issuance fee (the harbour booth may not take cards)' },
+      { id: 'monastery-bookings', label: 'Each night\'s monastery confirmed by phone in advance' },
+    ],
+  },
+  {
+    id: 'clothing',
+    items: [
+      { id: 'long-trousers', label: 'Long trousers — shorts are not permitted inside monasteries' },
+      { id: 'sleeved-shirts', label: 'Long-sleeved shirts — modest dress required at services' },
+      { id: 'walking-shoes', label: 'Sturdy walking shoes — paths between monasteries are rocky' },
+      { id: 'warm-layer', label: 'Warm layer for night services (cold even in summer)' },
+    ],
+  },
+  {
+    id: 'practical',
+    items: [
+      { id: 'headlamp', label: 'Headlamp for night Orthros and pre-dawn departures' },
+      { id: 'water-bottle', label: 'Refillable water bottle (monastery fountains are reliable)' },
+      { id: 'offline-maps', label: 'Offline maps cached on device — cell coverage is patchy' },
+      { id: 'backpack', label: 'Backpack only — roller luggage cannot follow the trails' },
+      { id: 'power-bank', label: 'Power bank — outlets vary between guest quarters' },
+    ],
+  },
+];
 
 export const PORTS: TransportPort[] = [
   {

@@ -1,5 +1,8 @@
+import { useEffect, useMemo, useState } from 'react';
 import {
   DIAMONITIRION,
+  DIAMONITIRION_CHECKLIST,
+  DIAMONITIRION_LEAD_TIME,
   GETTING_THERE_STEPS,
   PORTS,
 } from '../data/transport';
@@ -7,6 +10,8 @@ import type { View } from '../types';
 import { CrossFlourish, KeystoneBadge } from './Ornaments';
 import { useI18n } from '../i18n';
 import {
+  DIAMONITIRION_CHECKLIST_RO,
+  DIAMONITIRION_LEAD_TIME_RO,
   DIAMONITIRION_RO,
   GETTING_THERE_STEPS_RO,
   PORTS_RO,
@@ -16,9 +21,58 @@ interface Props {
   onNavigate: (view: View) => void;
 }
 
+const CHECKLIST_STORAGE_KEY = 'athos:diamonitirion-checklist';
+
+function loadChecklistState(): Record<string, boolean> {
+  if (typeof window === 'undefined') return {};
+  try {
+    const raw = window.localStorage.getItem(CHECKLIST_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
 export function GettingThere({ onNavigate }: Props) {
   const { t, tr } = useI18n();
   const [ledePre, ledePost = ''] = t('getting.lede').split('{diamonitirion}');
+
+  const [checked, setChecked] = useState<Record<string, boolean>>(() =>
+    loadChecklistState(),
+  );
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(CHECKLIST_STORAGE_KEY, JSON.stringify(checked));
+    } catch {
+      // Ignore — quota / privacy modes can fail silently.
+    }
+  }, [checked]);
+
+  const checklistTotals = useMemo(() => {
+    const total = DIAMONITIRION_CHECKLIST.reduce(
+      (sum, section) => sum + section.items.length,
+      0,
+    );
+    const done = DIAMONITIRION_CHECKLIST.reduce(
+      (sum, section) =>
+        sum + section.items.filter((item) => checked[item.id]).length,
+      0,
+    );
+    return { total, done };
+  }, [checked]);
+
+  function toggleItem(id: string) {
+    setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
+  }
+
+  function resetChecklist() {
+    if (window.confirm(t('getting.checklistConfirmReset'))) {
+      setChecked({});
+    }
+  }
 
   return (
     <article className="page">
@@ -94,6 +148,119 @@ export function GettingThere({ onNavigate }: Props) {
               <li key={i}>{n}</li>
             ))}
           </ul>
+
+          <h3 className="diamo__subhead">{t('getting.feesTitle')}</h3>
+          <ul className="kv kv--compact">
+            <li>
+              <span>{t('getting.feeOrthodox')}</span>
+              <span>{DIAMONITIRION.feeRangeOrthodox}</span>
+            </li>
+            <li>
+              <span>{t('getting.feeNonOrthodox')}</span>
+              <span>{DIAMONITIRION.feeRangeNonOrthodox}</span>
+            </li>
+            <li>
+              <span>{t('getting.feeStudent')}</span>
+              <span>{DIAMONITIRION.feeRangeStudent}</span>
+            </li>
+          </ul>
+          <p className="diamo__fine-print">{t('getting.feeNote')}</p>
+
+          <h3 className="diamo__subhead">{t('getting.leadTimeTitle')}</h3>
+          <ul className="lead-time">
+            {DIAMONITIRION_LEAD_TIME.map((row) => {
+              const ro = DIAMONITIRION_LEAD_TIME_RO[row.id];
+              return (
+                <li key={row.id} className={`lead-time__row lead-time--${row.id}`}>
+                  <div className="lead-time__season">
+                    {tr(row.season, ro?.season)}
+                  </div>
+                  <div className="lead-time__months">
+                    {tr(row.months, ro?.months)}
+                  </div>
+                  <div className="lead-time__advance">
+                    {tr(row.advance, ro?.advance)}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+
+        <CrossFlourish className="section-divider" />
+
+        <section>
+          <header className="checklist__header">
+            <div>
+              <h2>{t('getting.checklistTitle')}</h2>
+              <p className="checklist__subtitle">
+                {t('getting.checklistSubtitle')}{' '}
+                <span className="checklist__progress">
+                  {t('getting.checklistProgress', {
+                    done: checklistTotals.done,
+                    total: checklistTotals.total,
+                  })}
+                </span>
+              </p>
+            </div>
+            <button
+              type="button"
+              className="checklist__reset"
+              onClick={resetChecklist}
+              disabled={checklistTotals.done === 0}
+            >
+              {t('getting.checklistReset')}
+            </button>
+          </header>
+          <div
+            className="checklist__progress-bar"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={checklistTotals.total}
+            aria-valuenow={checklistTotals.done}
+          >
+            <span
+              style={{
+                width: `${
+                  checklistTotals.total === 0
+                    ? 0
+                    : Math.round(
+                        (checklistTotals.done / checklistTotals.total) * 100,
+                      )
+                }%`,
+              }}
+            />
+          </div>
+          {DIAMONITIRION_CHECKLIST.map((section) => (
+            <div key={section.id} className="checklist__section">
+              <h3 className="diamo__subhead">
+                {t(`getting.checklistSection.${section.id}`)}
+              </h3>
+              <ul className="checklist">
+                {section.items.map((item) => {
+                  const ro = DIAMONITIRION_CHECKLIST_RO[item.id];
+                  const isChecked = !!checked[item.id];
+                  return (
+                    <li
+                      key={item.id}
+                      className={`checklist__item${
+                        isChecked ? ' checklist__item--done' : ''
+                      }`}
+                    >
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => toggleItem(item.id)}
+                        />
+                        <span>{tr(item.label, ro?.label)}</span>
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
         </section>
 
         <CrossFlourish className="section-divider" />

@@ -3,16 +3,26 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html, body, #root { height: 100%; }
+html, body, #root { min-height: 100%; }
 
 html {
   scroll-behavior: smooth;
+  /* Lock font scaling on iOS landscape rotations — our clamps already handle
+     the responsive sizing and the browser's "boost" breaks the typographic
+     proportions of the icon-band titles. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
+  /* Fill the viewport even when mobile browser chrome retracts, so the lapis
+     vault doesn't show a flash of system background at the foot of short pages. */
+  min-height: 100vh;
+  min-height: 100dvh;
   font-family: var(--font-body);
-  font-size: 19px;
+  /* 17px on the smallest phones, 19px on a comfortable desktop column. */
+  font-size: clamp(17px, 0.95rem + 0.25vw, 19px);
   line-height: 1.55;
   color: var(--ink);
   background-color: var(--bg);
@@ -27,6 +37,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'liga' 1, 'kern' 1, 'onum' 1, 'pnum' 1;
   text-rendering: optimizeLegibility;
+  /* Allow native pinch but smoothen tap response on touch devices. */
+  touch-action: manipulation;
+  /* Prevent two-finger horizontal pans on mobile that would briefly reveal the
+     lapis margin past the parchment cards. */
+  overflow-x: hidden;
+}
+
+/* Honour the iOS rubber-band feel on the scroll container, not the body
+   itself — the body's overflow-hidden above stops the chrome shift. */
+#root {
+  -webkit-overflow-scrolling: touch;
+  overflow-x: clip;
+}
+
+/* Media respects its column even when intrinsic SVG widths would push past. */
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Display titles — Cinzel Decorative for the most ceremonial moments, Cinzel
@@ -102,6 +130,15 @@ a {
 a:hover, a:focus-visible {
   color: var(--garnet);
   background-size: 100% 3px;
+}
+
+/* Form controls inherit the body family by default — but iOS Safari zooms
+   when a focused input is under 16px, so we set a minimum readable size and
+   keep the gold-on-vellum styling per-component. */
+input, select, textarea {
+  font-family: inherit;
+  font-size: max(16px, 1rem);
+  color: var(--ink);
 }
 
 /* Buttons — gilded plaques. Default state is restrained; hover catches

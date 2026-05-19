@@ -1,4 +1,5 @@
 import type { Trip, TripDay, TripPlace } from '../types';
+import type { SuggestedItinerary } from '../data/suggested-itineraries';
 
 const STORAGE_KEY = 'athos:trips';
 
@@ -123,6 +124,37 @@ export function movePlace(
   const [item] = next.splice(index, 1);
   next.splice(target, 0, item);
   return { ...day, places: next };
+}
+
+/** Builds a Trip from a SuggestedItinerary, anchored to the given start date.
+ *  Each day in the template is laid out on a consecutive date. The trip is
+ *  returned untouched (no slug, no updatedAt) — caller wraps with touch() and
+ *  upsertTrip(). */
+export function tripFromTemplate(
+  template: SuggestedItinerary,
+  startDate: string,
+  name: string,
+): Omit<Trip, 'slug' | 'updatedAt'> {
+  const start = parseISODate(startDate);
+  if (!start) {
+    return {
+      name,
+      startDate,
+      endDate: startDate,
+      days: [{ date: startDate, places: [] }],
+    };
+  }
+  const days: TripDay[] = template.days.map((day, i) => {
+    const d = new Date(start.getTime());
+    d.setUTCDate(d.getUTCDate() + i);
+    return { date: toISODate(d), places: day.places.slice() };
+  });
+  return {
+    name,
+    startDate,
+    endDate: days[days.length - 1]?.date ?? startDate,
+    days,
+  };
 }
 
 function parseISODate(value: string): Date | null {

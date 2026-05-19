@@ -23,6 +23,7 @@ import {
 interface Props {
   onNavigate: (view: View) => void;
   selectedSlug?: string;
+  showSettlements?: boolean;
 }
 
 const VIEW_W = 1200;
@@ -156,7 +157,7 @@ function variantForSettlement(s: Settlement): CompoundVariant {
   return 'classic';
 }
 
-export function MedievalMap({ onNavigate, selectedSlug }: Props) {
+export function MedievalMap({ onNavigate, selectedSlug, showSettlements = true }: Props) {
   const { t, tr } = useI18n();
   const [hovered, setHovered] = useState<string | null>(null);
 
@@ -179,12 +180,14 @@ export function MedievalMap({ onNavigate, selectedSlug }: Props) {
   );
   const settlements: PlacedSettlement[] = useMemo(
     () =>
-      SETTLEMENTS.map((s) => {
-        const [x, y] = project(s.lng, s.lat);
-        const ro = SETTLEMENTS_RO[s.slug];
-        return { ...s, name: tr(s.name, ro?.name), x, y };
-      }),
-    [tr],
+      showSettlements
+        ? SETTLEMENTS.map((s) => {
+            const [x, y] = project(s.lng, s.lat);
+            const ro = SETTLEMENTS_RO[s.slug];
+            return { ...s, name: tr(s.name, ro?.name), x, y };
+          })
+        : [],
+    [tr, showSettlements],
   );
   const [mtX, mtY] = project(24.327, 40.157);
   const labelTarget = hovered ?? selectedSlug ?? null;

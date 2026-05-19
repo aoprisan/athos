@@ -78,6 +78,17 @@
 
   --max-w: 1140px;
 
+  /* Touch target floor — large enough for a thumb without straying from the
+     Byzantine restraint. Used on every primary interactive surface on mobile. */
+  --tap-min:   44px;
+
+  /* Safe-area resolved values — kept as separate tokens so callers can compose
+     them with their own padding without nesting env() everywhere. */
+  --safe-top:    env(safe-area-inset-top,    0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left:   env(safe-area-inset-left,   0px);
+  --safe-right:  env(safe-area-inset-right,  0px);
+
   /* Greek-key border SVG — embedded as data-URI so it's tilable. The pattern is
      a single meander unit in gold on transparent ground. */
   --greek-key:

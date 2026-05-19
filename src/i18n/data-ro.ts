@@ -784,6 +784,16 @@ interface DiamonitirionRo {
   notes?: string[];
 }
 
+interface LeadTimeRo {
+  season?: string;
+  months?: string;
+  advance?: string;
+}
+
+interface ChecklistItemRo {
+  label?: string;
+}
+
 export const DIAMONITIRION_RO: DiamonitirionRo = {
   bureauName: 'Biroul Pelerinilor de la Sfântul Munte Athos (Γραφείο Προσκυνητών)',
   bureauCity: 'Tesalonic',
@@ -795,6 +805,41 @@ export const DIAMONITIRION_RO: DiamonitirionRo = {
     'Permisul se ridică în dimineața plecării, de la Biroul Pelerinilor din Ouranoupoli, pe baza pașaportului sau actului de identitate original, după plata taxei de eliberare. Biroul lucrează zilnic între 06:00 și 11:45 și se închide înainte de plecarea feribotului cel mare.',
     'Pelerinii români pot cere mijlocirea Schiturilor Românești Prodromu și Lacu pentru obținerea Diamonitirion-ului. O prelungire se poate obține uneori de la Sfânta Epistasie din Careia, după sosirea pe Sfântul Munte.',
   ],
+};
+
+export const DIAMONITIRION_LEAD_TIME_RO: Record<string, LeadTimeRo> = {
+  peak: {
+    season: 'Săptămâna Sfintelor Paști · Adormirea Maicii Domnului (15 august) · vârf de vară',
+    months: 'aprilie · iulie · august',
+    advance: 'cu 6+ luni înainte',
+  },
+  shoulder: {
+    season: 'Primăvară târzie & toamnă (sezon intermediar)',
+    months: 'mai · iunie · septembrie · octombrie',
+    advance: 'cu 2–3 luni înainte',
+  },
+  off: {
+    season: 'Zile de lucru de iarnă (în afara marilor praznice)',
+    months: 'noiembrie – martie',
+    advance: 'cu 2–4 săptămâni înainte',
+  },
+};
+
+export const DIAMONITIRION_CHECKLIST_RO: Record<string, ChecklistItemRo> = {
+  reservation: { label: 'Rezervarea Diamonitirion-ului confirmată (telefonic sau prin e-mail)' },
+  passport: { label: 'Pașaport sau buletin original — valabil 6+ luni' },
+  confirmation: { label: 'Confirmarea rezervării salvată (tipărită sau captură de ecran)' },
+  cash: { label: 'Numerar în euro pentru taxa de eliberare (cabina din port poate să nu accepte cardul)' },
+  'monastery-bookings': { label: 'Fiecare noapte confirmată telefonic cu mănăstirea-gazdă' },
+  'long-trousers': { label: 'Pantaloni lungi — pantalonii scurți nu sunt îngăduiți în mănăstiri' },
+  'sleeved-shirts': { label: 'Cămăși cu mâneci lungi — îmbrăcăminte cuviincioasă la slujbe' },
+  'walking-shoes': { label: 'Încălțăminte solidă de drumeție — potecile dintre mănăstiri sunt pietroase' },
+  'warm-layer': { label: 'O haină groasă pentru slujbele de noapte (frig chiar și vara)' },
+  headlamp: { label: 'Lanternă frontală pentru Utrenia de noapte și plecările dinaintea zorilor' },
+  'water-bottle': { label: 'Bidon reumplabil de apă (izvoarele mănăstirilor sunt sigure)' },
+  'offline-maps': { label: 'Hărți offline descărcate pe telefon — semnalul este slab pe Munte' },
+  backpack: { label: 'Doar rucsac — valizele cu rotile nu pot urma potecile' },
+  'power-bank': { label: 'Baterie externă — prizele diferă între chiliile pentru oaspeți' },
 };
 
 interface StepRo {
@@ -827,5 +872,55 @@ export const GETTING_THERE_STEPS_RO: Record<number, StepRo> = {
     title: 'Îmbarcă-te pe feribot spre Dafni (sau pe coasta de est, din Ierissos)',
     body:
       'Feribotul cel mare al pelerinilor pleacă din Ouranoupoli la 09:45 și ajunge la Dafni în jurul orei 11:45. La îmbarcare se cere Diamonitirion-ul. Din Dafni un autocar duce spre Careia, iar bărci mici merg spre coasta de sud-est (Simonopetra → Cavsocalivia).',
+  },
+};
+
+interface SuggestedItineraryRo {
+  name?: string;
+  description?: string;
+  dayNotes?: (string | undefined)[];
+}
+
+export const SUGGESTED_ITINERARIES_RO: Record<string, SuggestedItineraryRo> = {
+  'classic-east-coast': {
+    name: 'Coasta de nord-est — clasic',
+    description:
+      'Trei zile de-a lungul țărmului estic, mai blând — Iviron, Stavronikita și Pantocrator, cu Careia și Protatonul în mijloc.',
+    dayNotes: [
+      'Dafni → Careia cu autocarul, apoi mai departe la Iviron. Pe poteca de coastă, până la Stavronikita (aprox. 1½ oră de mers).',
+      'Continuă spre nord, de-a lungul coastei de est.',
+      'Trecere la Careia pentru Protaton și icoana făcătoare de minuni „Axion Estin".',
+    ],
+  },
+  'southern-tip-pilgrimage': {
+    name: 'Pelerinaj la vârful sudic',
+    description:
+      'Patru zile la capătul de pustie al Sfântului Munte — Marea Lavră și schiturile agățate de stâncă: Cavsocalivia, Sfânta Ana, Karulia.',
+    dayNotes: [
+      'Dafni → Marea Lavră cu vedeta de pe coasta de sud-est. Călătorie lungă — bagaj ușor.',
+      'Mers pe jos spre sud-vest, în jurul piciorului Athonului, către schiturile răsăritene.',
+      'Schiturile de pe stânci — potecile sunt foarte abrupte; rezervă cea mai mare parte a zilei.',
+      'Întoarcere spre nord, pe coasta de vest, cu vedeta mică.',
+    ],
+  },
+  'western-cliffs': {
+    name: 'Stâncile de vest',
+    description:
+      'Trei zile pe stâncile dramatice ale coastei de vest — Simonopetra, Grigoriou, Dionisiu și Sfântul Pavel, toate atinse de vedeta de pe coasta de sud-est, plecând din Dafni.',
+    dayNotes: [
+      'Dafni → Simonopetra cu vedeta de coastă. Arsanalul este la nivelul mării; mănăstirea stă la 230 m, sus pe stâncă.',
+      'Mers pe jos sau cu vedeta, spre sud, de-a lungul coastei stâncoase.',
+      'Capătul sudic al stâncilor, apoi întoarcere prin Xiropotamu, lângă Dafni.',
+    ],
+  },
+  'slavic-heritage': {
+    name: 'Moștenirea slavă',
+    description:
+      'Trei zile prin mănăstirile negrecești ale Sfântului Munte — Hilandar (sârbă), Zografu (bulgară) și Sfântul Pantelimon (rusă), cu slujbele lor în slavonă și arhitectura aparte.',
+    dayNotes: [
+      'Ierissos → arsanalul Mănăstirii Hilandar (vedetele sunt mai rare; verifică în port).',
+      'Traversare a peninsulei pe jos sau cu microbuzul, până la mănăstirea bulgară din interior.',
+      'Coborâre la coasta de vest — marea mănăstire rusească și vecinele ei.',
+    ],
   },
 };
