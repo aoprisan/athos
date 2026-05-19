@@ -5,6 +5,8 @@ import { MonasteryDetail } from './components/MonasteryDetail';
 import { SettlementDetail } from './components/SettlementDetail';
 import { GettingThere } from './components/GettingThere';
 import { FerrySchedule } from './components/FerrySchedule';
+import { TripsView } from './components/TripsView';
+import { TripDetail } from './components/TripDetail';
 import type { View } from './types';
 import { parseHash, viewToHash } from './lib/router';
 
@@ -43,6 +45,10 @@ export function App() {
         )}
         {view.kind === 'getting-there' && <GettingThere onNavigate={navigate} />}
         {view.kind === 'ferries' && <FerrySchedule onNavigate={navigate} />}
+        {view.kind === 'trips' && <TripsView onNavigate={navigate} />}
+        {view.kind === 'trip' && (
+          <TripDetail slug={view.slug} onNavigate={navigate} />
+        )}
       </main>
       <footer className="footer">
         Information for pilgrims to the Holy Mountain. Verify ferry sailings and

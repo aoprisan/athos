@@ -78,9 +78,39 @@ export interface TransportPort {
   notes?: string;
 }
 
+export interface TripPlace {
+  /** Which dataset this slug belongs to. */
+  kind: 'monastery' | 'settlement';
+  /** Slug from MONASTERIES or SETTLEMENTS. */
+  slug: string;
+}
+
+export interface TripDay {
+  /** ISO date YYYY-MM-DD, unique within a trip, used as the stable key. */
+  date: string;
+  /** Ordered list of places to visit that day. */
+  places: TripPlace[];
+}
+
+export interface Trip {
+  /** Unique id used in the URL. Slugified name + 4-char random suffix. */
+  slug: string;
+  name: string;
+  /** ISO YYYY-MM-DD. */
+  startDate: string;
+  /** ISO YYYY-MM-DD, inclusive, must be >= startDate. */
+  endDate: string;
+  /** One entry per day in [startDate, endDate], in chronological order. */
+  days: TripDay[];
+  /** ISO timestamp, set on create, updated on every mutation. */
+  updatedAt: string;
+}
+
 export type View =
   | { kind: 'home' }
   | { kind: 'monastery'; slug: string }
   | { kind: 'settlement'; slug: string }
   | { kind: 'getting-there' }
-  | { kind: 'ferries' };
+  | { kind: 'ferries' }
+  | { kind: 'trips' }
+  | { kind: 'trip'; slug: string };

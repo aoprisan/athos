@@ -9,6 +9,9 @@ export function parseHash(hash: string): View {
   if (m) return { kind: 'monastery', slug: m[1] };
   const s = clean.match(/^settlement\/([a-z0-9-]+)$/);
   if (s) return { kind: 'settlement', slug: s[1] };
+  if (clean === 'trips') return { kind: 'trips' };
+  const t = clean.match(/^trip\/([a-z0-9-]+)$/);
+  if (t) return { kind: 'trip', slug: t[1] };
   return { kind: 'home' };
 }
 
@@ -24,5 +27,9 @@ export function viewToHash(view: View): string {
       return '#/getting-there';
     case 'ferries':
       return '#/ferries';
+    case 'trips':
+      return '#/trips';
+    case 'trip':
+      return `#/trip/${view.slug}`;
   }
 }
