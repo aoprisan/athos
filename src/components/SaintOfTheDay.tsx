@@ -1,5 +1,6 @@
 import { getFeastsForDate } from '../lib/feasts';
 import { useI18n } from '../i18n';
+import { MONASTERIES_RO, SAINTS_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
 import type { View } from '../types';
 
 interface Props {
@@ -28,7 +29,7 @@ function formatTodayLabel(lang: string): string {
  *  Picks the first match by index order (saints precede monasteries by the
  *  order we add to the index). Tapping the strip opens the relevant detail. */
 export function SaintOfTheDay({ onNavigate }: Props) {
-  const { t, lang } = useI18n();
+  const { t, tr, lang } = useI18n();
   const feasts = getFeastsForDate(todayISO());
   if (feasts.length === 0) return null;
   // Prefer a saint over a monastery for the headline — pilgrims read this
@@ -36,6 +37,14 @@ export function SaintOfTheDay({ onNavigate }: Props) {
   // to know first.
   const headline =
     feasts.find((f) => f.kind === 'saint') ?? feasts[0];
+
+  const headlineRoName =
+    headline.kind === 'saint'
+      ? SAINTS_RO[headline.slug]?.name
+      : headline.kind === 'monastery'
+        ? MONASTERIES_RO[headline.slug]?.name
+        : SETTLEMENTS_RO[headline.slug]?.name;
+  const headlineName = tr(headline.name, headlineRoName);
 
   const onClick = () => {
     if (headline.kind === 'saint') {
@@ -53,7 +62,7 @@ export function SaintOfTheDay({ onNavigate }: Props) {
       <span className="today-band__label">{t('today.label')}</span>
       <span className="today-band__date">{formatTodayLabel(lang)}</span>
       <span className="today-band__sep" aria-hidden="true">·</span>
-      <span className="today-band__name">{headline.name}</span>
+      <span className="today-band__name">{headlineName}</span>
     </button>
   );
 }

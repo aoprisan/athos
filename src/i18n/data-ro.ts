@@ -924,3 +924,90 @@ export const SUGGESTED_ITINERARIES_RO: Record<string, SuggestedItineraryRo> = {
     ],
   },
 };
+
+interface SaintRo {
+  name?: string;
+  years?: string;
+  feast?: string;
+  intro?: string;
+  notes?: string[];
+}
+
+export const SAINTS_RO: Record<string, SaintRo> = {
+  'athanasios-athonite': {
+    name: 'Sfântul Atanasie Athonitul',
+    years: 'cca. 920 – cca. 1003',
+    feast: 'Adormirea Sfântului Atanasie Athonitul (5 / 18 iulie)',
+    intro:
+      'Întemeietorul Marii Lavre și arhitectul, sub împărații Nichifor Phokas și Ioan Tzimiskes, al vieții chinoviale rânduite pe Sfântul Munte. Înaintea venirii lui, povârnișurile erau presărate cu sihăstrii; typikonul pe care l-a alcătuit a dat Muntelui forma sa instituțională.',
+    notes: [
+      'Mormântul său din katholikonul Marii Lavre păstrează toiagul de fier și crucea pe care o purta la piept. Maica Domnului i s-a arătat la izvorul Aghiasmei în vremea foametei celei mari și a luat asupra-Și grija de iconomie a mănăstirii — dregătoria de iconom a rămas neîncredințată vreunui monah de atunci.',
+    ],
+  },
+  'gregory-palamas': {
+    name: 'Sfântul Grigorie Palama',
+    years: '1296 – 1359',
+    feast: 'Sfântul Grigorie Palama (14 / 27 noiembrie)',
+    intro:
+      'Isihast athonit și teolog al luminii necreate. Ucenicit la Vatoped sub Sfântul Nicodim, a apărat mai târziu lucrarea Rugăciunii lui Iisus împotriva raționalistului Varlaam Calabrezul. Arhiepiscop al Tesalonicului din 1347, prăznuirea sa cade pe 14 noiembrie și se ține din nou în Duminica a doua a Postului Mare.',
+  },
+  'silouan-the-athonite': {
+    name: 'Sfântul Siluan Athonitul',
+    years: '1866 – 1938',
+    feast: 'Sfântul Siluan (11 / 24 septembrie)',
+    intro:
+      'Țăran rus care a ajuns unul dintre cei mai luminați monahi ai veacului al XX-lea. De la vârsta de douăzeci și șapte de ani, în mănăstirea rusească Sfântul Pantelimon, și-a petrecut nopțile în rugăciune neîncetată pentru Adam, „pentru tot omul". Ucenicul său, Arhimandritul Sofronie, i-a păstrat cuvintele în *Sfântul Siluan Athonitul*.',
+    notes: [
+      '„Ține-ți mintea în iad și nu deznădăjdui" — cuvântul de căpetenie pe care Domnul i l-a spus într-o clipă de chinuită rugăciune.',
+    ],
+  },
+  'paisios-the-athonite': {
+    name: 'Sfântul Paisie Athonitul',
+    years: '1924 – 1994',
+    feast: 'Sfântul Paisie (12 / 25 iulie)',
+    intro:
+      'Stareț de obârșie capadociană al Panagudei și al Schitului Kapsala, a cărui kalivă a fost una dintre cele mai cercetate chilii de la Athos în ultimul sfert al veacului al XX-lea. Canonizat în 2015, pomenirea sa se face pe 12 iulie, ziua în care s-a mutat la Domnul, la Suroti, lângă Tesalonic.',
+  },
+  'porphyrios-the-kafsokalyvit': {
+    name: 'Sfântul Porfirie Kavsokalivitul',
+    years: '1906 – 1991',
+    feast: 'Sfântul Porfirie (2 / 15 decembrie)',
+    intro:
+      'Stareț al Schitului Kavsokalivia (metoc al Marii Lavre) și, ani de-a rândul, preot la policlinica „Sfântul Gherasim" din Atena. A primit darul străvederii de tânăr; învățăturile lui, strânse postum în *Rănit de iubire*, înfățișează viața creștină drept îmbrățișare a lui Hristos „fără silință", prin dragoste, nu prin frică.',
+  },
+  'maximos-kavsokalyvit': {
+    name: 'Sfântul Maxim Kavsokalivitul',
+    years: 'cca. 1270 – 1365',
+    feast: 'Sfântul Maxim (13 / 26 ianuarie)',
+    intro:
+      '„Arzătorul de colibe" — așa numit pentru că își ardea kaliva ori de câte ori locul era aflat de oameni și venirea lor îi tulbura rugăciunea. Sihastru în pustia sălbatică din sud-estul Athonului, contemporan al Sfântului Grigorie Sinaitul, este ocrotitorul Schitului Kavsokalivia.',
+  },
+  'kosmas-aitolos': {
+    name: 'Sfântul Cosma Etolianul',
+    years: '1714 – 1779',
+    feast: 'Sfântul Cosma (24 august / 6 septembrie)',
+    intro:
+      'Întocmai-cu-Apostolii, marele propovăduitor al pământurilor grecești sub stăpânirea otomană. Tuns în monahism la Filotheu, a primit binecuvântarea Sfintei Comunități să părăsească Muntele și să propovăduiască Evanghelia în satele Epirului, Macedoniei și Albaniei, întemeind sute de școli. A pătimit mucenicește lângă Berat în 1779.',
+  },
+  'nikodemos-the-hagiorite': {
+    name: 'Sfântul Nicodim Aghioritul',
+    years: '1749 – 1809',
+    feast: 'Sfântul Nicodim (14 / 27 iulie)',
+    intro:
+      'Marele editor patristic al Sfântului Munte. Împreună cu Sfântul Macarie al Corintului a alcătuit *Filocalia* (Veneția, 1782), antologia scrierilor mistice athonite care a modelat duhovnicia ortodoxă din Rusia până în lumea greacă modernă. *Pidalionul*, *Războiul nevăzut* și marele *Sinaxar* sunt tot lucrarea lui.',
+  },
+  'john-koukouzelis': {
+    name: 'Sfântul Ioan Cucuzel',
+    years: 'cca. 1280 – cca. 1360',
+    feast: 'Sfântul Ioan Cucuzel (1 / 14 octombrie)',
+    intro:
+      'Psalt împărătesc la curtea Constantinopolului care a fugit la Marea Lavră și a viețuit acolo ca monah-păstor. Înaintea icoanei Maicii Domnului Cucuzelița a auzit glasul Născătoarei de Dumnezeu zicând „Cântă, Ioane al meu, și nu vei lipsi de plată" — iar la trezire a aflat în mâna sa o monedă de aur. Părintele *Papadichii*, marele manual medieval al cântării bisericești.',
+  },
+  'gregory-of-sinai': {
+    name: 'Sfântul Grigorie Sinaitul',
+    years: 'cca. 1260 – 1346',
+    feast: 'Sfântul Grigorie Sinaitul (8 / 21 august)',
+    intro:
+      'Învățător isihast care a adus la Athos lucrarea sinaitică a Rugăciunii lui Iisus, ce a prins rădăcini în kathismatele din jurul Magoulei. Dascăl (în duh și în scrieri) al Sfântului Grigorie Palama. A întemeiat mai târziu marea mănăstire de la Paroria, la hotarul bizantino-bulgar.',
+  },
+};

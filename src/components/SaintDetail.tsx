@@ -2,7 +2,7 @@ import { findSaint } from '../data/saints';
 import { findMonastery } from '../data/monasteries';
 import type { View } from '../types';
 import { useI18n } from '../i18n';
-import { MONASTERIES_RO } from '../i18n/data-ro';
+import { MONASTERIES_RO, SAINTS_RO } from '../i18n/data-ro';
 import { CrossFlourish, DropCap, SaintNimbus } from './Ornaments';
 
 interface Props {
@@ -31,8 +31,14 @@ export function SaintDetail({ slug, onNavigate }: Props) {
   const monasteryName = monastery
     ? tr(monastery.name, monasteryRo?.name)
     : undefined;
-  const introFirst = saint.intro.charAt(0);
-  const introRest = saint.intro.slice(1);
+  const ro = SAINTS_RO[saint.slug];
+  const name = tr(saint.name, ro?.name);
+  const years = tr(saint.years, ro?.years);
+  const feast = tr(saint.feast, ro?.feast);
+  const intro = tr(saint.intro, ro?.intro);
+  const notes = tr(saint.notes, ro?.notes);
+  const introFirst = intro.charAt(0);
+  const introRest = intro.slice(1);
 
   return (
     <article className="detail">
@@ -46,7 +52,7 @@ export function SaintDetail({ slug, onNavigate }: Props) {
       <div className="parchment">
         <header className="detail__header">
           <SaintNimbus className="saint__nimbus" />
-          <h1 className="detail__name">{saint.name}</h1>
+          <h1 className="detail__name">{name}</h1>
           {saint.nameGreek && (
             <div className="detail__greek">{saint.nameGreek}</div>
           )}
@@ -54,11 +60,11 @@ export function SaintDetail({ slug, onNavigate }: Props) {
           <div className="detail__meta">
             <span>
               <span className="detail__meta-label">{t('saint.years')}</span>
-              {saint.years}
+              {years}
             </span>
             <span>
               <span className="detail__meta-label">{t('saint.feast')}</span>
-              {saint.feast}
+              {feast}
             </span>
             {monastery && monasteryName && (
               <span>
@@ -82,9 +88,9 @@ export function SaintDetail({ slug, onNavigate }: Props) {
           {introRest}
         </p>
 
-        {saint.notes && saint.notes.length > 0 && (
+        {notes && notes.length > 0 && (
           <section className="detail__notes">
-            {saint.notes.map((n, i) => (
+            {notes.map((n, i) => (
               <p key={i}>{n}</p>
             ))}
           </section>

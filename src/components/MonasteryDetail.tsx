@@ -6,7 +6,7 @@ import { CrossFlourish, DropCap, HaloMedallion } from './Ornaments';
 import { Horarium } from './Horarium';
 import { ArrivalCompass } from './ArrivalCompass';
 import { useI18n } from '../i18n';
-import { MONASTERIES_RO } from '../i18n/data-ro';
+import { MONASTERIES_RO, SAINTS_RO } from '../i18n/data-ro';
 import { regionLabel, traditionLabel } from '../i18n/strings';
 import { openInMaps } from '../lib/maps';
 
@@ -140,21 +140,24 @@ export function MonasteryDetail({ slug, onNavigate }: Props) {
             <section className="detail__saints">
               <h2>{t('detail.saintsTitle')}</h2>
               <ul className="detail__saints-list">
-                {saints.map((s) => (
-                  <li key={s.slug}>
-                    <button
-                      type="button"
-                      className="detail__saint-link"
-                      onClick={() => onNavigate({ kind: 'saint', slug: s.slug })}
-                    >
-                      <span className="detail__saint-mark" aria-hidden="true">☩</span>
-                      <span className="detail__saint-body">
-                        <span className="detail__saint-name">{s.name}</span>
-                        <span className="detail__saint-years">{s.years}</span>
-                      </span>
-                    </button>
-                  </li>
-                ))}
+                {saints.map((s) => {
+                  const saintRo = SAINTS_RO[s.slug];
+                  return (
+                    <li key={s.slug}>
+                      <button
+                        type="button"
+                        className="detail__saint-link"
+                        onClick={() => onNavigate({ kind: 'saint', slug: s.slug })}
+                      >
+                        <span className="detail__saint-mark" aria-hidden="true">☩</span>
+                        <span className="detail__saint-body">
+                          <span className="detail__saint-name">{tr(s.name, saintRo?.name)}</span>
+                          <span className="detail__saint-years">{tr(s.years, saintRo?.years)}</span>
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           );

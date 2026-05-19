@@ -20,7 +20,7 @@ import {
 } from '../lib/trips';
 import { CrossFlourish } from './Ornaments';
 import { useI18n } from '../i18n';
-import { MONASTERIES_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
+import { MONASTERIES_RO, SAINTS_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
 import { openItineraryInMaps, type MapPoint } from '../lib/maps';
 import { getFeastsForDate, type FeastMatch } from '../lib/feasts';
 import { getFastForDate, type FastForDate } from '../lib/fasts';
@@ -135,10 +135,11 @@ export function TripDetail({ slug, onNavigate }: Props) {
       };
     }
     if (match.kind === 'saint') {
+      const ro = SAINTS_RO[match.slug];
       return {
-        name: match.name,
+        name: tr(match.name, ro?.name),
         nameGreek: match.nameGreek,
-        feast: match.feast,
+        feast: tr(match.feast, ro?.feast),
         view: { kind: 'saint', slug: match.slug } as View,
       };
     }
