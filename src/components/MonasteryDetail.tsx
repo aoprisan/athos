@@ -5,6 +5,7 @@ import { CrossFlourish, DropCap, HaloMedallion } from './Ornaments';
 import { useI18n } from '../i18n';
 import { MONASTERIES_RO } from '../i18n/data-ro';
 import { traditionLabel } from '../i18n/strings';
+import { openInMaps } from '../lib/maps';
 
 interface Props {
   slug: string;
@@ -92,6 +93,16 @@ export function MonasteryDetail({ slug, onNavigate }: Props) {
               lng: m.lng.toFixed(4),
             })}
           </p>
+          <div className="detail__open-maps-row">
+            <button
+              type="button"
+              className="detail__open-maps"
+              onClick={() => openInMaps(m.lat, m.lng, name)}
+            >
+              <span className="detail__open-maps-mark" aria-hidden="true">⌖</span>
+              {t('detail.openInMaps')}
+            </button>
+          </div>
         </section>
 
         {m.links.length > 0 && (

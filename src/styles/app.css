@@ -862,6 +862,41 @@
 
 .detail__location .medieval-map { margin-top: 1rem; }
 
+.detail__open-maps-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.detail__open-maps {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  background: transparent;
+  border: 1px solid var(--gold-deep);
+  color: var(--gold-bright);
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 0.7em 1.4em;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, box-shadow 120ms ease;
+}
+.detail__open-maps::before,
+.detail__open-maps::after { display: none; }
+.detail__open-maps:hover,
+.detail__open-maps:focus-visible {
+  background: rgba(214, 173, 50, 0.12);
+  color: #fffbe6;
+  box-shadow: 0 0 0 1px var(--gold-deep) inset;
+  outline: none;
+}
+.detail__open-maps-mark {
+  color: var(--gold);
+  font-size: 1.05em;
+  line-height: 1;
+}
+
 .detail__links ul {
   list-style: none;
   padding: 0;

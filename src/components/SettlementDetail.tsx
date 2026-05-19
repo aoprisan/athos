@@ -6,6 +6,7 @@ import { CrossFlourish, DropCap } from './Ornaments';
 import { useI18n } from '../i18n';
 import { MONASTERIES_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
 import { traditionLabel } from '../i18n/strings';
+import { openInMaps } from '../lib/maps';
 
 interface Props {
   slug: string;
@@ -114,6 +115,16 @@ export function SettlementDetail({ slug, onNavigate }: Props) {
               lng: s.lng.toFixed(4),
             })}
           </p>
+          <div className="detail__open-maps-row">
+            <button
+              type="button"
+              className="detail__open-maps"
+              onClick={() => openInMaps(s.lat, s.lng, name)}
+            >
+              <span className="detail__open-maps-mark" aria-hidden="true">⌖</span>
+              {t('detail.openInMaps')}
+            </button>
+          </div>
         </section>
 
         {s.links.length > 0 && (
