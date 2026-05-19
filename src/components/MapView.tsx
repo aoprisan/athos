@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { MedievalMap } from './MedievalMap';
 import type { View } from '../types';
+import { useI18n } from '../i18n';
 
 const ModernMap = lazy(() => import('./ModernMap'));
 
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export function MapView({ onNavigate, selectedSlug }: Props) {
+  const { t } = useI18n();
   const [mode, setMode] = useState<MapMode>(readStoredMode);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ export function MapView({ onNavigate, selectedSlug }: Props) {
 
   return (
     <div className="map-view">
-      <div className="map-toggle" role="tablist" aria-label="Map style">
+      <div className="map-toggle" role="tablist" aria-label={t('map.styleLabel')}>
         <button
           type="button"
           role="tab"
@@ -45,7 +47,7 @@ export function MapView({ onNavigate, selectedSlug }: Props) {
           onClick={() => setMode('medieval')}
         >
           <span className="map-toggle__mark" aria-hidden="true">⚜</span>
-          Portolano
+          {t('map.portolano')}
         </button>
         <button
           type="button"
@@ -55,7 +57,7 @@ export function MapView({ onNavigate, selectedSlug }: Props) {
           onClick={() => setMode('modern')}
         >
           <span className="map-toggle__mark" aria-hidden="true">⊕</span>
-          Topographic
+          {t('map.topographic')}
         </button>
       </div>
 
@@ -66,7 +68,7 @@ export function MapView({ onNavigate, selectedSlug }: Props) {
           <Suspense
             fallback={
               <div className="modern-map modern-map--loading" role="status">
-                <span>Loading topographic map…</span>
+                <span>{t('map.loadingTopo')}</span>
               </div>
             }
           >

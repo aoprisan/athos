@@ -4,6 +4,8 @@ import 'leaflet/dist/leaflet.css';
 import type { Trip, View } from '../types';
 import { findMonastery } from '../data/monasteries';
 import { findSettlement } from '../data/settlements';
+import { useI18n } from '../i18n';
+import { MONASTERIES_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
 
 /* TripItineraryMap — OSM tile view rendering the ordered places of a single
    trip. Each day gets its own coloured polyline and numbered markers labelled
@@ -47,23 +49,28 @@ const DAY_COLOURS = [
 
 function resolveLocation(
   place: { kind: 'monastery' | 'settlement'; slug: string },
+  lang: string,
 ): Located | null {
+  const pick = <T,>(en: T, ro: T | undefined): T =>
+    lang === 'ro' && ro !== undefined ? ro : en;
   if (place.kind === 'monastery') {
     const m = findMonastery(place.slug);
     if (!m) return null;
+    const ro = MONASTERIES_RO[m.slug];
     return {
       lat: m.lat,
       lng: m.lng,
-      name: m.name,
+      name: pick(m.name, ro?.name),
       view: { kind: 'monastery', slug: m.slug },
     };
   }
   const s = findSettlement(place.slug);
   if (!s) return null;
+  const ro = SETTLEMENTS_RO[s.slug];
   return {
     lat: s.lat,
     lng: s.lng,
-    name: s.name,
+    name: pick(s.name, ro?.name),
     view: { kind: 'settlement', slug: s.slug },
   };
 }
@@ -78,6 +85,7 @@ function stopIcon(label: string, colour: string): L.DivIcon {
 }
 
 export function TripItineraryMap({ trip, onNavigate }: Props) {
+  const { t, lang } = useI18n();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
@@ -88,10 +96,10 @@ export function TripItineraryMap({ trip, onNavigate }: Props) {
       date: day.date,
       colour: DAY_COLOURS[dayIndex % DAY_COLOURS.length],
       stops: day.places
-        .map((p) => resolveLocation(p))
+        .map((p) => resolveLocation(p, lang))
         .filter((p): p is Located => p !== null),
     }));
-  }, [trip]);
+  }, [trip, lang]);
 
   // One-time map init. The plots layer is rebuilt below when the trip changes.
   useEffect(() => {
@@ -148,10 +156,13 @@ export function TripItineraryMap({ trip, onNavigate }: Props) {
         const marker = L.marker([stop.lat, stop.lng], {
           icon: stopIcon(label, plot.colour),
         }).addTo(layer);
-        marker.bindTooltip(`Day ${plot.dayIndex + 1} · ${stop.name}`, {
-          direction: 'top',
-          offset: [0, -10],
-        });
+        marker.bindTooltip(
+          `${t('tripDetail.dayN', { n: plot.dayIndex + 1 })} · ${stop.name}`,
+          {
+            direction: 'top',
+            offset: [0, -10],
+          },
+        );
         marker.on('click', () => onNavigate(stop.view));
       });
     }
@@ -170,7 +181,7 @@ export function TripItineraryMap({ trip, onNavigate }: Props) {
       padding: [40, 40],
       maxZoom: 14,
     });
-  }, [plots, onNavigate]);
+  }, [plots, onNavigate, t]);
 
   const hasAnyStop = plots.some((p) => p.stops.length > 0);
 
@@ -178,12 +189,10 @@ export function TripItineraryMap({ trip, onNavigate }: Props) {
     <div className="trip-map">
       <div ref={containerRef} className="trip-map__canvas" />
       {!hasAnyStop && (
-        <p className="trip-map__empty">
-          Add places to a day below and they'll appear on the map.
-        </p>
+        <p className="trip-map__empty">{t('tripMap.empty')}</p>
       )}
       {hasAnyStop && (
-        <ol className="trip-map__legend" aria-label="Map legend">
+        <ol className="trip-map__legend" aria-label={t('tripMap.legendAria')}>
           {plots.map((plot) =>
             plot.stops.length === 0 ? null : (
               <li key={plot.date} className="trip-map__legend-item">
@@ -193,7 +202,7 @@ export function TripItineraryMap({ trip, onNavigate }: Props) {
                   aria-hidden="true"
                 />
                 <span className="trip-map__legend-label">
-                  Day {plot.dayIndex + 1}
+                  {t('tripDetail.dayN', { n: plot.dayIndex + 1 })}
                 </span>
               </li>
             ),

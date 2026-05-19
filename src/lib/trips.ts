@@ -151,11 +151,15 @@ function randomSuffix(): string {
   return Math.random().toString(36).slice(2, 6).padEnd(4, '0');
 }
 
+function localeTag(lang: string): string {
+  return lang === 'ro' ? 'ro-RO' : 'en-GB';
+}
+
 /** Formats an ISO date as a long-form label like "Wed, 10 Jun 2026". */
-export function formatTripDate(iso: string): string {
+export function formatTripDate(iso: string, lang: string = 'en'): string {
   const d = parseISODate(iso);
   if (!d) return iso;
-  return d.toLocaleDateString('en-GB', {
+  return d.toLocaleDateString(localeTag(lang), {
     weekday: 'short',
     day: '2-digit',
     month: 'short',
@@ -165,18 +169,23 @@ export function formatTripDate(iso: string): string {
 }
 
 /** Formats an ISO date range as "10 Jun – 13 Jun 2026". */
-export function formatTripRange(start: string, end: string): string {
+export function formatTripRange(
+  start: string,
+  end: string,
+  lang: string = 'en',
+): string {
   const s = parseISODate(start);
   const e = parseISODate(end);
   if (!s || !e) return `${start} – ${end}`;
   const sameYear = s.getUTCFullYear() === e.getUTCFullYear();
-  const startLabel = s.toLocaleDateString('en-GB', {
+  const tag = localeTag(lang);
+  const startLabel = s.toLocaleDateString(tag, {
     day: '2-digit',
     month: 'short',
     year: sameYear ? undefined : 'numeric',
     timeZone: 'UTC',
   });
-  const endLabel = e.toLocaleDateString('en-GB', {
+  const endLabel = e.toLocaleDateString(tag, {
     day: '2-digit',
     month: 'short',
     year: 'numeric',

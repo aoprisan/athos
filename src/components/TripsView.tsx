@@ -11,6 +11,7 @@ import {
   upsertTrip,
 } from '../lib/trips';
 import { CrossFlourish } from './Ornaments';
+import { useI18n } from '../i18n';
 
 interface Props {
   onNavigate: (view: View) => void;
@@ -25,6 +26,7 @@ function todayISO(): string {
 }
 
 export function TripsView({ onNavigate }: Props) {
+  const { t, lang } = useI18n();
   const [trips, setTrips] = useState<Trip[]>(loadTrips);
   const [name, setName] = useState('');
   const [startDate, setStartDate] = useState(todayISO);
@@ -39,12 +41,12 @@ export function TripsView({ onNavigate }: Props) {
     event.preventDefault();
     const trimmed = name.trim();
     if (!trimmed) {
-      setError('Give the trip a name.');
+      setError(t('trips.errorName'));
       return;
     }
     const days = eachDateInRange(startDate, endDate);
     if (days.length === 0) {
-      setError('End date must be on or after the start date.');
+      setError(t('trips.errorRange'));
       return;
     }
     const slug = makeTripSlug(trimmed);
@@ -63,38 +65,35 @@ export function TripsView({ onNavigate }: Props) {
   };
 
   const onDelete = (slug: string, label: string) => {
-    if (!window.confirm(`Delete trip "${label}"? This cannot be undone.`)) return;
+    if (!window.confirm(t('trips.confirmDelete', { name: label }))) return;
     setTrips((prev) => removeTrip(prev, slug));
   };
 
   return (
     <div className="trips">
       <section className="home__intro">
-        <p className="home__subtitle">Plan your pilgrimage</p>
-        <h1 className="home__title">Trips</h1>
-        <p className="home__lede">
-          Sketch out the days of your visit and the monasteries or sketes you
-          hope to call at on each. Trips are stored on this device only.
-        </p>
+        <p className="home__subtitle">{t('trips.subtitle')}</p>
+        <h1 className="home__title">{t('trips.title')}</h1>
+        <p className="home__lede">{t('trips.lede')}</p>
         <CrossFlourish className="home__flourish" />
       </section>
 
       <div className="parchment trip-form-card">
-        <h2 className="trip-form-card__title">New trip</h2>
+        <h2 className="trip-form-card__title">{t('trips.newTrip')}</h2>
         <form className="trip-form" onSubmit={submit}>
           <label className="trip-form__field">
-            <span>Name</span>
+            <span>{t('trips.name')}</span>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Spring pilgrimage"
+              placeholder={t('trips.namePlaceholder')}
               maxLength={80}
               required
             />
           </label>
           <label className="trip-form__field">
-            <span>Start date</span>
+            <span>{t('trips.startDate')}</span>
             <input
               type="date"
               value={startDate}
@@ -103,7 +102,7 @@ export function TripsView({ onNavigate }: Props) {
             />
           </label>
           <label className="trip-form__field">
-            <span>End date</span>
+            <span>{t('trips.endDate')}</span>
             <input
               type="date"
               value={endDate}
@@ -114,50 +113,49 @@ export function TripsView({ onNavigate }: Props) {
           {error && <p className="trip-form__error">{error}</p>}
           <div className="trip-form__actions">
             <button type="submit" className="trip-form__submit">
-              Create trip
+              {t('trips.create')}
             </button>
           </div>
         </form>
       </div>
 
       <div className="parchment trips-list-card">
-        <h2 className="trips-list-card__title">Your trips</h2>
+        <h2 className="trips-list-card__title">{t('trips.yourTrips')}</h2>
         {trips.length === 0 ? (
-          <p className="trips-list__empty">
-            No trips yet. Use the form above to plan your first visit.
-          </p>
+          <p className="trips-list__empty">{t('trips.empty')}</p>
         ) : (
           <ul className="trips-list">
-            {trips.map((t) => {
-              const dayCount = t.days.length;
-              const placeCount = t.days.reduce(
+            {trips.map((tr) => {
+              const dayCount = tr.days.length;
+              const placeCount = tr.days.reduce(
                 (sum, d) => sum + d.places.length,
                 0,
               );
               return (
-                <li key={t.slug} className="trips-list__item">
+                <li key={tr.slug} className="trips-list__item">
                   <button
                     type="button"
                     className="trips-list__link"
-                    onClick={() => onNavigate({ kind: 'trip', slug: t.slug })}
+                    onClick={() => onNavigate({ kind: 'trip', slug: tr.slug })}
                   >
-                    <span className="trips-list__name">{t.name}</span>
+                    <span className="trips-list__name">{tr.name}</span>
                     <span className="trips-list__range">
-                      {formatTripRange(t.startDate, t.endDate)}
+                      {formatTripRange(tr.startDate, tr.endDate, lang)}
                     </span>
                     <span className="trips-list__counts">
-                      {dayCount} {dayCount === 1 ? 'day' : 'days'} ·{' '}
+                      {dayCount}{' '}
+                      {dayCount === 1 ? t('trips.day') : t('trips.days')} ·{' '}
                       {placeCount}{' '}
-                      {placeCount === 1 ? 'place' : 'places'}
+                      {placeCount === 1 ? t('trips.place') : t('trips.places')}
                     </span>
                   </button>
                   <button
                     type="button"
                     className="trips-list__delete"
-                    onClick={() => onDelete(t.slug, t.name)}
-                    aria-label={`Delete trip ${t.name}`}
+                    onClick={() => onDelete(tr.slug, tr.name)}
+                    aria-label={t('trips.deleteAriaLabel', { name: tr.name })}
                   >
-                    Delete
+                    {t('trips.delete')}
                   </button>
                 </li>
               );

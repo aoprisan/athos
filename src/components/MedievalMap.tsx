@@ -3,6 +3,12 @@ import { MONASTERIES } from '../data/monasteries';
 import { SETTLEMENTS } from '../data/settlements';
 import { PORTS } from '../data/transport';
 import type { Monastery, Settlement, View } from '../types';
+import { useI18n } from '../i18n';
+import {
+  MONASTERIES_RO,
+  PORTS_RO,
+  SETTLEMENTS_RO,
+} from '../i18n/data-ro';
 
 /* MedievalMap — Byzantine-fresco map of the Athonite peninsula, in the
    iconographic register of Athonite monastery frescoes (cf. the Vatopedi
@@ -151,30 +157,34 @@ function variantForSettlement(s: Settlement): CompoundVariant {
 }
 
 export function MedievalMap({ onNavigate, selectedSlug }: Props) {
+  const { t, tr } = useI18n();
   const [hovered, setHovered] = useState<string | null>(null);
 
   const monasteries: Placed[] = useMemo(
     () =>
       MONASTERIES.map((m) => {
         const [x, y] = project(m.lng, m.lat);
-        return { ...m, x, y };
+        const ro = MONASTERIES_RO[m.slug];
+        return { ...m, name: tr(m.name, ro?.name), x, y };
       }),
-    [],
+    [tr],
   );
   const ports = useMemo(
     () => PORTS.map((p) => {
       const [x, y] = project(p.lng, p.lat);
-      return { ...p, x, y };
+      const ro = PORTS_RO[p.id];
+      return { ...p, name: tr(p.name, ro?.name), x, y };
     }),
-    [],
+    [tr],
   );
   const settlements: PlacedSettlement[] = useMemo(
     () =>
       SETTLEMENTS.map((s) => {
         const [x, y] = project(s.lng, s.lat);
-        return { ...s, x, y };
+        const ro = SETTLEMENTS_RO[s.slug];
+        return { ...s, name: tr(s.name, ro?.name), x, y };
       }),
-    [],
+    [tr],
   );
   const [mtX, mtY] = project(24.327, 40.157);
   const labelTarget = hovered ?? selectedSlug ?? null;
@@ -195,7 +205,7 @@ export function MedievalMap({ onNavigate, selectedSlug }: Props) {
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid meet"
         role="img"
-        aria-label="Painted Byzantine map of Mount Athos and the twenty ruling monasteries, with the Theotokos and two angels in the sky band above"
+        aria-label={t('map.medievalAria')}
       >
         <defs>
           <linearGradient id="fresco-sky" x1="0" y1="0" x2="0" y2="1">
