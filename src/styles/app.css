@@ -865,13 +865,16 @@
 /* The "porphyry seal" — a wax-and-gold-leaf action chip styled after the
    imperial seals affixed to Byzantine chrysobulls. Gold text on oxblood is
    the highest-contrast pairing in the palette, and reads unambiguously as
-   a primary call to action without breaking the manuscript aesthetic. */
+   a primary call to action without breaking the manuscript aesthetic.
+   Reserved for the most affirmative actions: opening the place / itinerary
+   in a map, and committing to a new pilgrimage. */
 .detail__open-maps-row {
   display: flex;
   justify-content: center;
   margin-top: 1.6rem;
 }
-.detail__open-maps {
+.detail__open-maps,
+.trip-form__submit {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -900,9 +903,13 @@
   transition: transform 160ms ease, box-shadow 160ms ease, color 160ms ease;
 }
 .detail__open-maps::before,
-.detail__open-maps::after { display: none; }
+.detail__open-maps::after,
+.trip-form__submit::before,
+.trip-form__submit::after { display: none; }
 .detail__open-maps:hover,
-.detail__open-maps:focus-visible {
+.detail__open-maps:focus-visible,
+.trip-form__submit:hover,
+.trip-form__submit:focus-visible {
   color: #fffbe6;
   outline: none;
   /* The seal "presses harder" — inner light intensifies, outer halo blooms. */
@@ -915,10 +922,12 @@
     0 0 24px var(--gold-shadow),
     0 14px 28px -12px rgba(0, 0, 0, 0.65);
 }
-.detail__open-maps:active {
+.detail__open-maps:active,
+.trip-form__submit:active {
   transform: translateY(1px);
 }
-.detail__open-maps:disabled {
+.detail__open-maps:disabled,
+.trip-form__submit:disabled {
   cursor: not-allowed;
   color: var(--ink-mute);
   background:
@@ -1386,21 +1395,7 @@
   display: flex;
   justify-content: flex-end;
 }
-.trip-form__submit {
-  font-family: var(--font-title, serif);
-  font-size: 0.95rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--parchment, #f0e3c4);
-  background: var(--lapis, #18254e);
-  border: 1px solid var(--gold, #d6ad32);
-  padding: 0.7em 1.5em;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-.trip-form__submit:hover {
-  background: var(--oxblood, #7b1f2c);
-}
+/* .trip-form__submit shares the porphyry-seal styles defined above. */
 
 .trips-list {
   list-style: none;
@@ -1453,22 +1448,31 @@
   text-transform: uppercase;
   color: var(--ink-soft, #5a5040);
 }
-.trips-list__delete {
+/* Secondary destructive — quiet ink at rest, only reveals oxblood on intent.
+   Stays clearly subordinate to the porphyry seal. */
+.trips-list__delete,
+.trip-detail__delete {
   align-self: center;
   margin-right: 0.8rem;
-  font-family: var(--font-title, serif);
+  font-family: var(--font-title);
   font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--oxblood, #7b1f2c);
+  color: var(--ink-mute);
   background: transparent;
-  border: 1px solid var(--oxblood, #7b1f2c);
-  padding: 0.4em 0.9em;
+  border: 1px solid var(--rule);
+  padding: 0.45em 0.95em;
   cursor: pointer;
+  transition: color 140ms ease, border-color 140ms ease, background 140ms ease;
 }
-.trips-list__delete:hover {
-  background: var(--oxblood, #7b1f2c);
-  color: var(--parchment, #f0e3c4);
+.trips-list__delete:hover,
+.trips-list__delete:focus-visible,
+.trip-detail__delete:hover,
+.trip-detail__delete:focus-visible {
+  outline: none;
+  color: var(--gold-bright);
+  background: var(--oxblood);
+  border-color: var(--oxblood-deep);
 }
 
 .trip-detail__header { gap: 1rem; }
@@ -1502,20 +1506,10 @@
   margin-top: 0.6rem;
 }
 .trip-detail__delete {
-  font-family: var(--font-title, serif);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--oxblood, #7b1f2c);
-  background: transparent;
-  border: 1px solid var(--oxblood, #7b1f2c);
-  padding: 0.55em 1em;
-  cursor: pointer;
+  /* Shares the secondary-destructive styles above; sits at the end of the
+     dates row. */
   align-self: end;
-}
-.trip-detail__delete:hover {
-  background: var(--oxblood, #7b1f2c);
-  color: var(--parchment, #f0e3c4);
+  margin-right: 0;
 }
 
 .trip-detail__map {
