@@ -1395,6 +1395,103 @@
   color: var(--parchment, #f0e3c4);
 }
 
+.trip-detail__map {
+  margin-top: 1.6rem;
+}
+
+.trip-map {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.trip-map__canvas {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  background: var(--lapis-darker);
+  border: 1px solid var(--gold-deep);
+  box-shadow: var(--shadow-card);
+}
+.trip-map__canvas::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--gold);
+  z-index: 401;
+  pointer-events: none;
+}
+.trip-map--loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 360px;
+  background: var(--lapis-darker);
+  border: 1px solid var(--gold-deep);
+  font-family: var(--font-greek);
+  font-style: italic;
+  color: var(--gold-bright);
+  letter-spacing: 0.04em;
+}
+.trip-map__empty {
+  margin: 0;
+  text-align: center;
+  font-style: italic;
+  color: var(--ink-soft, #5a5040);
+}
+.trip-map__legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  justify-content: center;
+  font-family: var(--font-title, serif);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft, #5a5040);
+}
+.trip-map__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.trip-map__legend-swatch {
+  width: 14px;
+  height: 4px;
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+/* Numbered day-stop markers — small lapis roundels with a coloured ring per
+   day, drawn by TripItineraryMap via L.divIcon. */
+.trip-marker {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--lapis-darker);
+  border: 2px solid var(--trip-marker-colour, var(--gold));
+  box-shadow: 0 0 0 1px rgba(10, 19, 48, 0.7), 0 0 6px rgba(0, 0, 0, 0.4);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.trip-marker:hover {
+  transform: scale(1.12);
+  box-shadow: 0 0 0 1px rgba(10, 19, 48, 0.7), 0 0 12px rgba(214, 173, 50, 0.55);
+}
+.trip-marker span {
+  font-family: var(--font-title, serif);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--gold-bright);
+  line-height: 1;
+}
+
 .trip-detail__days {
   display: flex;
   flex-direction: column;
