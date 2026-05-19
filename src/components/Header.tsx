@@ -8,6 +8,7 @@ interface Props {
 
 export function Header({ view, onNavigate }: Props) {
   const isActive = (kind: View['kind']) => view.kind === kind;
+  const tripsActive = view.kind === 'trips' || view.kind === 'trip';
   return (
     <header className="header">
       <button
@@ -28,6 +29,13 @@ export function Header({ view, onNavigate }: Props) {
           onClick={() => onNavigate({ kind: 'home' })}
         >
           Monasteries
+        </button>
+        <button
+          type="button"
+          className={tripsActive ? 'nav__item is-active' : 'nav__item'}
+          onClick={() => onNavigate({ kind: 'trips' })}
+        >
+          Trips
         </button>
         <button
           type="button"
