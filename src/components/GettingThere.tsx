@@ -5,40 +5,54 @@ import {
 } from '../data/transport';
 import type { View } from '../types';
 import { CrossFlourish, KeystoneBadge } from './Ornaments';
+import { useI18n } from '../i18n';
+import {
+  DIAMONITIRION_RO,
+  GETTING_THERE_STEPS_RO,
+  PORTS_RO,
+} from '../i18n/data-ro';
 
 interface Props {
   onNavigate: (view: View) => void;
 }
 
 export function GettingThere({ onNavigate }: Props) {
+  const { t, tr } = useI18n();
+  const [ledePre, ledePost = ''] = t('getting.lede').split('{diamonitirion}');
+
   return (
     <article className="page">
       <div className="parchment">
         <header className="page__header">
-          <p className="page__eyebrow">πῶς ἀναβαίνομεν · how we ascend</p>
-          <h1>Getting to the Holy Mountain</h1>
+          <p className="page__eyebrow">{t('getting.eyebrow')}</p>
+          <h1>{t('getting.title')}</h1>
           <CrossFlourish className="section-divider" />
           <p className="page__lede">
-            Mount Athos is a self-governing monastic republic on the easternmost
-            finger of the Halkidiki peninsula in northern Greece. There is no road
-            crossing — all pilgrims arrive by boat from Ouranoupoli or Ierissos,
-            and only after obtaining the <em>Diamonitirion</em> entry permit.
+            {ledePre}
+            <em>Diamonitirion</em>
+            {ledePost}
           </p>
         </header>
 
         <section>
-          <h2>The Diamonitirion <KeystoneBadge>entry permit</KeystoneBadge></h2>
+          <h2>
+            {t('getting.diamonitirionH2')}{' '}
+            <KeystoneBadge>{t('getting.entryPermit')}</KeystoneBadge>
+          </h2>
           <ul className="kv">
             <li>
-              <span>Issuing office</span>
-              <span>{DIAMONITIRION.bureauName}, {DIAMONITIRION.bureauCity}</span>
+              <span>{t('getting.bureauName')}</span>
+              <span>
+                {tr(DIAMONITIRION.bureauName, DIAMONITIRION_RO.bureauName)},{' '}
+                {tr(DIAMONITIRION.bureauCity, DIAMONITIRION_RO.bureauCity)}
+              </span>
             </li>
             <li>
-              <span>Address</span>
-              <span>{DIAMONITIRION.bureauAddress}</span>
+              <span>{t('getting.address')}</span>
+              <span>{tr(DIAMONITIRION.bureauAddress, DIAMONITIRION_RO.bureauAddress)}</span>
             </li>
             <li>
-              <span>Phone</span>
+              <span>{t('getting.phone')}</span>
               <span>
                 <a href={`tel:${DIAMONITIRION.bureauPhone.replace(/\s+/g, '')}`}>
                   {DIAMONITIRION.bureauPhone}
@@ -46,7 +60,7 @@ export function GettingThere({ onNavigate }: Props) {
               </span>
             </li>
             <li>
-              <span>Email</span>
+              <span>{t('getting.email')}</span>
               <span>
                 <a href={`mailto:${DIAMONITIRION.bureauEmail}`}>
                   {DIAMONITIRION.bureauEmail}
@@ -54,7 +68,7 @@ export function GettingThere({ onNavigate }: Props) {
               </span>
             </li>
             <li>
-              <span>Online reservation</span>
+              <span>{t('getting.online')}</span>
               <span>
                 <a href={DIAMONITIRION.bureauUrl} target="_blank" rel="noreferrer noopener">
                   {DIAMONITIRION.bureauUrl}
@@ -62,19 +76,21 @@ export function GettingThere({ onNavigate }: Props) {
               </span>
             </li>
             <li>
-              <span>Daily quota</span>
+              <span>{t('getting.dailyQuota')}</span>
               <span>
-                {DIAMONITIRION.dailyQuotaOrthodox} Orthodox /{' '}
-                {DIAMONITIRION.dailyQuotaNonOrthodox} non-Orthodox
+                {t('getting.quotaValue', {
+                  ortho: DIAMONITIRION.dailyQuotaOrthodox,
+                  nonOrtho: DIAMONITIRION.dailyQuotaNonOrthodox,
+                })}
               </span>
             </li>
             <li>
-              <span>Standard stay</span>
-              <span>{DIAMONITIRION.standardStayNights} nights</span>
+              <span>{t('getting.standardStay')}</span>
+              <span>{t('getting.nights', { n: DIAMONITIRION.standardStayNights })}</span>
             </li>
           </ul>
           <ul className="notes">
-            {DIAMONITIRION.notes.map((n, i) => (
+            {tr(DIAMONITIRION.notes, DIAMONITIRION_RO.notes).map((n, i) => (
               <li key={i}>{n}</li>
             ))}
           </ul>
@@ -83,33 +99,39 @@ export function GettingThere({ onNavigate }: Props) {
         <CrossFlourish className="section-divider" />
 
         <section>
-          <h2>Step by step</h2>
+          <h2>{t('getting.stepsTitle')}</h2>
           <ol className="steps">
-            {GETTING_THERE_STEPS.map((s) => (
-              <li key={s.step}>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </li>
-            ))}
+            {GETTING_THERE_STEPS.map((s) => {
+              const ro = GETTING_THERE_STEPS_RO[s.step];
+              return (
+                <li key={s.step}>
+                  <h3>{tr(s.title, ro?.title)}</h3>
+                  <p>{tr(s.body, ro?.body)}</p>
+                </li>
+              );
+            })}
           </ol>
         </section>
 
         <CrossFlourish className="section-divider" />
 
         <section>
-          <h2>Ports</h2>
+          <h2>{t('getting.portsTitle')}</h2>
           <ul className="port-list">
-            {PORTS.map((p) => (
-              <li key={p.id}>
-                <h3>{p.name}</h3>
-                <p className="port-list__role">{p.role}</p>
-                {p.notes && <p>{p.notes}</p>}
-              </li>
-            ))}
+            {PORTS.map((p) => {
+              const ro = PORTS_RO[p.id];
+              return (
+                <li key={p.id}>
+                  <h3>{tr(p.name, ro?.name)}</h3>
+                  <p className="port-list__role">{tr(p.role, ro?.role)}</p>
+                  {p.notes && <p>{tr(p.notes, ro?.notes)}</p>}
+                </li>
+              );
+            })}
           </ul>
           <div className="page__actions">
             <button type="button" onClick={() => onNavigate({ kind: 'ferries' })}>
-              See ferry timetable
+              {t('getting.seeTimetable')}
             </button>
           </div>
         </section>

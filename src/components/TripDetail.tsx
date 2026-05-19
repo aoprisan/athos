@@ -16,6 +16,8 @@ import {
   upsertTrip,
 } from '../lib/trips';
 import { CrossFlourish } from './Ornaments';
+import { useI18n } from '../i18n';
+import { MONASTERIES_RO, SETTLEMENTS_RO } from '../i18n/data-ro';
 
 const TripItineraryMap = lazy(() => import('./TripItineraryMap'));
 
@@ -28,25 +30,6 @@ interface PlaceLabel {
   name: string;
   nameGreek: string;
   view: View;
-}
-
-function resolvePlace(place: TripPlace): PlaceLabel | null {
-  if (place.kind === 'monastery') {
-    const m = findMonastery(place.slug);
-    if (!m) return null;
-    return {
-      name: m.name,
-      nameGreek: m.nameGreek,
-      view: { kind: 'monastery', slug: m.slug },
-    };
-  }
-  const s = findSettlement(place.slug);
-  if (!s) return null;
-  return {
-    name: s.name,
-    nameGreek: s.nameGreek,
-    view: { kind: 'settlement', slug: s.slug },
-  };
 }
 
 function encodePlaceOption(place: TripPlace): string {
@@ -62,12 +45,34 @@ function decodePlaceOption(value: string): TripPlace | null {
 }
 
 export function TripDetail({ slug, onNavigate }: Props) {
+  const { t, tr, lang } = useI18n();
   const [trips, setTrips] = useState<Trip[]>(loadTrips);
   const trip = useMemo(() => findTrip(trips, slug), [trips, slug]);
 
   useEffect(() => {
     saveTrips(trips);
   }, [trips]);
+
+  const resolvePlace = (place: TripPlace): PlaceLabel | null => {
+    if (place.kind === 'monastery') {
+      const m = findMonastery(place.slug);
+      if (!m) return null;
+      const ro = MONASTERIES_RO[m.slug];
+      return {
+        name: tr(m.name, ro?.name),
+        nameGreek: m.nameGreek,
+        view: { kind: 'monastery', slug: m.slug },
+      };
+    }
+    const s = findSettlement(place.slug);
+    if (!s) return null;
+    const ro = SETTLEMENTS_RO[s.slug];
+    return {
+      name: tr(s.name, ro?.name),
+      nameGreek: s.nameGreek,
+      view: { kind: 'settlement', slug: s.slug },
+    };
+  };
 
   if (!trip) {
     return (
@@ -77,10 +82,10 @@ export function TripDetail({ slug, onNavigate }: Props) {
           className="detail__back"
           onClick={() => onNavigate({ kind: 'trips' })}
         >
-          ☩ All trips
+          {t('detail.allTrips')}
         </button>
         <div className="parchment">
-          <p>Trip not found.</p>
+          <p>{t('detail.notFoundTrip')}</p>
         </div>
       </div>
     );
@@ -91,7 +96,7 @@ export function TripDetail({ slug, onNavigate }: Props) {
   };
 
   const onRename = () => {
-    const input = window.prompt('Rename trip', trip.name);
+    const input = window.prompt(t('tripDetail.renamePrompt'), trip.name);
     if (input === null) return;
     const trimmed = input.trim();
     if (!trimmed || trimmed === trip.name) return;
@@ -101,7 +106,7 @@ export function TripDetail({ slug, onNavigate }: Props) {
   const onChangeStart = (value: string) => {
     const days = regenerateDays(trip.days, value, trip.endDate);
     if (days.length === 0) {
-      window.alert('Start date must be on or before the end date.');
+      window.alert(t('tripDetail.alertStartAfterEnd'));
       return;
     }
     update({ ...trip, startDate: value, days });
@@ -110,14 +115,14 @@ export function TripDetail({ slug, onNavigate }: Props) {
   const onChangeEnd = (value: string) => {
     const days = regenerateDays(trip.days, trip.startDate, value);
     if (days.length === 0) {
-      window.alert('End date must be on or after the start date.');
+      window.alert(t('tripDetail.alertEndBeforeStart'));
       return;
     }
     update({ ...trip, endDate: value, days });
   };
 
   const onDeleteTrip = () => {
-    if (!window.confirm(`Delete trip "${trip.name}"? This cannot be undone.`))
+    if (!window.confirm(t('trips.confirmDelete', { name: trip.name })))
       return;
     setTrips((prev) => removeTrip(prev, trip.slug));
     onNavigate({ kind: 'trips' });
@@ -154,7 +159,7 @@ export function TripDetail({ slug, onNavigate }: Props) {
         className="detail__back"
         onClick={() => onNavigate({ kind: 'trips' })}
       >
-        ☩ All trips
+        {t('detail.allTrips')}
       </button>
       <div className="parchment">
         <header className="detail__header trip-detail__header">
@@ -164,15 +169,15 @@ export function TripDetail({ slug, onNavigate }: Props) {
               type="button"
               className="trip-detail__rename"
               onClick={onRename}
-              aria-label="Rename trip"
+              aria-label={t('tripDetail.renameAriaLabel')}
             >
-              Rename
+              {t('tripDetail.rename')}
             </button>
           </h1>
           <CrossFlourish className="section-divider" />
           <div className="trip-detail__dates">
             <label className="trip-form__field">
-              <span>Start</span>
+              <span>{t('tripDetail.start')}</span>
               <input
                 type="date"
                 value={trip.startDate}
@@ -180,7 +185,7 @@ export function TripDetail({ slug, onNavigate }: Props) {
               />
             </label>
             <label className="trip-form__field">
-              <span>End</span>
+              <span>{t('tripDetail.end')}</span>
               <input
                 type="date"
                 value={trip.endDate}
@@ -192,19 +197,19 @@ export function TripDetail({ slug, onNavigate }: Props) {
               className="trip-detail__delete"
               onClick={onDeleteTrip}
             >
-              Delete trip
+              {t('tripDetail.deleteTrip')}
             </button>
           </div>
         </header>
 
-        <section className="trip-detail__map" aria-label="Itinerary map">
+        <section className="trip-detail__map" aria-label={t('tripDetail.itineraryMap')}>
           <Suspense
             fallback={
               <div
                 className="trip-map trip-map--loading"
                 role="status"
               >
-                <span>Loading itinerary map…</span>
+                <span>{t('tripDetail.loadingMap')}</span>
               </div>
             }
           >
@@ -216,17 +221,21 @@ export function TripDetail({ slug, onNavigate }: Props) {
           {trip.days.map((day, dayIndex) => (
             <div key={day.date} className="trip-detail__day">
               <h2 className="trip-detail__day-title">
-                Day {dayIndex + 1}
+                {t('tripDetail.dayN', { n: dayIndex + 1 })}
                 <span className="trip-detail__day-date">
-                  {formatTripDate(day.date)}
+                  {formatTripDate(day.date, lang)}
                 </span>
               </h2>
               {day.places.length === 0 ? (
-                <p className="trip-detail__day-empty">No places yet.</p>
+                <p className="trip-detail__day-empty">{t('tripDetail.dayEmpty')}</p>
               ) : (
                 <ol className="trip-detail__places">
                   {day.places.map((place, placeIndex) => {
                     const label = resolvePlace(place);
+                    const unknownLabel =
+                      place.kind === 'monastery'
+                        ? t('tripDetail.unknownMonastery')
+                        : t('tripDetail.unknownSettlement');
                     return (
                       <li
                         key={`${place.kind}:${place.slug}`}
@@ -241,7 +250,7 @@ export function TripDetail({ slug, onNavigate }: Props) {
                           disabled={!label}
                         >
                           <span className="trip-detail__place-name">
-                            {label ? label.name : `Unknown ${place.kind}`}
+                            {label ? label.name : unknownLabel}
                           </span>
                           {label && (
                             <span className="trip-detail__place-greek">
@@ -256,7 +265,7 @@ export function TripDetail({ slug, onNavigate }: Props) {
                               onMovePlace(dayIndex, placeIndex, -1)
                             }
                             disabled={placeIndex === 0}
-                            aria-label="Move up"
+                            aria-label={t('tripDetail.moveUp')}
                           >
                             ↑
                           </button>
@@ -266,7 +275,7 @@ export function TripDetail({ slug, onNavigate }: Props) {
                               onMovePlace(dayIndex, placeIndex, 1)
                             }
                             disabled={placeIndex === day.places.length - 1}
-                            aria-label="Move down"
+                            aria-label={t('tripDetail.moveDown')}
                           >
                             ↓
                           </button>
@@ -275,9 +284,9 @@ export function TripDetail({ slug, onNavigate }: Props) {
                             onClick={() =>
                               onRemovePlace(dayIndex, placeIndex)
                             }
-                            aria-label="Remove place"
+                            aria-label={t('tripDetail.removePlace')}
                           >
-                            Remove
+                            {t('tripDetail.remove')}
                           </button>
                         </div>
                       </li>
@@ -288,7 +297,7 @@ export function TripDetail({ slug, onNavigate }: Props) {
 
               <div className="trip-detail__add-place">
                 <label>
-                  <span className="trip-detail__add-label">Add a place</span>
+                  <span className="trip-detail__add-label">{t('tripDetail.addPlace')}</span>
                   <select
                     value=""
                     onChange={(e) => {
@@ -297,33 +306,39 @@ export function TripDetail({ slug, onNavigate }: Props) {
                     }}
                   >
                     <option value="" disabled>
-                      Pick a monastery or skete…
+                      {t('tripDetail.pickPlace')}
                     </option>
-                    <optgroup label="Ruling monasteries">
-                      {MONASTERIES.map((m) => (
-                        <option
-                          key={m.slug}
-                          value={encodePlaceOption({
-                            kind: 'monastery',
-                            slug: m.slug,
-                          })}
-                        >
-                          {m.name}
-                        </option>
-                      ))}
+                    <optgroup label={t('tripDetail.rulingMonasteries')}>
+                      {MONASTERIES.map((m) => {
+                        const ro = MONASTERIES_RO[m.slug];
+                        return (
+                          <option
+                            key={m.slug}
+                            value={encodePlaceOption({
+                              kind: 'monastery',
+                              slug: m.slug,
+                            })}
+                          >
+                            {tr(m.name, ro?.name)}
+                          </option>
+                        );
+                      })}
                     </optgroup>
-                    <optgroup label="Sketes & hermitages">
-                      {SETTLEMENTS.map((s) => (
-                        <option
-                          key={s.slug}
-                          value={encodePlaceOption({
-                            kind: 'settlement',
-                            slug: s.slug,
-                          })}
-                        >
-                          {s.name}
-                        </option>
-                      ))}
+                    <optgroup label={t('tripDetail.sketesHermitages')}>
+                      {SETTLEMENTS.map((s) => {
+                        const ro = SETTLEMENTS_RO[s.slug];
+                        return (
+                          <option
+                            key={s.slug}
+                            value={encodePlaceOption({
+                              kind: 'settlement',
+                              slug: s.slug,
+                            })}
+                          >
+                            {tr(s.name, ro?.name)}
+                          </option>
+                        );
+                      })}
                     </optgroup>
                   </select>
                 </label>

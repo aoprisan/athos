@@ -9,13 +9,26 @@ import { TripsView } from './components/TripsView';
 import { TripDetail } from './components/TripDetail';
 import type { View } from './types';
 import { parseHash, viewToHash } from './lib/router';
+import { useI18n } from './i18n';
 
 function readView(): View {
   return parseHash(window.location.hash);
 }
 
+function renderFooter(template: string, diamonitirion: string) {
+  const parts = template.split('{diamonitirion}');
+  return (
+    <>
+      {parts[0]}
+      <em>{diamonitirion}</em>
+      {parts[1] ?? ''}
+    </>
+  );
+}
+
 export function App() {
   const [view, setView] = useState<View>(readView);
+  const { t } = useI18n();
 
   useEffect(() => {
     const onHash = () => setView(readView());
@@ -51,8 +64,7 @@ export function App() {
         )}
       </main>
       <footer className="footer">
-        Information for pilgrims to the Holy Mountain. Verify ferry sailings and
-        the <em>Diamonitirion</em> with official sources before you travel.
+        {renderFooter(t('app.footer'), t('app.footer.diamonitirion'))}
       </footer>
     </div>
   );

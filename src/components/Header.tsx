@@ -1,5 +1,6 @@
 import type { View } from '../types';
 import { ByzantineCross } from './Ornaments';
+import { LanguageToggle, useI18n } from '../i18n';
 
 interface Props {
   view: View;
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export function Header({ view, onNavigate }: Props) {
+  const { t } = useI18n();
   const isActive = (kind: View['kind']) => view.kind === kind;
   const tripsActive = view.kind === 'trips' || view.kind === 'trip';
   return (
@@ -18,8 +20,8 @@ export function Header({ view, onNavigate }: Props) {
       >
         <ByzantineCross className="header__title-mark" />
         <span>
-          Athos Pilgrim
-          <span className="header__title-greek">Ἁγιον Ὄρος</span>
+          {t('home.title')}
+          <span className="header__title-greek">{t('app.brandGreekTagline')}</span>
         </span>
       </button>
       <nav className="header__nav">
@@ -28,31 +30,31 @@ export function Header({ view, onNavigate }: Props) {
           className={isActive('home') ? 'nav__item is-active' : 'nav__item'}
           onClick={() => onNavigate({ kind: 'home' })}
         >
-          Monasteries
+          {t('nav.monasteries')}
         </button>
         <button
           type="button"
           className={tripsActive ? 'nav__item is-active' : 'nav__item'}
           onClick={() => onNavigate({ kind: 'trips' })}
         >
-          Trips
+          {t('nav.trips')}
         </button>
         <button
           type="button"
           className={isActive('getting-there') ? 'nav__item is-active' : 'nav__item'}
           onClick={() => onNavigate({ kind: 'getting-there' })}
         >
-          Getting there
+          {t('nav.gettingThere')}
         </button>
         <button
           type="button"
           className={isActive('ferries') ? 'nav__item is-active' : 'nav__item'}
           onClick={() => onNavigate({ kind: 'ferries' })}
         >
-          Ferries
+          {t('nav.ferries')}
         </button>
       </nav>
-      <div aria-hidden="true" />
+      <LanguageToggle />
     </header>
   );
 }
