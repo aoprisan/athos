@@ -226,9 +226,7 @@ function randomSuffix(): string {
 }
 
 function localeTag(lang: string): string {
-  if (lang === 'ro') return 'ro-RO';
-  if (lang === 'el') return 'el-GR';
-  return 'en-GB';
+  return lang === 'ro' ? 'ro-RO' : 'en-GB';
 }
 
 /** Formats an ISO date as a long-form label like "Wed, 10 Jun 2026". */

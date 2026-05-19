@@ -16,7 +16,7 @@
    Cache versioning: bump CACHE_VERSION when the SW or strategies change.
    Old caches are evicted on `activate`. */
 
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const APP_CACHE = `athos-app-${CACHE_VERSION}`;
 const REMOTE_CACHE = `athos-remote-${CACHE_VERSION}`;
 
@@ -78,8 +78,12 @@ async function cacheFirstRemote(request) {
   const cached = await cache.match(request);
   if (cached) return cached;
   try {
-    const response = await fetch(request, { mode: 'cors' });
-    if (response && response.ok) {
+    // Inherit the request's own mode — Leaflet fetches tiles via <img>
+    // elements as no-cors, and overriding to cors strips the response the
+    // image element expects, leaving the canvas blank. Opaque responses
+    // are still fine to cache and re-serve as images.
+    const response = await fetch(request);
+    if (response && (response.ok || response.type === 'opaque')) {
       cache.put(request, response.clone()).catch(() => {});
     }
     return response;

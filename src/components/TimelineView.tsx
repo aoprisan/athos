@@ -17,10 +17,12 @@ interface Placed {
   founded: string;
   hierarchyOrder: number;
   year: number;
+  century: number;
 }
 
-const START_CENTURY = 9;
-const END_CENTURY = 21;
+function centuryOf(year: number): number {
+  return Math.floor((year - 1) / 100) + 1;
+}
 
 export function TimelineView({ onNavigate }: Props) {
   const { t, tr, lang } = useI18n();
@@ -37,20 +39,22 @@ export function TimelineView({ onNavigate }: Props) {
         founded: tr(m.founded, ro?.founded),
         hierarchyOrder: m.hierarchyOrder,
         year,
+        century: centuryOf(year),
       };
     })
       .filter((x): x is Placed => x !== null)
-      .sort((a, b) => a.year - b.year);
+      .sort((a, b) => a.year - b.year || a.hierarchyOrder - b.hierarchyOrder);
   }, [tr]);
 
-  const startYear = (START_CENTURY - 1) * 100;
-  const endYear = (END_CENTURY - 1) * 100;
-  const span = endYear - startYear;
-
-  const positionPercent = (year: number): number => {
-    const clamped = Math.max(startYear, Math.min(endYear, year));
-    return ((clamped - startYear) / span) * 100;
-  };
+  const grouped = useMemo(() => {
+    const map = new Map<number, Placed[]>();
+    for (const p of placed) {
+      const list = map.get(p.century) ?? [];
+      list.push(p);
+      map.set(p.century, list);
+    }
+    return [...map.entries()].sort((a, b) => a[0] - b[0]);
+  }, [placed]);
 
   return (
     <article className="timeline-view">
@@ -61,55 +65,49 @@ export function TimelineView({ onNavigate }: Props) {
         <CrossFlourish className="home__flourish" />
       </header>
 
-      <section className="timeline">
-        <div className="timeline__band" role="list">
-          <div className="timeline__rule" aria-hidden="true" />
-          {Array.from({ length: END_CENTURY - START_CENTURY + 1 }, (_, i) => {
-            const century = START_CENTURY + i;
-            const year = (century - 1) * 100;
-            const left = positionPercent(year);
-            return (
-              <div
-                key={century}
-                className="timeline__century"
-                style={{ left: `${left}%` }}
-                aria-hidden="true"
-              >
-                <span className="timeline__tick" />
-                <span className="timeline__century-label">
+      <section className="kataloghion">
+        <ol className="kataloghion__list">
+          {grouped.map(([century, houses]) => (
+            <li key={century} className="kataloghion__row">
+              <div className="kataloghion__century">
+                <span className="kataloghion__century-roman" aria-hidden="true">
+                  {romanNumeral(century)}
+                </span>
+                <span className="kataloghion__century-label">
                   {t('timeline.centuryLabel', { n: century })}
                 </span>
               </div>
-            );
-          })}
-          {placed.map((p, idx) => {
-            const left = positionPercent(p.year);
-            const lane = idx % 2 === 0 ? 'up' : 'down';
-            return (
-              <button
-                key={p.slug}
-                type="button"
-                role="listitem"
-                className={`timeline__pin timeline__pin--${lane}`}
-                style={{ left: `${left}%` }}
-                onClick={() => onNavigate({ kind: 'monastery', slug: p.slug })}
-                aria-label={t('timeline.pinAria', { name: p.name, year: p.year })}
-              >
-                <span className="timeline__pin-stem" aria-hidden="true" />
-                <HaloMedallion
-                  number={p.hierarchyOrder}
-                  className="timeline__pin-halo"
-                />
-                <span className="timeline__pin-tick" aria-hidden="true" />
-                <span className="timeline__pin-card">
-                  <span className="timeline__pin-name">{p.name}</span>
-                  <span className="timeline__pin-year">{p.founded}</span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
-        <p className="timeline__hint">
+              <ul className="kataloghion__houses">
+                {houses.map((h) => (
+                  <li key={h.slug}>
+                    <button
+                      type="button"
+                      className="kataloghion__house"
+                      onClick={() =>
+                        onNavigate({ kind: 'monastery', slug: h.slug })
+                      }
+                      aria-label={t('timeline.pinAria', {
+                        name: h.name,
+                        year: h.year,
+                      })}
+                    >
+                      <HaloMedallion
+                        number={h.hierarchyOrder}
+                        className="kataloghion__medallion"
+                      />
+                      <span className="kataloghion__house-body">
+                        <span className="kataloghion__house-name">{h.name}</span>
+                        <span className="kataloghion__house-greek">{h.greek}</span>
+                        <span className="kataloghion__house-year">{h.founded}</span>
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+        <p className="kataloghion__hint">
           {lang === 'ro'
             ? 'Atinge un medalion pentru a vedea mănăstirea.'
             : 'Tap a medallion to open the monastery.'}
@@ -117,4 +115,32 @@ export function TimelineView({ onNavigate }: Props) {
       </section>
     </article>
   );
+}
+
+const ROMAN_PAIRS: [number, string][] = [
+  [1000, 'M'],
+  [900, 'CM'],
+  [500, 'D'],
+  [400, 'CD'],
+  [100, 'C'],
+  [90, 'XC'],
+  [50, 'L'],
+  [40, 'XL'],
+  [10, 'X'],
+  [9, 'IX'],
+  [5, 'V'],
+  [4, 'IV'],
+  [1, 'I'],
+];
+
+function romanNumeral(n: number): string {
+  let value = n;
+  let out = '';
+  for (const [num, sym] of ROMAN_PAIRS) {
+    while (value >= num) {
+      out += sym;
+      value -= num;
+    }
+  }
+  return out;
 }
